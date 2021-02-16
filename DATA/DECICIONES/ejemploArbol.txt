@@ -1,5 +1,0 @@
-<IDPadre>ID</IDpadre>
-<ID>ID</ID>
-<HIJOS>ID,ID,ID</HIJOS>
-<TITULO>TituloDeMierda</TITULO>
-<EVENTO>EventoDeMierda</EVENTO>
