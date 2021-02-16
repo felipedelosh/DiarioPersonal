@@ -1,0 +1,9 @@
+>Empiezo a hacer el programa, ya guarde:
+
++ Diario
++ Notas
++ Registro de sentimientos
+
+
+Fri Sep 18 22:57:17 2020
+

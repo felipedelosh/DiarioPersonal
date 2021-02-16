@@ -1,0 +1,16 @@
+Hackeo del tiempo by loko + str(time.getYear()) v 0.1 [OpenSource]
+
+Saludos Mundo soy FelipeH y este programa está considerado como una herramienta para:
+
+	* Registro de actividades diarias.
+	* Control de citas.
+	* Guardar notas.
+	* Control de ingresos y egresos personales.
+	* En que está invirtiendo el tiempo el usuario.
+	* Gráficas dinámicas de ingresos y egresos.
+	* Registro de sentimientos.
+	* Árbol de decisiones.
+
+este programa apunta: A ser un asistente con I/O por voz, se plantea que el usuario sea más feliz, más saludable, más sociable y que distribuya bien su tiempo. La vida es corta así que mostrará gráficas de consumo del tiempo y consumo económico.
+
+Ingeniero Andres felipe hernandez + str(time.getYear())
