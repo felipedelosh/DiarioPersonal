@@ -96,12 +96,13 @@ class TimeHackingLoko():
 
     def ventanaEnmergenteDeAlerta(self, titulo, mensaje):
         top = Toplevel()
-        top.geometry("300x300")
+        top.geometry("500x300")
         top.title(titulo)
-        msg = Message(top, width=100, text=mensaje)
-        msg.place(x=10, y=10)
+        msg = Text(top, width=55, height=13)
+        msg.insert(END, mensaje)
+        msg.place(x=25, y=20)
         button = Button(top, text="Aceptar", command=top.destroy)
-        button.place(x=140, y=270)
+        button.place(x=222, y=260)
 
 
     """Se declaran las interfaces TopLevel"""
@@ -265,7 +266,7 @@ class TimeHackingLoko():
         interfaceayuda = Toplevel()
         interfaceayuda.title("Manual")
         interfaceayuda.geometry("640x480")
-        btnManualDelUsuario = Button(interfaceayuda, text="Manual del Usuario")
+        btnManualDelUsuario = Button(interfaceayuda, text="Manual del Usuario", command=self.linkManualDelUsuario)
         btnManualDelUsuario.place(x=20, y=20)
         btnListadoPosible = Button(interfaceayuda, text="Listado de Posibilidades")
         btnListadoPosible.place(x=200, y=20)
@@ -1209,6 +1210,15 @@ class TimeHackingLoko():
         else:
             self.ventanaEnmergenteDeAlerta("Error", "Error Fatal Alguna Mierda Esta Mal")
 
+
+    """
+    AYUDA
+    AYUDA
+    AYUDA
+    """
+    def linkManualDelUsuario(self):
+        link = "https://github.com/felipedelosh/DiarioPersonal/blob/master/RECURSOS/manual/Manual%20del%20Usuario.pdf"
+        self.ventanaEnmergenteDeAlerta("Manual del usuario", link)
 
     
 thl = TimeHackingLoko()
