@@ -987,17 +987,46 @@ class TimeHackingLoko():
             tela.create_line(0, (h/2)+(h/10)+35, w, (h/2)+(h/10)+35, tags="economia")
             # Se procede a mostrar una matrix de 3x3 con algunos de los ingresos y egresos
             contadorIngresos = 0 # Solo se mostraran 9 ingresos
-            posxI = 0
-            posyI = 0
+            contaSaltoLineaIngresos = 0 # Cada 3 ingresos hay que hacer un salto de linea 
+            posxI = w/7 # x donde se pinta un ingreso
+            posyI = h/4 # y donde se pinta un igreso
             contadorEgresos = 0 # Solo se mostraran 9 egresos
-            posxE = 0
-            posyR = 0
+            contaSaltoLineaEgresos = 0 # Cada 3 Egresos hay que poner un salto de linea
+            posxE = w/7 # x donde se pinta un egreso
+            posyE = h/1.35 # y donde se pinta un egreso 
+            # Se va a pintar una matrix por ello se debe de dividir la pantalla
+            kx = w/3
+            ky = h/3
 
             for i in data:
                 if int(data[i]) >= 0:
-                    pass
+                    # Si hay menos de 9 ingresos pintelos
+                    if contadorIngresos < 9:
+                        tela.create_text((posxI), (posyI), text=str(i)+":"+str(data[i]), tags="economia")
+                        posxI = posxI + kx
+
+                        if contaSaltoLineaIngresos < 2:
+                            contaSaltoLineaIngresos = contaSaltoLineaIngresos + 1
+                        else:
+                            contaSaltoLineaIngresos = 0
+                            posxI = w/7 # Se reinicia el controlador ponedor x
+                            posyI = posyI + 30 # Se aunmenta un poquito en y
+
+                        contadorIngresos = contadorIngresos + 1
                 else:
-                    pass
+                    if contadorEgresos <= 11:
+                        tela.create_text((posxE), (posyE), text=str(i)+":"+str(data[i]), tags="economia")
+                        posxE = posxE + kx
+
+                        if contaSaltoLineaEgresos < 2:
+                            contaSaltoLineaEgresos = contaSaltoLineaEgresos + 1
+                        else:
+                            contaSaltoLineaEgresos = 0
+                            posxE = w/7 # Se reinicia el controlador ponedor x
+                            posyE = posyE + 30 # Se aunmenta un poquito en y
+
+                        contadorEgresos = contadorEgresos + 1
+                    
             
 
     def graficaEstadoDeCajas(self, tela):
