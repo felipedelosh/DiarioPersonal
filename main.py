@@ -527,13 +527,18 @@ class TimeHackingLoko():
         """
         interfaceCaja = Toplevel()
         interfaceCaja.geometry("500x500")
+        lienzo = Canvas(interfaceCaja, height=300, width=480, bg="snow")
+        lienzo.place(x=10, y=120)
+        # Se pintan las graficas
+        self.graficaEstadoDeCajas(lienzo)
+        # Se ponen los labels
         lblEstadoCajaMayor = Label(interfaceCaja, text="Estado Caja Mayor: $")
         lblEstadoCajaMayor.place(x=20, y=50)
         txtEstadoCajaMayor = Entry(interfaceCaja, width=40)
         k = self.controladora.cargarEstadoCajaMayor() # Se retorna la informacion de la caja mayor
         txtEstadoCajaMayor.insert(0, k)
         txtEstadoCajaMayor.place(x=140, y=52)
-        btnGuardarEstadoCajaMayor = Button(interfaceCaja, text="Actualizar", command=lambda : self.guardarMontoCajaMayor(txtEstadoCajaMayor.get()))
+        btnGuardarEstadoCajaMayor = Button(interfaceCaja, text="Actualizar", command=lambda : self.guardarMontoCajaMayor(txtEstadoCajaMayor.get(), lienzo))
         btnGuardarEstadoCajaMayor.place(x=400, y=48)
         lblEstadoCajaMenor = Label(interfaceCaja, text="Estado Caja Menor: $")
         lblEstadoCajaMenor.place(x=20, y=80)
@@ -541,13 +546,10 @@ class TimeHackingLoko():
         k = self.controladora.cargarEstadoCajaMenor() # Se retorna la informacion de la caja mayor
         txtEstadoCajaMenor.insert(0, k)
         txtEstadoCajaMenor.place(x=140, y=82)
-        btnGuardarEstadoCajaMenor = Button(interfaceCaja, text="Actualizar", command=lambda : self.guardarMontoCajaMenor(txtEstadoCajaMenor.get()))
+        btnGuardarEstadoCajaMenor = Button(interfaceCaja, text="Actualizar", command=lambda : self.guardarMontoCajaMenor(txtEstadoCajaMenor.get(), lienzo))
         btnGuardarEstadoCajaMenor.place(x=400, y=78)
 
-        lienzo = Canvas(interfaceCaja, height=300, width=480, bg="snow")
-        lienzo.place(x=10, y=120)
-        # Se pintan las graficas
-        self.graficaEstadoDeCajas(lienzo)
+
 
         # Se procede a calcular el dinero que puedes gastar hoy
         # Se supone que el dinero de la caja menor tiene que durar 1 mes
@@ -1227,14 +1229,16 @@ class TimeHackingLoko():
         else:
             self.ventanaEnmergenteDeAlerta("Error Fatal", "esa puta madre se chingo")
 
-    def guardarMontoCajaMayor(self, monto):
+    def guardarMontoCajaMayor(self, monto, lienzo):
         if self.controladora.guardarEstadoCajaMayor(monto):
+            self.graficaEstadoDeCajas(lienzo)
             self.ventanaEnmergenteDeAlerta("Exito", "Monto Actualizado")
         else:
             self.ventanaEnmergenteDeAlerta("Error", "Error Fatal Alguna Mierda Esta Mal")
 
-    def guardarMontoCajaMenor(self, monto):
+    def guardarMontoCajaMenor(self, monto, lienzo):
         if self.controladora.guardarEstadoCajaMenor(monto):
+            self.graficaEstadoDeCajas(lienzo)
             self.ventanaEnmergenteDeAlerta("Exito", "Monto Actualizado")
         else:
             self.ventanaEnmergenteDeAlerta("Error", "Error Fatal Alguna Mierda Esta Mal")
