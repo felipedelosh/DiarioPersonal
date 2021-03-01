@@ -1034,36 +1034,65 @@ class TimeHackingLoko():
         """
         1 -> Se pide la informacion de la caja menor.
         2 -> Se divide la tela entre el numero de datos
+        3 -> Se grafican los puntos en azul
+        4 -> Se pide la informacion de la caja mayor
+        5 -> Se divide la tela entre el numero de datos
+        6 -> Se grafican los puntos en verde
         """
+        tela.delete("estadocajas")
         # Se toman la informacion de largo y ancho del tablero
         h = int(tela['height'])
         w = int(tela['width'])
 
-        # Se pide la informacion a graficar
+        # Se pide la informacion a graficar de la caja menor
         info = self.controladora.cargarRecordEstadoCajaMenor()
+        # Si hay informacion de la caja menor grafiquela
+        if len(info) > 0:
+            # Se busca el valor mayor
+            maxY = 0
+            for i in info:
+                if i > maxY:
+                    maxY = i
 
-        # Se busca el valor mayor
-        maxY = 0
-        for i in info:
-            if i > maxY:
-                maxY = i
-
-        # Se grafican 3 labes cero, montoMedio, MaximoMonto
-        tela.create_text(20, h-10, text="$0.0")
-        tela.create_text(20, h/2, text="$"+str(maxY/2))
-        tela.create_text(20, 20, text="$"+str(maxY))
+            # Se grafican 3 labes cero, montoMedio, MaximoMonto
+            tela.create_text(20, h-10, fill="blue", text="$0.0", tags="estadocajas")
+            tela.create_text(20, h/2, fill="blue", text="$"+str(maxY/2), tags="estadocajas")
+            tela.create_text(20, 20, fill="blue", text="$"+str(maxY), tags="estadocajas")
 
 
-        # Distancia de los puntos
-        d = w / len(info)
+            # Distancia de los puntos
+            d = w / len(info)
 
-        # Se procede a graficar los puntos
-        for i in range(0, len(info)-1):
-            x0 = d*i
-            y0 = h * (1-(info[i]/maxY))
-            x1 = d*(i+1)
-            y1 = h * (1-(info[i+1]/maxY))
-            tela.create_line(x0, y0, x1, y1, fill="blue")
+            # Se procede a graficar los puntos
+            for i in range(0, len(info)-1):
+                x0 = d*i
+                y0 = h * (1-(info[i]/maxY))
+                x1 = d*(i+1)
+                y1 = h * (1-(info[i+1]/maxY))
+                tela.create_line(x0, y0, x1, y1, fill="blue", tags="estadocajas")
+
+
+        # Se pide la informacion a graficar >> Caja Mayor
+        info = self.controladora.cargarRecordEstadoCajaMayor()
+        if len(info) > 0:
+            # Se busca el valor mayor
+            maxY = 0
+            for i in info:
+                if i > maxY:
+                    maxY = i
+
+            # Se grafican 3 labes cero, montoMedio, MaximoMonto
+            tela.create_text(w*0.9, h-10, fill="green", text="$0.0", tags="estadocajas")
+            tela.create_text(w*0.9, h/2, fill="green", text="$"+str(maxY/2), tags="estadocajas")
+            tela.create_text(w*0.9, 20, fill="green", text="$"+str(maxY), tags="estadocajas")
+
+            # Se procede a graficar los puntos
+            for i in range(0, len(info)-1):
+                x0 = d*i
+                y0 = h * (1-(info[i]/maxY))
+                x1 = d*(i+1)
+                y1 = h * (1-(info[i+1]/maxY))
+                tela.create_line(x0, y0, x1, y1, fill="green", tags="estadocajas")
 
 
     def graficarTiempoDeVida(self, tela, añoNacimiento):

@@ -336,6 +336,37 @@ class Controladora:
             # La informacion va a ser procesada
             return self.controladoraProcesamientoDeDatos.procesarReporteEconomigo(data)
 
+    def guardarEstadoCajaMayor(self, monto):
+        """
+        Si el monto es un numero se procede a guardar
+        Se guarda una copia en el final del txt \\DATA\\ECONOMIA\\CAJA\\cajaMayor(año).txt
+        """
+        ruta = self.rutaDelProyecto + "\\DATA\\ECONOMIA\\CAJA\\cajaMayor.txt"
+        try:
+            txtM = int(monto)
+            f = open(ruta, "w", encoding="UTF-8")
+            f.write(monto)
+            f.close()
+
+            try:
+                rutaTemp = self.rutaDelProyecto + "\\DATA\\ECONOMIA\\CAJA\\cajaMayor" + str(self.tiempo.año()) + ".txt"
+                temp = open(rutaTemp, 'r', encoding="UTF-8")
+                k = temp.read() + monto + "\n"
+                temp.close()
+                temp = open(rutaTemp, 'w', encoding="UTF-8")
+                temp.write(k)
+                temp.close()
+
+            except:
+                rutaTemp = self.rutaDelProyecto + "\\DATA\\ECONOMIA\\CAJA\\cajaMayor" + str(self.tiempo.año()) + ".txt"
+                temp = open(rutaTemp, "w", encoding="UTF-8")
+                temp.write(monto + "\n")
+                temp.close()
+
+            return True
+        except:
+            return False
+
 
     def cargarEstadoCajaMayor(self):
         """
@@ -353,19 +384,25 @@ class Controladora:
             f.close()
             return 0
 
-    def guardarEstadoCajaMayor(self, monto):
+    def cargarRecordEstadoCajaMayor(self):
         """
-        Si el monto es un numero se procede a guardar
+        se cargan los montos contenidos en \\DATA\\ECONOMIA\\CAJA\\cajaMayor(año).txt
         """
-        ruta = self.rutaDelProyecto + "\\DATA\\ECONOMIA\\CAJA\\cajaMayor.txt"
         try:
-            txtM = int(monto)
-            f = open(ruta, "w", encoding="UTF-8")
-            f.write(monto)
-            f.close()
-            return True
+            ruta = self.rutaDelProyecto + "\\DATA\\ECONOMIA\\CAJA\\cajaMayor" + str(self.tiempo.año()) + ".txt"
+            f = open(ruta, 'r', encoding="UTF-8")
+            valores = []
+
+            for i in f.readlines():
+                try:
+                    valores.append(int(i))
+                except:
+                    pass
+
+            return valores
         except:
-            return False
+            return []
+
 
     def cargarEstadoCajaMenor(self):
         """
@@ -405,7 +442,7 @@ class Controladora:
     def guardarEstadoCajaMenor(self, monto):
         """
         Si el monto es un numero se procede a guardar
-        Se procede a guardar una copia en \\DATA\\ECONOMIA\\CAJA\\cajaMenor(año).txt
+        Se procede a guardar una copia en el final del txt \\DATA\\ECONOMIA\\CAJA\\cajaMenor(año).txt
         """
         ruta = self.rutaDelProyecto + "\\DATA\\ECONOMIA\\CAJA\\cajaMenor.txt"
         try:
