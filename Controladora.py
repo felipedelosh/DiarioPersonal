@@ -488,6 +488,41 @@ class Controladora:
         """
         return self.tiempo.diaNumero()
 
+    def guardarInformacionPerfil(self, informacion):
+        """
+        Se guarda la informacion en los txt correspondientes
+        """
+        try:
+            ruta = self.rutaDelProyecto + "\\DATA\\PERFIL\\"
+            
+            f = open(ruta+"nombreApellido.txt", "w", encoding="UTF-8")
+            f.write(informacion[0])
+            f.close()
+
+            f = open(ruta+"fechaNacimiento.txt", "w", encoding="UTF-8")
+            f.write(informacion[1])
+            f.close()
+
+            f = open(ruta+"sexo.txt", "w", encoding="UTF-8")
+            f.write(informacion[2])
+            f.close()
+
+            f = open(ruta+"edad.txt", "w", encoding="UTF-8")
+            f.write(informacion[3])
+            f.close()
+
+            f = open(ruta+"username.txt", "w", encoding="UTF-8")
+            f.write(informacion[4])
+            f.close()
+
+            f = open(ruta+"biografia.txt", "w", encoding="UTF-8")
+            f.write(informacion[5])
+            f.close()
+
+            return True
+        except:
+            return False
+
     """AYUDA"""
     """AYUDA"""
     """AYUDA"""

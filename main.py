@@ -602,6 +602,12 @@ class TimeHackingLoko():
         txtBiografia = Text(lienzo, width=42, height=7)
         txtBiografia.place(x=240, y=132)
 
+        informacion = [txtNombreYApellido, txtFechaDeNacimiento, comboBoxGenero, txtEdad, txtUsername, txtBiografia]
+
+
+        btnGuardar = Button(lienzo, text="Guardar", command= lambda : self.guardarInformacionPerfil(informacion))
+        btnGuardar.place(x=300, y=450)
+
 
         
         
@@ -1285,6 +1291,25 @@ class TimeHackingLoko():
             self.ventanaEnmergenteDeAlerta("Exito", "Monto Actualizado")
         else:
             self.ventanaEnmergenteDeAlerta("Error", "Error Fatal Alguna Mierda Esta Mal")
+
+    def guardarInformacionPerfil(self, informacion):
+        """
+        Se guardaran los datos ingresados en PERFIL
+        info = [txtNombreYApellido, txtFechaDeNacimiento, comboBoxGenero, txtEdad, txtUsername, txtBiografia]
+        """
+        nomApe = informacion[0].get()
+        naci = informacion[1].get()
+        sexo = informacion[2].get()
+        edad = informacion[3].get()
+        username = informacion[4].get()
+        txtBiografia = informacion[5].get("1.0", END)
+        
+        informacion=[nomApe, naci, sexo, edad, username, txtBiografia]
+
+        if self.controladora.guardarInformacionPerfil(informacion):
+            self.ventanaEnmergenteDeAlerta("Exito", "Información almacenada.")
+        else:
+            self.ventanaEnmergenteDeAlerta("Error", "Algo malo ha pasado y no se pudo guardar la info")
 
     """
     AYUDA
