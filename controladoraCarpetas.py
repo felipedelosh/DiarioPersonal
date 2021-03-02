@@ -65,6 +65,9 @@ class ControladoraCarpetas(object):
 
         if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\DECICIONES"): # No existe la carpera creelas
             os.mkdir(self.rutaDelProyecto+"\\DATA\\DECICIONES")
+
+        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\PROFILE"): # No existe la carpera creelas
+            os.mkdir(self.rutaDelProyecto+"\\DATA\\PROFILE")
         
 
     def listarTodosLosArchivosdeCarpeta(self, ruta, extension):

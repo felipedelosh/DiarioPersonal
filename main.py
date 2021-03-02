@@ -63,7 +63,7 @@ class TimeHackingLoko():
         self.btnResultadoAnual = Button(self.tela, image=self.imgBtnResultadoAnual, command=self.lanzarInterfaceResultadoAnual)
         self.btnRegistroEmociones = Button(self.tela, image=self.imgBtnRegistoEmociones, command=self.lanzarPantallaRegistroSentimientos)
         self.btnDedcicionesDeMierda = Button(self.tela, image=self.imgBtnDecicionesDeMierda, command=self.lanzarInterfaceDecicionesDeMierda)
-        self.btnConfiguracion = Button(self.tela, image=self.imgBtnConfiguracion)
+        self.btnConfiguracion = Button(self.tela, image=self.imgBtnConfiguracion, command=self.lanzarInterfaceConfiguracion)
         self.btnAyuda = Button(self.tela, image=self.imgBtnAyuda, command=self.lanzarInterfaceAyuda)
         """Variables"""
         """Variables registro de sentimientos"""
@@ -234,6 +234,19 @@ class TimeHackingLoko():
             tela.create_line(0,120+(i*60),1280,120+(i*60), fill='blue')
             tela.create_line(100+(i*120), 120, 100+(i*120), 660, fill='blue')
 
+    def lanzarPantallaRegistroSentimientos(self):
+        interfaceSentimientos = Toplevel()
+        interfaceSentimientos.title("Registro de sentimientos del loko")
+        interfaceSentimientos.geometry("500x150")
+        lblComoTeSientesHoy = Label(interfaceSentimientos, text="Como te sientiste hoy: ")
+        lblComoTeSientesHoy.place(x=20, y=50)
+        comboBoxSentimientos = ttk.Combobox(interfaceSentimientos, state='readonly', textvariable=self.comboBoxSentimientosValor)
+        comboBoxSentimientos['values'] = self.sentimientos
+        comboBoxSentimientos.place(x=180, y=50)
+        btnGuardarSentimiento = Button(interfaceSentimientos, text="Guardar", command=self.guardarSentimiento)
+        btnGuardarSentimiento.place(x=400, y=50)
+
+    #Ojo: esto esta mal ubicado... declararlo en el futuro como subinterface
     def lanzarInterfaceDecicionesDeMierdaAgregarEstado(self):
         if self.controladora.arbolDeDecicionEstaListo():
             interfaceAgregarEstado = Toplevel()
@@ -261,6 +274,13 @@ class TimeHackingLoko():
         else:
             self.ventanaEnmergenteDeAlerta("Error", "Primero crea o carga un arbol")
 
+    def lanzarInterfaceConfiguracion(self):
+        interfaceConfiguracion = Toplevel()
+        interfaceConfiguracion.title("Configuración")
+        interfaceConfiguracion.geometry("200x300")
+        btnProfile = Button(interfaceConfiguracion, text="Perfil", command=self.subInterfacePerfil)
+        btnProfile.place(x=70, y=20)
+
 
     def lanzarInterfaceAyuda(self):
         interfaceayuda = Toplevel()
@@ -278,17 +298,7 @@ class TimeHackingLoko():
         txtMensajePrincipal.place(x=20, y=100)
 
 
-    def lanzarPantallaRegistroSentimientos(self):
-        interfaceSentimientos = Toplevel()
-        interfaceSentimientos.title("Registro de sentimientos del loko")
-        interfaceSentimientos.geometry("500x150")
-        lblComoTeSientesHoy = Label(interfaceSentimientos, text="Como te sientiste hoy: ")
-        lblComoTeSientesHoy.place(x=20, y=50)
-        comboBoxSentimientos = ttk.Combobox(interfaceSentimientos, state='readonly', textvariable=self.comboBoxSentimientosValor)
-        comboBoxSentimientos['values'] = self.sentimientos
-        comboBoxSentimientos.place(x=180, y=50)
-        btnGuardarSentimiento = Button(interfaceSentimientos, text="Guardar", command=self.guardarSentimiento)
-        btnGuardarSentimiento.place(x=400, y=50)
+
     """Se declaran las interfaces TopLevel"""
     """Se declaran las interfaces TopLevel"""
     """Se declaran las interfaces TopLevel"""
@@ -558,6 +568,39 @@ class TimeHackingLoko():
         dineroQuePuedesGastarHoy = int(k) / d
         lblDineroQuePuedesGastarHoy = Label(interfaceCaja, text="Hoy puedes gastar >HOY: $"+str(dineroQuePuedesGastarHoy))
         lblDineroQuePuedesGastarHoy.place(x=100, y=460)
+
+    def subInterfacePerfil(self):
+        interfacePerfil = Toplevel()
+        interfacePerfil.title("Perfil: ")
+        interfacePerfil.geometry("640x480")
+        lienzo = Canvas(interfacePerfil, width=640, height=480)
+        lienzo.place(x=0, y=0)
+        lienzo.create_rectangle(20, 20, 220, 220, fill="blue")
+
+        lblNombreYApellido = Label(lienzo, text="Nombre y apellido: ")
+        lblNombreYApellido.place(x=240, y=18)
+        txtNombreYApellido = Entry(lienzo, width=35)
+        txtNombreYApellido.place(x=360, y=20)
+        lblFechaDeNacimiento = Label(lienzo, text="Fecha de Nacimiento: ")
+        lblFechaDeNacimiento.place(x=240, y=50)
+        txtFechaDeNacimiento = Entry(lienzo, width=35)
+        txtFechaDeNacimiento.place(x=360, y=52)
+        lblGenero = Label(lienzo, text="Genero: ")
+        lblGenero.place(x=240, y=80)
+        comboBoxGenero = ttk.Combobox(lienzo, values=['Masculino', 'Femenino'])
+        comboBoxGenero.place(x=300, y=80)
+        lblEdad = Label(lienzo, text="Edad: ")
+        lblEdad.place(x=460, y=80)
+        txtEdad = Entry(lienzo, width=10)
+        txtEdad.place(x=510, y=80)
+        lblUsername = Label(lienzo, text="Username:  ")
+        lblUsername.place(x=20, y=230)
+        txtUsername = Entry(lienzo, width=20)
+        txtUsername.place(x=100, y=230)
+        lblBiografia = Label(lienzo, text="Biografia: ")
+        lblBiografia.place(x=240, y=110)
+        txtBiografia = Text(lienzo, width=42, height=7)
+        txtBiografia.place(x=240, y=132)
 
 
         
@@ -1242,7 +1285,6 @@ class TimeHackingLoko():
             self.ventanaEnmergenteDeAlerta("Exito", "Monto Actualizado")
         else:
             self.ventanaEnmergenteDeAlerta("Error", "Error Fatal Alguna Mierda Esta Mal")
-
 
     """
     AYUDA
