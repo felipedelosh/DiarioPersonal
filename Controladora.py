@@ -523,6 +523,59 @@ class Controladora:
         except:
             return False
 
+    def cargarInformacionDelPerfil(self):
+        try:
+            informacion = []
+
+            ruta = self.rutaDelProyecto + "\\DATA\\PERFIL\\"
+            try:
+                f = open(ruta+"nombreApellido.txt", "r", encoding="UTF-8")
+                informacion.append(f.read())
+                f.close()
+            except:
+                pass
+
+
+            try:
+                f = open(ruta+"fechaNacimiento.txt", "r", encoding="UTF-8")
+                informacion.append(f.read())
+                f.close()
+            except:
+                pass
+
+            try:
+                f = open(ruta+"sexo.txt", "r", encoding="UTF-8")
+                informacion.append(f.read())
+                f.close()
+            except:
+                pass
+
+            try:
+                f = open(ruta+"edad.txt", "r", encoding="UTF-8")
+                informacion.append(f.read())
+                f.close()
+            except:
+                pass
+            
+            try:
+                f = open(ruta+"username.txt", "r", encoding="UTF-8")
+                informacion.append(f.read())
+                f.close()
+            except:
+                pass
+
+            try:
+                f = open(ruta+"biografia.txt", "r", encoding="UTF-8")
+                informacion.append(f.read())
+                f.close()
+            except:
+                pass
+
+
+            return informacion
+        except:
+            return []
+
     """AYUDA"""
     """AYUDA"""
     """AYUDA"""

@@ -602,6 +602,20 @@ class TimeHackingLoko():
         txtBiografia = Text(lienzo, width=42, height=7)
         txtBiografia.place(x=240, y=132)
 
+        # Se cargan los datos si existen
+        info = self.controladora.cargarInformacionDelPerfil()
+        if info != []:
+            txtNombreYApellido.insert(0, info[0])
+            txtFechaDeNacimiento.insert(0, info[1])
+            comboBoxGenero.set(info[2])
+            txtEdad.insert(0, info[3])
+            txtUsername.insert(0, info[4])
+            txtBiografia.insert("1.0", info[5])
+
+
+        print(info)
+
+        # Se guarda la información para poder editarla mas tarde
         informacion = [txtNombreYApellido, txtFechaDeNacimiento, comboBoxGenero, txtEdad, txtUsername, txtBiografia]
 
 
