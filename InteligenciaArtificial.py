@@ -12,6 +12,7 @@ medio de simbolos,
 import os
 import threading
 import time
+from tiempo import *
 
 
 class NeuronaContadora(object):
@@ -26,8 +27,9 @@ class NeuronaContadora(object):
         self.aristras = {} # Aca se guandan los caminos (Destino, simbolo)
         self.medidor = [] # aqui se guardan los contadores "idContador" : #valor
         self.puntero = "" # aqui se guarda el pivote
+        self.haceCuantoFuiActivada = "" # Aqui se guarda la fecha año mes dia
+        self.conjuntoDeReglas = {} # Esto indica como deben de moverse los medidores
 
-        
 
         self.inizializar()
 
@@ -48,10 +50,44 @@ class NeuronaContadora(object):
 
         medidor = self.cargarElementos("medidores.txt")
 
+
         for i in medidor:
             if i.strip() != "":
                 self.medidor.append((i.split(":")[0], int(i.split(":")[1])))
 
+
+        self.haceCuantoFuiActivada = self.cargarElementos("haceCuantoFuiActivada.txt")[0]
+
+        conjuntoDeReglas = self.cargarElementos("conjuntoDeReglas.txt")
+
+        for i in conjuntoDeReglas:
+            if i.strip() != "":
+                nodo = i.split(":")[0]
+                # Se guarda la conexion {nodo:[medidor1, medidor2, medidor3]}
+                self.conjuntoDeReglas[nodo] = [int(i.split(":")[1]), int(i.split(":")[2]), int(i.split(":")[3]), int(i.split(":")[4])]
+
+    def realizarMovimiento(self, simbolo, tiempo):
+        """
+        Entra un simbolo y el pivote se mueve y ejecuta las reglas
+        luego de ello se actualiza la informacion de activaion
+
+        """
+        for i in self.aristras[self.puntero]:
+            if i[1] == simbolo:
+                # Se hace el salto
+                self.puntero = i[0]
+                # Se aplica la regla:
+                contador = 0
+                for j in self.conjuntoDeReglas[self.puntero]:
+                    temp = self.medidor[contador][0], self.medidor[contador][1] + j
+                    self.medidor[contador] = temp
+                    contador = contador + 1
+                break
+
+        print(self.puntero)
+        print(self.medidor)
+    
+    
     def cargarElementos(self, elemento):
         """
         Entra el nombre de un NERONA/LAqueSeaMierda.txt
@@ -72,6 +108,13 @@ class NeuronaContadora(object):
             return informacion
         except:
             return informacion
+
+    def actualizarElemento(self, elento, valor):
+        
+        try:
+            pass
+        except:
+            pass
         
 
 
@@ -87,8 +130,10 @@ class NeuronaContadora(object):
 class Cerebro:
     """
     Es un conjunto de neuronas, desde aqui son controladas.
+    El cerebro ejecuta el conjunto de reglas de cada neurona
     """
     def __init__(self):
+        self.tiempo = Tiempo() # El cerebro tiene que saber la fecha y hora para trabajar
         self.neuronaMonitoreadoraDeSueño = NeuronaContadora("MonitoreadoraDeSueño")
 
 
@@ -97,9 +142,23 @@ class Cerebro:
 
 
     def actividadNeuronal(self):
+        """
+        Si una neurona no se activa en x tiempo... se activa de nuevo
+        """
         while True:
+            # Verificar el Estados
+
+            # Verificar la neurona que lee el sue+o
+        
+            print("estoy vivo")
+            if not self.tiempo.estampaDeTiempo() != self.neuronaMonitoreadoraDeSueño.haceCuantoFuiActivada:
+                print("Neurona Monitora de sue+o activada")
+                self.neuronaMonitoreadoraDeSueño.realizarMovimiento("1", self.tiempo.estampaDeTiempo())
+                self.neuronaMonitoreadoraDeSueño.realizarMovimiento("0", self.tiempo.estampaDeTiempo())
+                self.neuronaMonitoreadoraDeSueño.realizarMovimiento("1", self.tiempo.estampaDeTiempo())
+                self.neuronaMonitoreadoraDeSueño.realizarMovimiento("0", self.tiempo.estampaDeTiempo())
+                self.neuronaMonitoreadoraDeSueño.realizarMovimiento("0", self.tiempo.estampaDeTiempo())
             time.sleep(5)
-            print("Estoy vivo")
 
 
 

@@ -1,4 +1,4 @@
-dia:0
-semana:0
-mes:0
-año:0
+dia:0:24
+semana:0:7
+mes:0:12
+año:0:365
