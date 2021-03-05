@@ -36,7 +36,7 @@ Se habre la central de ayuda
 + Esto algun día debe de servir de estudio para probar como el vive 100 afenta al ser humano.
 
 """
-
+# -⁻- coding: UTF-8 -*-
 from tkinter import * # Libreria para graficos> ventanas, botones, imagenes
 from Controladora import * # Conexion entre interfaz y archivos
 from tkinter import ttk # Para poder hacer el combo box
