@@ -33,6 +33,8 @@ Se abre la nueva herramienta esto ocaciono que: "Un grafo de si una decicion des
 
 Se habre la central de ayuda
 
++ Esto algun día debe de servir de estudio para probar como el vive 100 afenta al ser humano.
+
 """
 
 from tkinter import * # Libreria para graficos> ventanas, botones, imagenes
@@ -135,6 +137,8 @@ class TimeHackingLoko():
         txtpalabraMagica.place(x=150, y=22)
         txtTexto = Text(interfaceNotas, height = 22, width = 58)
         txtTexto.place(x=10, y=80)
+        btnLector = Button(interfaceNotas, text="Lector", command=self.subInterfaceLectorNotas)
+        btnLector.place(x=320, y=20)
         btnSave = Button(interfaceNotas, text="Guardar", command=lambda : self.guardarNota(txtpalabraMagica.get(), txtTexto.get("1.0", END)))
         btnSave.place(x=400,y=20)
 
@@ -612,9 +616,6 @@ class TimeHackingLoko():
             txtUsername.insert(0, info[4])
             txtBiografia.insert("1.0", info[5])
 
-
-        print(info)
-
         # Se guarda la información para poder editarla mas tarde
         informacion = [txtNombreYApellido, txtFechaDeNacimiento, comboBoxGenero, txtEdad, txtUsername, txtBiografia]
 
@@ -623,7 +624,27 @@ class TimeHackingLoko():
         btnGuardar.place(x=300, y=450)
 
 
+    def subInterfaceLectorNotas(self):
+        """
+        lanza la interface de lector de notas, la controladora carga la informacion contenida en 
+        DATA/NOTAS
+        """
+        interfaceLectorNotas = Toplevel()
+        interfaceLectorNotas.title("Enciclopedia")
+        interfaceLectorNotas.geometry("800x600")
+        lienzo = Canvas(interfaceLectorNotas, width=800, height=600)
+        lienzo.place(x=0, y=0)
+        btnsText = ["#", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M","N", "Ñ", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+        btns = []
+        contador = 0
         
+        for i in btnsText:
+            btns.append(Button(lienzo, text=i, command=lambda : print("Akas")))
+            btns[contador].place(x=(22*contador)+4, y=2)
+            contador = contador + 1
+
+        lienzo.create_line(0, 30, 800, 30)
+
         
     """Se declaran las subinterfaces TopLevel"""
     """Se declaran las subinterfaces TopLevel"""
