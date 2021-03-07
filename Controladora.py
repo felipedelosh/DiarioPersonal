@@ -14,11 +14,13 @@ from controladoraCarpetas import *
 from controladoraProcesamientoDeDatos import *
 from tkMagicColorByLoko import *
 from ArbolDeDeciciones import *
+from AudioMixer import *
 import random
 
 class Controladora:
     def __init__(self):
         self.rutaDelProyecto = str(os.path.dirname(os.path.abspath(__file__))) # En donde estoy padado
+        self.audioMixer = AudioMixer() # Reproductor de sonido
         self.tiempo = Tiempo() # Metodos personalizados de tiempo
         self.controladoraCarpetas = ControladoraCarpetas(self.tiempo, self.rutaDelProyecto) # Para crear y aceder a informacion
         self.controladoraProcesamientoDeDatos = ControladoraProcesamientoDeDatos(self.rutaDelProyecto, self.tiempo) # Aca se hace la mineria de datos
@@ -27,6 +29,12 @@ class Controladora:
         self.coloresParaGraficoCircular = [] # Color que le va a corresponder al grafico circular
         self.arbolDeDeDecicion = Arbol() # Es un arbol temporal que guarda las deciciones
         self.arbolDeDecicionListo = False # Me dice si se cargo o creo el arbol
+
+
+        """
+        Se procede a saludar al usuario
+        """
+        self.saludarAlUsuario()
 
     def crearCarpetasDelSistema(self):
         """
@@ -575,6 +583,38 @@ class Controladora:
             return informacion
         except:
             return []
+
+    """
+    AUDIO
+    AUDIO
+    AUDIO
+    """
+    def saludarAlUsuario(self):
+        """
+        Dependiendo de la hora da un saludo
+        """
+        hora = str(self.tiempo.hora()).split(":")[0]
+        hora = hora.split(" ")
+        hora = int(hora[len(hora)-1])
+
+        if hora >= 20:
+            self.audioMixer.line = self.rutaDelProyecto + "\\recursos\\audio\\buenas noches"
+            self.audioMixer.playSound()
+        else:
+            if hora > 12:
+                self.audioMixer.line = self.rutaDelProyecto + "\\recursos\\audio\\buenas tardes"
+                self.audioMixer.playSound()
+            else:
+                self.audioMixer.line = self.rutaDelProyecto + "\\recursos\\audio\\buenos dias"
+                self.audioMixer.playSound()
+
+    def decir(self, palabra):
+        """
+        Sera dicha una palabra
+        """
+        self.audioMixer.line = self.rutaDelProyecto + "\\recursos\\audio\\" + palabra
+        self.audioMixer.playSound()
+
 
     """AYUDA"""
     """AYUDA"""
