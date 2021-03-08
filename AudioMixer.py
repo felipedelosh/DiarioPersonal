@@ -17,7 +17,7 @@ import sys
 
 class AudioMixer:
     def __init__(self):
-        self.line = "" # Aqui se pone el sonido ejemplo : hola mundo
+        self.line = "" # Aqui se pone el sonido ejemplo : DirPath+recuros/audio/hola mundo
 
     def playSound(self):
         winsound.PlaySound(self.line+".wav", winsound.SND_FILENAME)

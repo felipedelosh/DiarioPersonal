@@ -90,16 +90,17 @@ class ControladoraCarpetas(object):
         de los años que hay registrados en DATA/SENTIMIENTOS
         """
         años = []
-        #self.rutaDelProyecto+"\\DATA\\SENTIMIENTOS"
-        for i in scandir("DATA\\SENTIMIENTOS"):
+        
+        for i in scandir(self.rutaDelProyecto+"\\DATA\\SENTIMIENTOS"):
             if i.is_dir():   
                 años.append(i.name)
         return años
 
     def listarAñosDeEconomia(self):
         años = []
-        #self.rutaDelProyecto+"\\DATA\\SENTIMIENTOS"
-        for i in scandir("DATA\\ECONOMIA"):
+
+
+        for i in scandir(self.rutaDelProyecto+"\\DATA\\ECONOMIA"):
             if i.is_dir() and i.name != "CAJA":   
                 años.append(i.name)
         return años
