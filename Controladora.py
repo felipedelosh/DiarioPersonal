@@ -107,6 +107,29 @@ class Controladora:
         except:
             return False
 
+    def cargarNotas(self, letra):
+        """
+        Entra un letra y luego se retornan todas las notas que empiecen por esa letra
+        """
+        try:
+            informacion = {}
+
+            ruta = self.rutaDelProyecto+"\\DATA\\NOTAS"
+            lista = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(ruta, ".txt")
+
+            if letra == "#":
+                print("Epa")
+            else:
+                for i in lista:
+                    if i[0] == letra:
+                        f = open(ruta+"\\"+i, "r", encoding="UTF-8")
+                        informacion[i] = f.read()
+                        f.close()
+
+            return informacion
+        except:
+            return {}
+
     def guardarSentimiento(self, sentimiento):
         try:
             if sentimiento != "":

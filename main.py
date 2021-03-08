@@ -634,16 +634,59 @@ class TimeHackingLoko():
         interfaceLectorNotas.geometry("800x600")
         lienzo = Canvas(interfaceLectorNotas, width=800, height=600)
         lienzo.place(x=0, y=0)
+        lblTitles = [] # Aqui se guardan los titulos de las notas
+        txtNotes = []
         btnsText = ["#", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M","N", "Ñ", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
         btns = []
         contador = 0
-        
+
+        # Se crean unas entradas por defecto
+        informacion = {"a.txt":"aaaa", "b.txt":"bbbb", "c.txt":"cccc", "d.txt":"dddd", "e.txt":"eeee", "f.txt":"ffff"}
+        contadorInformacion = 0
+
+        contadorTXT = 0 # Para pintar las 6 entradas de las paginas
+        conx = 0 # Para posicionar la entrada en x
+        cony = 0 # para posicionar la entrada en y
+        for i in informacion:
+            if cony > 2:
+                cony = 0
+
+            if contadorTXT > 2:
+                conx = 1
+
+            lblTitles.append(Label(lienzo, text=i))
+            lblTitles[contadorTXT].place(x=80+(conx*350), y=50+(cony*180))
+            txtNotes.append(Text(lienzo, width=36, height=8))
+            txtNotes[contadorTXT].place(x=80+(conx*350), y=80+(cony*180))
+
+            cony = cony + 1
+            contadorTXT = contadorTXT + 1
+
         for i in btnsText:
-            btns.append(Button(lienzo, text=i, command=lambda : print("Akas")))
+            btns.append(Button(lienzo, text=i))
+            btns[contador].bind("<Button-1>", lambda key: self._subInterfaceNotasPressBtn(key.widget.cget('text'), lienzo))
             btns[contador].place(x=(22*contador)+4, y=2)
             contador = contador + 1
 
         lienzo.create_line(0, 30, 800, 30)
+        lienzo.create_line(400, 30, 400, 600)
+        btnNextInformacion = Button(lienzo, text=">>", command= lambda : self._subInterfaceNotasRefrescarInformacion(lienzo, informacion, contadorInformacion+6))
+        btnNextInformacion.place(x=760, y=300)
+        btnPrevInformacion = Button(lienzo, text="<<", command= lambda : self._subInterfaceNotasRefrescarInformacion(lienzo, informacion, contadorInformacion-6))
+        btnPrevInformacion.place(x=10, y=300)
+        
+
+    def _subInterfaceNotasPressBtn(self, key, lienzo):
+        print(self.controladora.cargarNotas(key))
+
+    def _subInterfaceNotasRefrescarInformacion(self, lienzo, informacion, contadorInformacion):
+        """
+        Segun el numero contenido en contadorInformacion 
+        se pintarán 6 notas
+        """
+        if contadorInformacion>=0 and contadorInformacion < len(informacion):
+            pass
+
 
         
     """Se declaran las subinterfaces TopLevel"""
