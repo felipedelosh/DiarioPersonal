@@ -292,7 +292,7 @@ class TimeHackingLoko():
         interfaceayuda.geometry("640x480")
         btnManualDelUsuario = Button(interfaceayuda, text="Manual del Usuario", command=self.linkManualDelUsuario)
         btnManualDelUsuario.place(x=20, y=20)
-        btnListadoPosible = Button(interfaceayuda, text="Listado de Posibilidades")
+        btnListadoPosible = Button(interfaceayuda, text="Listado de Posibilidades", command=self.verLasPisibilidades) 
         btnListadoPosible.place(x=200, y=20)
         btnProgramacion = Button(interfaceayuda, text="Como estoy programado")
         btnProgramacion.place(x=400, y=20)
@@ -641,26 +641,28 @@ class TimeHackingLoko():
         contador = 0
 
         # Se crean unas entradas por defecto
-        informacion = {"a.txt":"aaaa", "b.txt":"bbbb", "c.txt":"cccc", "d.txt":"dddd", "e.txt":"eeee", "f.txt":"ffff"}
+        informacion = {"a.txt":"aaaa", "b.txt":"bbbb", "c.txt":"cccc", "d.txt":"dddd", "e.txt":"eeee", "f.txt":"ffff", "h.txt":"hhhh"}
         contadorInformacion = 0
 
         contadorTXT = 0 # Para pintar las 6 entradas de las paginas
         conx = 0 # Para posicionar la entrada en x
         cony = 0 # para posicionar la entrada en y
         for i in informacion:
-            if cony > 2:
-                cony = 0
+            if contadorInformacion < 6:
+                if cony > 2:
+                    cony = 0
 
-            if contadorTXT > 2:
-                conx = 1
+                if contadorTXT > 2:
+                    conx = 1
 
-            lblTitles.append(Label(lienzo, text=i))
-            lblTitles[contadorTXT].place(x=80+(conx*350), y=50+(cony*180))
-            txtNotes.append(Text(lienzo, width=36, height=8))
-            txtNotes[contadorTXT].place(x=80+(conx*350), y=80+(cony*180))
+                lblTitles.append(Label(lienzo, text=i))
+                lblTitles[contadorTXT].place(x=80+(conx*350), y=50+(cony*180))
+                txtNotes.append(Text(lienzo, width=36, height=8))
+                txtNotes[contadorTXT].place(x=80+(conx*350), y=80+(cony*180))
 
-            cony = cony + 1
-            contadorTXT = contadorTXT + 1
+                cony = cony + 1
+                contadorTXT = contadorTXT + 1
+                contadorInformacion = contadorInformacion + 1
 
         for i in btnsText:
             btns.append(Button(lienzo, text=i))
@@ -670,23 +672,31 @@ class TimeHackingLoko():
 
         lienzo.create_line(0, 30, 800, 30)
         lienzo.create_line(400, 30, 400, 600)
-        btnNextInformacion = Button(lienzo, text=">>", command= lambda : self._subInterfaceNotasRefrescarInformacion(lienzo, informacion, contadorInformacion+6))
+        btnNextInformacion = Button(lienzo, text=">>", command= lambda cont=contadorInformacion : self._subInterfaceNotasRefrescarInformacionSiguiente(informacion, cont))
         btnNextInformacion.place(x=760, y=300)
-        btnPrevInformacion = Button(lienzo, text="<<", command= lambda : self._subInterfaceNotasRefrescarInformacion(lienzo, informacion, contadorInformacion-6))
+        btnPrevInformacion = Button(lienzo, text="<<", command= lambda cont=contadorInformacion : self._subInterfaceNotasRefrescarInformacionAnterior(informacion, cont))
         btnPrevInformacion.place(x=10, y=300)
         
 
     def _subInterfaceNotasPressBtn(self, key, lienzo):
         print(self.controladora.cargarNotas(key))
 
-    def _subInterfaceNotasRefrescarInformacion(self, lienzo, informacion, contadorInformacion):
+    def _subInterfaceNotasRefrescarInformacionSiguiente(self, informacion, contadorInformacion):
         """
-        Segun el numero contenido en contadorInformacion 
-        se pintarán 6 notas
+        se pintan las siguientes 6 notas
         """
-        if contadorInformacion>=0 and contadorInformacion < len(informacion):
-            pass
+        print(contadorInformacion)
+        if contadorInformacion < len(informacion):
+            print("siguiente")
+            contadorInformacion = contadorInformacion + 6
 
+    def _subInterfaceNotasRefrescarInformacionAnterior(self, informacion, contadorInformacion):
+        """
+        se pintan las anteriores 6 notas
+        """
+        print(contadorInformacion)
+        if contadorInformacion>=0:
+            print("anterior")
 
         
     """Se declaran las subinterfaces TopLevel"""
@@ -1395,8 +1405,18 @@ class TimeHackingLoko():
     AYUDA
     """
     def linkManualDelUsuario(self):
+        """
+        Se in voca la ventana de emergencia con el link del pdf del manual
+        """
         link = "https://github.com/felipedelosh/DiarioPersonal/blob/master/RECURSOS/manual/Manual%20del%20Usuario.pdf"
         self.ventanaEnmergenteDeAlerta("Manual del usuario", link)
+
+    def verLasPisibilidades(self):
+        """
+        Se muestran las posibilidades
+        """
+        data = self.controladora.retornarListadoDePosibilidades()
+        self.ventanaEnmergenteDeAlerta("Listado de posibilidades", data)
 
     
 thl = TimeHackingLoko()

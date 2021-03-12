@@ -192,10 +192,3 @@ class ControladoraProcesamientoDeDatos(object):
 
 
         return reporte
-
-
-        
-
-        
-
-    

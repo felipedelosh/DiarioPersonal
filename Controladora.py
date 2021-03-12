@@ -55,7 +55,7 @@ class Controladora:
         En la carpeta RECURSOS/img/bg hay fotos.gif
         con id [0-9] se retorna por randon
         """
-        id = str(random.randint(0, 7))
+        id = str(random.randint(0, 11))
         return self.rutaDelProyecto+"\\RECURSOS\\img\\bg\\"+id+".gif"
 
     def guardarPaginaDiario(self, palabraMagica, texto):
@@ -649,6 +649,14 @@ class Controladora:
             return f.read()
         except:
             return "No se pudo abrir ni mierda"
+
+    def retornarListadoDePosibilidades(self):
+        try:
+            ruta = self.rutaDelProyecto + "\\RECURSOS\\manual\\ListadoDePosibilidades.txt"
+            f = open(ruta, 'r', encoding="UTF-8")
+            return f.read()
+        except:
+            return "Error acediendo a HDD"
 
 
             
