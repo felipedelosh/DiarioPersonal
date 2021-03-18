@@ -1333,13 +1333,26 @@ class TimeHackingLoko():
             contador = 0 # Para saber en que angulo pintar
             
             for i in data:
-                x = centroPantalla[0] + (radio * math.cos(contador*separacion))
-                x0 = centroPantalla[0] + ((radio*0.7) * math.cos(contador*separacion))
-                y = centroPantalla[1] - (radio * math.sin(contador*separacion))
-                y0 = centroPantalla[1] - ((radio*0.7) * math.sin(contador*separacion))
+                # Para el texto y porcentajes
+                x = centroPantalla[0] + (radio * math.cos(contador*separacion)) # Texto
+                x0 = centroPantalla[0] + ((radio*0.7) * math.cos(contador*separacion)) # % Texto
+                y = centroPantalla[1] - (radio * math.sin(contador*separacion)) # Texto
+                y0 = centroPantalla[1] - ((radio*0.7) * math.sin(contador*separacion)) # % Texto
+
+                # Para Graficos de barras base roja
+                xa = centroPantalla[0] + ((radio*0.15) * math.cos(contador*separacion))
+                ya = centroPantalla[1] - ((radio*0.15) * math.sin(contador*separacion))
+                xb = centroPantalla[0] + ((radio*0.6) * math.cos(contador*separacion))
+                yb = centroPantalla[1] - ((radio*0.6) * math.sin(contador*separacion))
+                # Para Graficos de barras base verde
+                xc = centroPantalla[0] + ((radio*0.6*(0.25+data[i])) * math.cos(contador*separacion))
+                yc = centroPantalla[1] - ((radio*0.6*(0.25+data[i])) * math.sin(contador*separacion))
+
                 lienzo.create_text(x, y, text=i, tags="inversionTiempo") # Texto informativo
-                porcentaje = round((data[i] * 100), 3)
-                lienzo.create_text(x0, y0, text=str(porcentaje)+"%", tags="inversionTiempo")
+                porcentaje = round((data[i] * 100), 3) 
+                lienzo.create_text(x0, y0, text=str(porcentaje)+"%", tags="inversionTiempo") # Texto porcentaje
+                lienzo.create_line(xa, ya, xb, yb, width=3, fill="red", tags="inversionTiempo") # Barra roja
+                lienzo.create_line(xc, yc, xa, ya, width=4, fill="green", tags="inversionTiempo") # Barra verde
                 contador = contador + 1
                 
 
