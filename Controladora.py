@@ -607,6 +607,12 @@ class Controladora:
         except:
             return []
 
+    def cargarAñosDeRegistroActividades(self):
+        """
+        Se cargan los años registrados en "\\DATA\\DISTRIBUCIONTIEMPO\\TIEMPODIARIO\\"
+        """
+        return self.controladoraCarpetas.listarAñosRegistradosDistribucionDeTiempo()
+
     def cargarActividades(self):
         """
         Se carga toda la informacion contenida RECURSOS/actividades.txt
@@ -618,13 +624,13 @@ class Controladora:
         except:
             return "dormir\nalimentacion\nNada"
 
-    def cargarPorcentajesDeActividades(self):
+    def cargarPorcentajesDeActividades(self, año):
         """
         Se carga el % de gasto de cada actividad en el año correspondiente en un dic
         {dormir:0.2, comer:0.1, trabajar:0.5}
         """
         try:
-            ruta = self.rutaDelProyecto + "\\DATA\\DISTRIBUCIONTIEMPO\\TIEMPODIARIO\\" + str(self.tiempo.año())
+            ruta = self.rutaDelProyecto + "\\DATA\\DISTRIBUCIONTIEMPO\\TIEMPODIARIO\\" + str(año)
             data = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(ruta, "txt")
 
 

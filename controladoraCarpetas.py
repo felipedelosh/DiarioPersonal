@@ -84,6 +84,22 @@ class ControladoraCarpetas(object):
                     nombreArchivos.append(i.name)
         return nombreArchivos
 
+    def listarAñosRegistradosDistribucionDeTiempo(self):
+        """
+        Retorna ['año', 'año', 'año' ...]
+        de los años registrados en DATA\DISTRIBUCIONTIEMPO\TIEMPODIARIO
+        """
+        años = []
+
+        for i in scandir(self.rutaDelProyecto+"\\DATA\\DISTRIBUCIONTIEMPO\\TIEMPODIARIO"):
+            try:
+                if i.is_dir() and int(i.name) > 0:   
+                    años.append(i.name)    
+            except:
+                pass
+
+        return años
+
     def listarAñosDeRegistroSentimientos(self):
         """
         Retorna ['año', 'año', 'año' ...]
