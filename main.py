@@ -40,6 +40,7 @@ Se habre la central de ayuda
 from tkinter import * # Libreria para graficos> ventanas, botones, imagenes
 from Controladora import * # Conexion entre interfaz y archivos
 from tkinter import ttk # Para poder hacer el combo box
+import math
 
 class TimeHackingLoko():
     def __init__(self):
@@ -57,6 +58,7 @@ class TimeHackingLoko():
         self.imgBtnDecicionesDeMierda = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/decicionesDeMierda.gif')
         self.imgBtnConfiguracion = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/configuracion.gif')
         self.imgBtnAyuda = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/ayuda.gif')
+        self.imageIcoPersona = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/ico/persona.png')
         """Imagenes de la pantalla principal"""
         self.btnDiario = Button(self.tela, image=self.imgBtnDiario, command=self.lanzarPantallaDiario)
         self.btnAgenda = Button(self.tela, image=self.imgBtnAgenda)
@@ -211,6 +213,8 @@ class TimeHackingLoko():
         btnReporteDeSentimientos.place(x=20, y=260)
         btnGastoDeVida = Button(interfaceResultadoAnual, text="Gasto de vida", command=self.subInterfaceGastoDeVida)
         btnGastoDeVida.place(x=20, y=300)
+        btnPilaresDeLaFelicidad = Button(interfaceResultadoAnual, text="pilares de la felicidad", command=self.subInterfacePilaresDeLaFelicidad)
+        btnPilaresDeLaFelicidad.place(x=20, y=340)
 
 
 
@@ -697,6 +701,22 @@ class TimeHackingLoko():
         print(contadorInformacion)
         if contadorInformacion>=0:
             print("anterior")
+
+    def subInterfacePilaresDeLaFelicidad(self):
+        """
+        Se graficaran : Un grafico circular de la inversion de tu tiempo
+        """
+        graficarPilares = Toplevel()
+        graficarPilares.geometry("720x480")
+        graficarPilares.title("Asi estas gastando tu tiempo")
+        lienzo = Canvas(graficarPilares, width=720, height=480)
+        lienzo.place(x=0, y=0)
+        lienzo.create_image(360, 240, image=self.imageIcoPersona)
+        # Se grafican los textos de los pilares
+        data = self.controladora.cargarPorcentajesDeActividades()
+        self.graficarPilaresDeLaFelicidad(lienzo, data)
+
+    
 
         
     """Se declaran las subinterfaces TopLevel"""
@@ -1287,6 +1307,42 @@ class TimeHackingLoko():
             x1 = w-10
             y1 = y0+2
             tela.create_rectangle((x0), (y0), (x1), (y1), fill="green", tags="life")
+
+    def graficarPilaresDeLaFelicidad(self, lienzo, data):
+        """
+        Se grafican los datos de manera porcentual circular
+        """
+        maxX = int(lienzo['width'])
+        maxY = int(lienzo['height'])
+        centroPantalla = [maxX/2, maxY/2]
+        radio = maxY*0.45
+        posx = 0
+        posy = 0
+
+        separacion = (2 * 3.1416)/len(data)
+
+        contador = 0 # Para saber en que angulo pintar
+        """
+        for i in data:
+            x = centroPantalla[0] + (radio * math.cos(contador*separacion)) 
+            x0 = centroPantalla[0] + ((radio*data[i]) * math.cos(contador*separacion))
+            y = centroPantalla[1] - (radio * math.sin(contador*separacion))
+            y0 = centroPantalla[1] - ((radio*data[i]) * math.sin(contador*separacion))
+            lienzo.create_text(x, y, text=i) # Texto informativo 
+            lienzo.create_line(centroPantalla[0], centroPantalla[1], x, y, width=2, fill="red")
+            lienzo.create_line(centroPantalla[0], centroPantalla[1], x0, y0, width=2, fill="green")
+            contador = contador + 1
+        """
+        for i in data:
+            x = centroPantalla[0] + (radio * math.cos(contador*separacion))
+            x0 = centroPantalla[0] + ((radio*0.7) * math.cos(contador*separacion))
+            y = centroPantalla[1] - (radio * math.sin(contador*separacion))
+            y0 = centroPantalla[1] - ((radio*0.7) * math.sin(contador*separacion))
+            lienzo.create_text(x, y, text=i) # Texto informativo
+            porcentaje = round((data[i] * 100), 3)
+            lienzo.create_text(x0, y0, text=str(porcentaje)+"%")
+            contador = contador + 1
+
 
         
 

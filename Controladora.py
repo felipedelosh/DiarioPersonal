@@ -607,6 +607,59 @@ class Controladora:
         except:
             return []
 
+    def cargarActividades(self):
+        """
+        Se carga toda la informacion contenida RECURSOS/actividades.txt
+        """
+        try:
+            ruta = self.rutaDelProyecto + "\\RECURSOS\\actividades.txt"
+            f = open(ruta, "r", encoding="UTF-8")
+            return f.read()
+        except:
+            return "dormir\nalimentacion\nNada"
+
+    def cargarPorcentajesDeActividades(self):
+        """
+        Se carga el % de gasto de cada actividad en el año correspondiente en un dic
+        {dormir:0.2, comer:0.1, trabajar:0.5}
+        """
+        try:
+            ruta = self.rutaDelProyecto + "\\DATA\\DISTRIBUCIONTIEMPO\\TIEMPODIARIO\\" + str(self.tiempo.año())
+            data = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(ruta, "txt")
+
+
+            informacion = {}
+            totalHoras = 0  
+
+            # Se lee cada archivo de horario
+            for i in data:
+                try:
+                    f = open(ruta+"\\"+i, "r", encoding="UTF-8")
+                    txt = f.read().split("\n")
+                    
+                    # Se analiza actividad hora por hora
+                    for j in txt:
+                        if j.strip() != "":
+                            key = j.split(":")[1]
+                            if key in informacion:
+                                temp = informacion[key] + 1
+                                informacion[key] = temp
+                            else:
+                                informacion[key] = 1
+                            totalHoras = totalHoras + 1
+
+                except:
+                    pass
+
+            # Se pone la informacion en terminos de porcentaje
+            for i in informacion:
+                informacion[i] = informacion[i]/totalHoras    
+
+            return informacion
+        except:
+            return {"No data":0.5, "No Data":0.5}
+
+
     """
     AUDIO
     AUDIO
