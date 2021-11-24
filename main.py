@@ -573,8 +573,8 @@ class TimeHackingLoko():
         # Se supone que el dinero de la caja menor tiene que durar 1 mes
         d = self.controladora.queNumeroDeDiaEs() # Información del dia actual
         d = abs(30 - d) # Que tan lejos estoy a fin de mes
-        dineroQuePuedesGastarHoy = int(k) / d
-        lblDineroQuePuedesGastarHoy = Label(interfaceCaja, text="Hoy puedes gastar >HOY: $"+str(dineroQuePuedesGastarHoy))
+        dineroQuePuedesGastarHoy = round((int(k) / d), 2)
+        lblDineroQuePuedesGastarHoy = Label(interfaceCaja, text="Hoy puedes gastar > $ "+str(dineroQuePuedesGastarHoy))
         lblDineroQuePuedesGastarHoy.place(x=100, y=460)
 
     def subInterfacePerfil(self):
@@ -609,6 +609,11 @@ class TimeHackingLoko():
         lblBiografia.place(x=240, y=110)
         txtBiografia = Text(lienzo, width=42, height=7)
         txtBiografia.place(x=240, y=132)
+        # Neurotransmisores
+        
+
+
+
 
         # Se cargan los datos si existen
         info = self.controladora.cargarInformacionDelPerfil()

@@ -3,6 +3,9 @@ El tiempo a mi gusto
 """
 # -⁻- coding: UTF-8 -*-
 from datetime import date
+from os import path
+from random import randint
+import math
 import time
 
 class Tiempo:
@@ -13,7 +16,7 @@ class Tiempo:
         self.diasDeLaSemana = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']
         self.meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
         # Para saber que mes tiene 31 y 31 dias, feb no le voy a contar el bisciesto
-        self.duracionMeses = [31,28,31,30,31,30,31,31,30,31,0,31]
+        self.duracionMeses = [31,28,31,30,31,30,31,31,30,31,30,31]
 
     def año(self):
         """Retorna en que a+o estamios"""
@@ -49,6 +52,89 @@ class Tiempo:
         Esto retorna la hora
         """
         return str(time.ctime())
+
+    def incrementarFechaXDias(self, año, mes, dia, incremento):
+        """Retorna la fecha despues del incremento de dias.
+        Nota: no es tan exacto... aveces falla por dos o tres dias
+        """
+
+        nuevoAño = año
+        nuevoMes = mes
+        nuevoDia = dia
+
+        # Si no hay que incrementar dias
+        if(incremento == 0):
+            return str(nuevoAño) +":"+str(self.meses[int(nuevoMes)-1])+":"+str(nuevoDia)
+
+        # calcular si es más de un año
+        if(incremento>=365):
+            if(incremento == 365):
+                return str(int(nuevoAño)+1) +":"+str(self.meses[int(nuevoMes)-1])+":"+str(nuevoDia)
+            else:
+                #Recalcular año y volver a llamar
+                aumentoAños = math.floor(incremento / 365)
+                nuevoIncremento = incremento%365
+                return self.incrementarFechaXDias(año+aumentoAños, mes, dia, nuevoIncremento)
+
+
+        # Calcular cuatos dias falta para que termine el año
+        diasFaltantes = self.cuantosDiasFaltanParaTerminarElAñoFechaX(int(mes), int(dia))
+        if diasFaltantes < incremento:
+            # Poner la fecha en 1 ro de enero del siguiente año y recalcular
+            return self.incrementarFechaXDias(año+1, 1, 1, incremento-diasFaltantes)
+
+        
+        # Comienza a incrementar los dias
+        contador = 1
+        temporalDiasMesActual = nuevoDia
+        while incremento > 0:
+
+            if contador + temporalDiasMesActual > self.duracionMeses[int(nuevoMes)-1]:
+                temporalDiasMesActual = 0
+                nuevoDia = 1
+                contador = 1
+                nuevoMes = int(nuevoMes) + 1
+
+            nuevoDia = int(nuevoDia) + 1
+
+            contador = contador + 1
+            incremento = incremento - 1
+        
+
+        return str(nuevoAño)+":"+str(nuevoMes)+":"+str(nuevoDia)
+
+    def cuantosDiasFaltanParaTerminarElAño(self):
+        mesActual = self.mes()
+        diaActual = self.diaNumero()
+
+        cuantosDiashanPasado = 0
+        #Cuantos Dias han pasado
+        for i in range(0, mesActual-1):
+            cuantosDiashanPasado = cuantosDiashanPasado + self.duracionMeses[i]
+
+        #Le sumo los dias actuales
+        cuantosDiashanPasado = cuantosDiashanPasado + diaActual
+           
+        return 365 - cuantosDiashanPasado
+
+    def cuantosDiasFaltanParaTerminarElAñoFechaX(self, mes, dia):
+        """
+        enero = 1
+        """
+        mesActual = mes
+        diaActual = dia
+
+        cuantosDiashanPasado = 0
+        #Cuantos Dias han pasado
+        for i in range(0, mesActual-1):
+            cuantosDiashanPasado = cuantosDiashanPasado + self.duracionMeses[i]
+
+        #Le sumo los dias actuales
+        cuantosDiashanPasado = cuantosDiashanPasado + diaActual
+           
+        return 365 - cuantosDiashanPasado
+
+
 
     def estampaDeTiempo(self):
         """
