@@ -36,6 +36,9 @@ class Software:
         self.lblGenerarDatosInversionEconomica = Label(self.tela, text="Generar Datos inversión economica")
         self.btnGenerarDatosInversionEconomicaRandon =  Button(self.tela, text="Random", command= lambda : self.generateRandomData(3))
         self.btnGenerarDatosInversionEconomicaReal =  Button(self.tela, text="Real", command= lambda : self.generateRandomData(4))
+        self.lblGenerarDatosDeSentimientos = Label(self.tela, text="Generar Datos De Sentimientos")
+        self.btnGenerarDatosDeSentimientosRandon =  Button(self.tela, text="Random", command= lambda : self.generateRandomData(5))
+        self.btnGenerarDatosDeSentimientoscaReal =  Button(self.tela, text="Real", command= lambda : self.generateRandomData(6))
 
 
         #Mostrar vista
@@ -56,6 +59,10 @@ class Software:
         self.btnGenerarDatosInversionEconomicaRandon.place(x=280, y=110)
         self.btnGenerarDatosInversionEconomicaReal.place(x=290, y=140)
 
+        self.lblGenerarDatosDeSentimientos.place(x=480, y=80)
+        self.btnGenerarDatosDeSentimientosRandon.place(x=520, y=110)
+        self.btnGenerarDatosDeSentimientoscaReal.place(x=530, y=140)
+
 
         self.pantalla.mainloop()
 
@@ -69,6 +76,13 @@ class Software:
             pass
         if option == 4:
             self.saveInTXT(self.generarDatosRealDeDistribucionEconomica())
+        if option == 5:
+            pass
+        if option == 6:
+            self.saveInTXT(self.generarDatosRealDeSentimientos())
+            
+
+        
 
             
 
@@ -223,6 +237,43 @@ class Software:
                             id = id + 1
                             
                             SQL = SQL + newSQL
+                    
+                except:
+                    print("Error", i)
+
+            return SQL
+        except:
+            self.poppup("Error no se puede generar los datos")
+            return ""
+
+
+    def generarDatosRealDeSentimientos(self):
+        try:
+            nombreArchivos = []
+            ruta = self.rutaDelProyecto+"\\Datos\\t_personal_feeling_counter"
+
+            # Load all files in folder
+            for i in scandir(ruta):
+                if i.is_file():
+                    nombreArchivos.append(i.name)
+
+            # Generate SQL 
+            SQLHead = "INSERT INTO t_personal_feeling_counter (timeStamp, feelingName) VALUES ("
+            SQL = ""
+
+            for i in nombreArchivos:
+                try:
+                    #Get time stamp
+                    timeStampYear = str(i).split(" ")[0]
+                    timeStampMes = self.tiempo.meses[int(str(i).split(" ")[1])-1]
+                    timeStampDay = str(str(i).split(" ")[2]).split(".")[0]
+                    timeStamp = str(timeStampYear)+":"+str(timeStampMes)+":"+str(timeStampDay)
+
+                    data =  open(ruta+"\\"+i, "r", encoding="UTF-8").read()
+
+                    newSQL = SQLHead + "\'"+timeStamp+"\', \'"+data+"\');\n"
+
+                    SQL = SQL + newSQL
                     
                 except:
                     print("Error", i)
