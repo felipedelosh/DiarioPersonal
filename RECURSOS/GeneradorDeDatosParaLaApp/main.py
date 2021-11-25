@@ -168,7 +168,7 @@ class Software:
                         if str(j).strip() != "":
                             hour = j.split(":")[0]
                             activity = j.split(":")[1]
-                            newSQL = SQLHead + "\'"+timeStamp+"\', "+"\'"+hour+"\', "+activity+"\');\n"
+                            newSQL = SQLHead + "\'"+timeStamp+"\', "+"\'"+hour+"\', \'"+activity+"\');\n"
 
                             SQL = SQL + newSQL
 
