@@ -16,6 +16,7 @@ option 2 : generate ramdon data of time inversion
 """
 from tkinter import * # para graficar
 import os # Libreria para acceder al disco duro y carpetas
+from os import scandir
 from tiempo import *  # Para el manejo de fechas
 import random # Para datos aleatoreos
 
@@ -29,7 +30,7 @@ class Software:
         self.lblPrograma = Label(self.tela, text="Generador de datos para la base de datos de la APP")
         self.lblGenerarDatosDeInversionTiempo = Label(self.tela, text="Generar Datos inversión de tiempo")
         self.btnGenerateDatosInversionTiempoRandom = Button(self.tela, text="Random", command= lambda : self.generateRandomData(1))
-        self.btnGenerateDatosInversionTiempoReal = Button(self.tela, text="Real")
+        self.btnGenerateDatosInversionTiempoReal = Button(self.tela, text="Real", command= lambda : self.generateRandomData(2))
 
 
         #Mostrar vista
@@ -52,30 +53,10 @@ class Software:
 
     def generateRandomData(self, option):
         if option == 1:
-            try:
-                path = self.rutaDelProyecto+"\\Datos\\actividades.txt"
-                estadosEmocionalesFile = open(path, "r", encoding="UTF-8")
-                txtEstadosEmociolaes = estadosEmocionalesFile.read().split("\n")
-                timeStampAño = str(self.tiempo.año())
-                timeStampMes = str(self.tiempo.mes())
-                timeStampDia = str(self.tiempo.diaNumero())
-                SQL = ""
-                #GenerateSqlOutPut
-                for i in range(0, 100):
-                    SQLHead = "INSERT INTO t_day_time_distribution (timeStamp, hour, activity) VALUES ("
-                    # Generate data all day
-                    for h in range(0, 24):
-                        try:
-                            newTimeStamp = self.tiempo.incrementarFechaXDias(timeStampAño, timeStampMes, timeStampDia, i)
-                        except:
-                            print("Error en", i, timeStampAño, timeStampMes, timeStampDia)
-                        activity = txtEstadosEmociolaes[random.randint(0, len(txtEstadosEmociolaes)-1)]
-                        newSQL =  SQLHead + "\'"+newTimeStamp+"\', "+"\'"+self.getHourFormat(h)+"\', "+"\'"+activity+"\');\n" 
-                        SQL = SQL + newSQL
+            self.saveInTXT(self.generarDatosRandomDeDistribucionDeTiempo())
+        if option == 2:
+            self.saveInTXT(self.generarDatosRealDeDistribucionDeTiempo())
 
-                self.saveInTXT(SQL)
-            except:
-                self.poppup("Error no se puede generar los datos")
             
 
     def generateRealData(self):
@@ -111,11 +92,80 @@ class Software:
     def saveInTXT(self, data):
         try:
             path = self.rutaDelProyecto + "\\SQL.txt" 
-            f = open(path, "w")
+            f = open(path, "w", encoding="UTF-8")
             f.write(data)
             f.close()
         except:
             pass
+
+    def generarDatosRandomDeDistribucionDeTiempo(self):
+            try:
+                path = self.rutaDelProyecto+"\\Datos\\actividades.txt"
+                estadosEmocionalesFile = open(path, "r", encoding="UTF-8")
+                txtEstadosEmociolaes = estadosEmocionalesFile.read().split("\n")
+                timeStampAño = str(self.tiempo.año())
+                timeStampMes = str(self.tiempo.mes())
+                timeStampDia = str(self.tiempo.diaNumero())
+                SQL = ""
+                #GenerateSqlOutPut
+                for i in range(0, 100):
+                    SQLHead = "INSERT INTO t_day_time_distribution (timeStamp, hour, activity) VALUES ("
+                    # Generate data all day
+                    for h in range(0, 24):
+                        try:
+                            newTimeStamp = self.tiempo.incrementarFechaXDias(timeStampAño, timeStampMes, timeStampDia, i)
+                        except:
+                            print("Error en", i, timeStampAño, timeStampMes, timeStampDia)
+                        activity = txtEstadosEmociolaes[random.randint(0, len(txtEstadosEmociolaes)-1)]
+                        newSQL =  SQLHead + "\'"+newTimeStamp+"\', "+"\'"+self.getHourFormat(h)+"\', "+"\'"+activity+"\');\n" 
+                        SQL = SQL + newSQL
+
+                return SQL
+            except:
+                self.poppup("Error no se puede generar los datos")
+                return ""
+
+
+    def generarDatosRealDeDistribucionDeTiempo(self):
+        try:
+            nombreArchivos = []
+            ruta = self.rutaDelProyecto+"\\Datos\\t_day_time_distribution"
+
+            # Load all files in folder
+            for i in scandir(ruta):
+                if i.is_file():
+                    nombreArchivos.append(i.name)
+
+            # Generate SQL 
+            SQLHead = "INSERT INTO t_day_time_distribution (timeStamp, hour, activity) VALUES ("
+            SQL = ""
+
+            for i in nombreArchivos:
+                try:
+                    time = str(i).split(" ")
+                    timeStampAño = str(time[0])
+                    timeStampMes = self.tiempo.meses[int(time[1])-1]
+                    timeStampDia = str(time[2].split(".")[0])
+                    #  Cacth time Stamp
+                    timeStamp = str(timeStampAño)+":"+str(timeStampMes)+":"+str(timeStampDia)
+                    
+                    data = open(ruta+"\\"+i, "r", encoding="UTF-8").read()
+                    # Cacth hour and activity
+                    for j in data.split("\n"):
+                        if str(j).strip() != "":
+                            hour = j.split(":")[0]
+                            activity = j.split(":")[1]
+                            newSQL = SQLHead + "\'"+timeStamp+"\', "+"\'"+hour+"\', "+activity+"\');\n"
+
+                            SQL = SQL + newSQL
+
+                except:
+                    print("Error", i)
+
+            return SQL
+        except:
+            self.poppup("Error no se puede generar los datos")
+            return ""
         
 
 
