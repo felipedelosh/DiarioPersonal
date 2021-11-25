@@ -16,8 +16,10 @@ option 2 : generate ramdon data of time inversion
 """
 from tkinter import * # para graficar
 import os # Libreria para acceder al disco duro y carpetas
-from os import scandir
+from os import scandir # Para listar archivos de carpetas
+import time # Para ver el tiempo de creacion de los archivos
 from tiempo import *  # Para el manejo de fechas
+
 import random # Para datos aleatoreos
 
 
@@ -31,6 +33,9 @@ class Software:
         self.lblGenerarDatosDeInversionTiempo = Label(self.tela, text="Generar Datos inversión de tiempo")
         self.btnGenerateDatosInversionTiempoRandom = Button(self.tela, text="Random", command= lambda : self.generateRandomData(1))
         self.btnGenerateDatosInversionTiempoReal = Button(self.tela, text="Real", command= lambda : self.generateRandomData(2))
+        self.lblGenerarDatosInversionEconomica = Label(self.tela, text="Generar Datos inversión economica")
+        self.btnGenerarDatosInversionEconomicaRandon =  Button(self.tela, text="Random", command= lambda : self.generateRandomData(3))
+        self.btnGenerarDatosInversionEconomicaReal =  Button(self.tela, text="Real", command= lambda : self.generateRandomData(4))
 
 
         #Mostrar vista
@@ -47,6 +52,10 @@ class Software:
         self.btnGenerateDatosInversionTiempoRandom.place(x=90, y=110)
         self.btnGenerateDatosInversionTiempoReal.place(x=100, y=140)
 
+        self.lblGenerarDatosInversionEconomica.place(x=240, y=80)
+        self.btnGenerarDatosInversionEconomicaRandon.place(x=280, y=110)
+        self.btnGenerarDatosInversionEconomicaReal.place(x=290, y=140)
+
 
         self.pantalla.mainloop()
 
@@ -56,6 +65,10 @@ class Software:
             self.saveInTXT(self.generarDatosRandomDeDistribucionDeTiempo())
         if option == 2:
             self.saveInTXT(self.generarDatosRealDeDistribucionDeTiempo())
+        if option == 3:
+            pass
+        if option == 4:
+            self.saveInTXT(self.generarDatosRealDeDistribucionEconomica())
 
             
 
@@ -166,8 +179,59 @@ class Software:
         except:
             self.poppup("Error no se puede generar los datos")
             return ""
+
+
+
+
+
+
+
+
+    def generarDatosRealDeDistribucionEconomica(self):
+        try:
+            nombreArchivos = []
+            ruta = self.rutaDelProyecto+"\\Datos\\t_economy_t_account"
+
+            # Load all files in folder
+            for i in scandir(ruta):
+                if i.is_file():
+                    nombreArchivos.append(i.name)
+
+            # Generate SQL 
+            SQLHead = "INSERT INTO t_economy_t_account (timeStamp, id, concept, debit, credit) VALUES ("
+            SQL = ""
+
+            for i in nombreArchivos:
+                try:
+                    #Get time stamp
+                    rutaArchivo = ruta+"\\"+i
+                    date = str(time.ctime(os.path.getmtime(rutaArchivo)))
+
+                    timeStampYear = date.split(" ")[-1]
+                    timeStampMes = str(i).split(" ")[0]
+                    timeStampDay = str(str(i).split(" ")[-1]).split(".")[0]
+                    timeStamp = str(timeStampYear)+":"+str(timeStampMes)+":"+str(timeStampDay)
+
+                    id = 0
+                    data =  open(ruta+"\\"+i, "r", encoding="UTF-8").read()
+                    for j in data.split("\n"):
+                        if str(j).strip() != "":
+                            concept = j.split(";")[0]
+                            debit = j.split(";")[1]
+                            credit = j.split(";")[2]
+                            newSQL = SQLHead + "\'"+timeStamp+"\', "+str(id)+",\'"+concept+"\', "+debit+", "+str(credit)+");\n"
+                            id = id + 1
+                            
+                            SQL = SQL + newSQL
+                    
+                except:
+                    print("Error", i)
+
+            return SQL
+        except:
+            self.poppup("Error no se puede generar los datos")
+            return ""
+    
         
-
-
 
 s = Software()
