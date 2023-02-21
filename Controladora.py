@@ -263,6 +263,44 @@ class Controladora:
         except:
             return {}
 
+    def loadNotesDataFilterByLetter(self, letter):
+        """
+        Enter a letter and return all titles to start of this letter
+        retrun a [{title:abc, text:abc}, {title:abc, text:abc}, {title:abc, text:abc}, {title:abc, text:abc}]
+        """
+        information = []
+
+        path = self.rutaDelProyecto + "\\DATA\\NOTAS\\"
+        files_path = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(path, '.txt')
+        self._loadNotesDataFilterByLetter(letter, path, files_path, information)
+
+        return information
+
+
+    def _loadNotesDataFilterByLetter(self, letter, path, files_names, information):
+        for i in files_names:
+            try:
+                initial_letter = i[0]
+                newData = {}
+                if letter == ".":
+                    newData["title"] = i
+                    newData["text"] = self.loadFilePageByPath(path+"\\"+i)
+                    information.append(newData)
+                elif letter == "#":
+                    if initial_letter in "0123456789":
+                        newData["title"] = i
+                        newData["text"] = self.loadFilePageByPath(path+"\\"+i)
+                        information.append(newData)
+                else:
+                    if str(letter).upper() == str(initial_letter).upper():
+                        newData["title"] = i
+                        newData["text"] = self.loadFilePageByPath(path+"\\"+i)
+                        information.append(newData)
+            except:
+                pass
+
+
+
     def saveDreamDiaryPage(self, keyword, text):
         try:
             path = self.rutaDelProyecto + "\\DATA\\DREAMS\\" + str(self.tiempo.año())

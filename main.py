@@ -178,7 +178,7 @@ class TimeHackingLoko():
         txtpalabraMagica.place(x=150, y=22)
         txtTexto = Text(interfaceNotas, height = 22, width = 58)
         txtTexto.place(x=10, y=80)
-        btnLector = Button(interfaceNotas, text="Lector", command=self.subInterfaceLectorNotas)
+        btnLector = Button(interfaceNotas, text="Lector", command=lambda :self.loadFullReader("notes"))
         btnLector.place(x=320, y=20)
         btnSave = Button(interfaceNotas, text="Guardar", command=lambda : self.guardarNota(txtpalabraMagica.get(), txtTexto.get("1.0", END)))
         btnSave.place(x=400,y=20)
@@ -872,6 +872,15 @@ class TimeHackingLoko():
                 btns[btnsCounter].place(x=(22*btnsCounter)+4, y=2)
                 btnsCounter = btnsCounter + 1
 
+
+        if _type == "notes":
+            # Paint letters to filter
+            for i in btnsText:
+                btns.append(Button(canvas, text=i))
+                btns[btnsCounter].bind("<Button-1>", lambda key: self._filterNotesFullReader(key.widget.cget('text'), lblTitles, txtNotes, lblPageIndicator))
+                btns[btnsCounter].place(x=(22*btnsCounter)+4, y=2)
+                btnsCounter = btnsCounter + 1
+
         btnNextInformacion = Button(canvas, text=">>", command=lambda : self._nextPagesInDiaryFullReader(lblTitles, txtNotes, lblPageIndicator))
         btnNextInformacion.place(x=760, y=300)
         btnPrevInformacion = Button(canvas, text="<<", command=lambda : self._PreviuosPagesInDiaryFullReader(lblTitles, txtNotes, lblPageIndicator))
@@ -938,6 +947,10 @@ class TimeHackingLoko():
             self.ventanaEnmergenteDeAlerta('Aceptado.', 'Guardado con exito.')
         else:
             self.ventanaEnmergenteDeAlerta('Error Fatal', 'No puedo guardar.')
+
+    def _filterNotesFullReader(self, filter, lblTitles, txtNotes, lblPageIndicator):
+        self.allInfoDiaryPages = self.controladora.loadNotesDataFilterByLetter(filter)
+        self._refreshSixDiaryPages(lblTitles, txtNotes, lblPageIndicator)
 
 
     def guardarSentimiento(self):
