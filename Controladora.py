@@ -206,12 +206,27 @@ class Controladora:
                 with open(file_path, "a", encoding="UTF-8") as f:
                     f.write(text)
                     f.close()
-                    
+
                 return True
             else:
                 return False
         except:
             return False
+
+    def loadDreamDiarypage(self, keyword):
+        data = ""
+
+        try:
+            path_file = self.rutaDelProyecto + "\\DATA\\DREAMS\\" + str(self.tiempo.año())
+            path_file = path_file + "\\" + self.tiempo.estampaDeTiempo() + " - " + keyword + ".txt"
+
+            with open(path_file, 'r', encoding="UTF-8") as f:
+                data = f.read()
+
+        except:
+            return None
+
+        return data
 
 
     def guardarSentimiento(self, sentimiento):

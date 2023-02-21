@@ -160,7 +160,7 @@ class TimeHackingLoko():
         txtText.place(x=10, y=80)
         scrollTxtText = Scrollbar(t, orient=VERTICAL, command=txtText.yview)
         scrollTxtText.place(x=470, y=20)
-        btnLoad = Button(t, text="Cargar")
+        btnLoad = Button(t, text="Cargar", command=lambda : self.loadDreamPageDiary(txtKeyword.get(), txtText))
         btnLoad.place(x=270, y=20)
         btnReader = Button(t, text="Lector")
         btnReader.place(x=340, y=20)
@@ -796,6 +796,15 @@ class TimeHackingLoko():
             self.ventanaEnmergenteDeAlerta('Aceptado.', 'Sueño guardado con exito.')
         else:
             self.ventanaEnmergenteDeAlerta('Error Fatal', 'No se hizo ni una puta mierda')
+
+    def loadDreamPageDiary(self, keyword, textArea):
+        temp = self.controladora.loadDreamDiarypage(keyword)
+
+        if temp != None and temp != "":
+            textArea.delete("1.0", END)
+            textArea.insert("1.0", temp)
+        else:
+            self.ventanaEnmergenteDeAlerta('Error', 'No encontre ni mierda')
 
 
     def loadDiaryFullReader(self):
