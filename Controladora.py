@@ -103,6 +103,20 @@ class Controladora:
 
         return data
 
+    def loadFilePageByPath(self, path):
+        """
+        Enter a path to open file and return page text
+        """
+        data = ""
+
+        try:
+            with open(path, encoding="UTF-8") as f:
+                data = f.read()
+        except:
+            pass
+
+        return data     
+
     def loadDiaryDataFilterByLetter(self, letter):
         """
         Enter a letter and return all titles to start of this letter
@@ -152,6 +166,58 @@ class Controladora:
                         information.append(newData)
             except:
                 pass
+
+
+    def loadDreamsDataFilterByLetter(self, letter):
+        """
+        Enter a letter and return all titles to start of this letter
+        retrun a [{title:abc, text:abc}, {title:abc, text:abc}, {title:abc, text:abc}, {title:abc, text:abc}]
+        """
+        information = []
+
+        years = self.controladoraCarpetas.listOfAllYearWriteInDreams()
+
+        for y in years:
+            try:
+                path = self.rutaDelProyecto + "\\DATA\\DREAMS\\" + y
+                data = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(path, '.txt')
+                self._loadDreamsDataFilterByLetter(letter, path, data, information)
+            except:
+                pass
+
+        return information
+
+
+    def _loadDreamsDataFilterByLetter(self, letter, path, data, information):
+        for i in data:
+            try:
+                title = i
+                title = title.split("-")[1]
+                title = title.strip()[0]
+
+                if letter == ".":
+                    newData = {}
+                    newData["title"] = i
+                    newData["text"] = self.loadFilePageByPath(path+"\\"+i)
+                    information.append(newData)
+
+                elif letter == "#":
+                    if title in "0123456789":
+                        newData = {}
+                        newData["title"] = i
+                        newData["text"] = self.loadFilePageByPath(path+"\\"+i)
+                        information.append(newData)
+                else:
+
+                    if str(title).upper() == letter:
+                        newData = {}
+                        newData["title"] = i
+                        newData["text"] = self.loadFilePageByPath(path+"\\"+i)
+                        information.append(newData)
+            except:
+                pass
+
+
 
     def guardarNota(self, palabraMagica, texto):
         """

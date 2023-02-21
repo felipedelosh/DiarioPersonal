@@ -33,7 +33,7 @@ Se abre la nueva herramienta esto ocaciono que: "Un grafo de si una decicion des
 
 Se habre la central de ayuda
 
-+ Esto algun día debe de servir de estudio para probar como el vive 100 afenta al ser humano.
++ Esto algun día debe de servir de estudio para probar como el vivir afecta al ser humano.
 
 """
 # -⁻- coding: UTF-8 -*-
@@ -162,7 +162,7 @@ class TimeHackingLoko():
         scrollTxtText.place(x=470, y=20)
         btnLoad = Button(t, text="Cargar", command=lambda : self.loadDreamPageDiary(txtKeyword.get(), txtText))
         btnLoad.place(x=270, y=20)
-        btnReader = Button(t, text="Lector")
+        btnReader = Button(t, text="Lector", command=lambda :self.loadFullReader("dreams"))
         btnReader.place(x=340, y=20)
         btnSave = Button(t, text="Guardar", command=lambda : self.saveDreamDiaryPage(txtKeyword.get(), txtText.get("1.0", END)))
         btnSave.place(x=400,y=20)
@@ -812,7 +812,7 @@ class TimeHackingLoko():
         Show a interactive window to serach all text write in a diary
         """
         t = Toplevel()
-        t.title("Diary Full Reader")
+        t.title("Enciclopedia: "+_type)
         t.geometry("800x600")
 
         canvas = Canvas(t, width=800, height=600)
@@ -863,10 +863,20 @@ class TimeHackingLoko():
                 btns[btnsCounter].place(x=(22*btnsCounter)+4, y=2)
                 btnsCounter = btnsCounter + 1
         
-            btnNextInformacion = Button(canvas, text=">>", command=lambda : self._nextPagesInDiaryFullReader(lblTitles, txtNotes, lblPageIndicator))
-            btnNextInformacion.place(x=760, y=300)
-            btnPrevInformacion = Button(canvas, text="<<", command=lambda : self._PreviuosPagesInDiaryFullReader(lblTitles, txtNotes, lblPageIndicator))
-            btnPrevInformacion.place(x=10, y=300)
+
+        if _type == "dreams":
+            # Paint letters to filter
+            for i in btnsText:
+                btns.append(Button(canvas, text=i))
+                btns[btnsCounter].bind("<Button-1>", lambda key: self._filterDreamsFullReader(key.widget.cget('text'), lblTitles, txtNotes, lblPageIndicator))
+                btns[btnsCounter].place(x=(22*btnsCounter)+4, y=2)
+                btnsCounter = btnsCounter + 1
+
+        btnNextInformacion = Button(canvas, text=">>", command=lambda : self._nextPagesInDiaryFullReader(lblTitles, txtNotes, lblPageIndicator))
+        btnNextInformacion.place(x=760, y=300)
+        btnPrevInformacion = Button(canvas, text="<<", command=lambda : self._PreviuosPagesInDiaryFullReader(lblTitles, txtNotes, lblPageIndicator))
+        btnPrevInformacion.place(x=10, y=300)
+
 
         
     def _filterDiaryFullReader(self, filter, lblTitles, txtNotes, lblPageIndicator):
@@ -910,6 +920,11 @@ class TimeHackingLoko():
         total_pages = len(self.allInfoDiaryPages)/6
         total_pages = round(total_pages)
         lblPageIndicator['text'] = "Pages: " + str(current_page) + ":" + str(total_pages)
+
+
+    def _filterDreamsFullReader(self, filter, lblTitles, txtNotes, lblPageIndicator):
+        self.allInfoDiaryPages = self.controladora.loadDreamsDataFilterByLetter(filter)
+        self._refreshSixDiaryPages(lblTitles, txtNotes, lblPageIndicator)
 
 
     def guardarNota(self, palabraMagica, texto):

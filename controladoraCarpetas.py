@@ -111,6 +111,24 @@ class ControladoraCarpetas(object):
         return years
 
 
+    def listOfAllYearWriteInDreams(self):
+        """
+        return all years to the user write the dream diary pages in string
+        example: [2020,2021...]
+        """
+        years = []
+
+        path = self.rutaDelProyecto + "\\DATA\\DREAMS"
+        for i in scandir(path):
+            try:
+                if i.is_dir() and int(i.name) > 0:
+                     years.append(i.name) 
+            except:
+                pass
+
+        return years
+
+
     def listarAñosRegistradosDistribucionDeTiempo(self):
         """
         Retorna ['año', 'año', 'año' ...]
