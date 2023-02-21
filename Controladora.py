@@ -126,7 +126,7 @@ class Controladora:
             try:
                 title = i
                 title = title.split("-")[1]
-                title = title.strip()
+                title = title.strip()[0]
 
                 if letter == ".":
                     newData = {}
@@ -135,9 +135,18 @@ class Controladora:
                     information.append(newData)
 
                 elif letter == "#":
-                    print("Numeros")
+                    if title in "0123456789":
+                        newData = {}
+                        newData["title"] = i
+                        newData["text"] = self.loadDiaryPageBypath(path+"\\"+i)
+                        information.append(newData)
                 else:
-                    print("Letra")
+
+                    if str(title).upper() == letter:
+                        newData = {}
+                        newData["title"] = i
+                        newData["text"] = self.loadDiaryPageBypath(path+"\\"+i)
+                        information.append(newData)
             except:
                 pass
 
