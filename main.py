@@ -1125,8 +1125,13 @@ class TimeHackingLoko():
             # Se calcula el total
             total = totalIngresos + ((totalEgresos)*-1)
             # Se calculan los porcentajes de ingresos y egresos
-            porcentajeIngresos = totalIngresos/total
-            porcentajeEgresos = ((totalEgresos)*-1)/total
+            if total != 0:
+                porcentajeIngresos = totalIngresos/total
+                porcentajeEgresos = ((totalEgresos)*-1)/total
+            else:
+                porcentajeIngresos = 0
+                porcentajeEgresos = 0
+            
             # Se pone la graficas de barra principales ingresos, egresos
         
             #Se calculan las medidas de la grafica de ingresos
@@ -1333,7 +1338,10 @@ class TimeHackingLoko():
             posx = 0
             posy = 0
 
-            separacion = (2 * 3.1416)/len(data)
+            if len(data) != 0: 
+                separacion = (2 * 3.1416)/len(data)
+            else:
+                separacion = 0
 
             contador = 0 # Para saber en que angulo pintar
             
