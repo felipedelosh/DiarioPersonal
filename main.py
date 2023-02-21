@@ -50,6 +50,8 @@ class TimeHackingLoko():
         """Se invocan las imagenes"""
         self.imgFondo = PhotoImage(file=self.controladora.retornarRutaImagenDeFondo())
         self.imgBtnDiario = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/diario.gif')
+        self.imgPersonalDiary = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/personalDiary.gif')
+        self.imgDreamDiary = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/dreams.gif')
         self.imgBtnAgenda = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/agenda.gif')
         self.imgBtnNotas = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/notas.gif')
         self.imgBtnEconimia = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/contabilidad.gif')
@@ -60,7 +62,7 @@ class TimeHackingLoko():
         self.imgBtnAyuda = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/ayuda.gif')
         self.imageIcoPersona = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/ico/persona.png')
         """Imagenes de la pantalla principal"""
-        self.btnDiario = Button(self.tela, image=self.imgBtnDiario, command=self.lanzarPantallaDiario)
+        self.btnDiario = Button(self.tela, image=self.imgBtnDiario, command=self.launchMenuDiary)
         self.btnAgenda = Button(self.tela, image=self.imgBtnAgenda)
         self.btnNotas = Button(self.tela, image=self.imgBtnNotas, command=self.lanzarInterfaceNotas)
         self.btnEconomia = Button(self.tela, image=self.imgBtnEconimia, command=self.lanzarInterfaceEconomia)
@@ -115,6 +117,18 @@ class TimeHackingLoko():
     """Se declaran las interfaces TopLevel"""
     """Se declaran las interfaces TopLevel"""
     """Se declaran las interfaces TopLevel"""
+    def launchMenuDiary(self):
+        t = Toplevel()
+        t.title("Diary Interface")
+        t.geometry("250x400")
+        canvas = Canvas(t, width=400, height=250)
+        canvas.place(x=0, y=0)
+        btnPersonalDiary = Button(canvas, image=self.imgPersonalDiary, command=self.lanzarPantallaDiario)
+        btnPersonalDiary.place(x=70, y=20)
+        btnDreams = Button(canvas, image=self.imgDreamDiary, command=self.launchInterfaceDreams)
+        btnDreams.place(x=70, y=140)
+
+
     def lanzarPantallaDiario(self):
         interfaceDiario = Toplevel()
         interfaceDiario.title("Diario by loko")
@@ -133,6 +147,26 @@ class TimeHackingLoko():
         btnReader.place(x=340, y=20)
         btnSave = Button(interfaceDiario, text="Guardar", command=lambda : self.guardarPaginaEnDiario(txtpalabraMagica.get(), txtTexto.get("1.0", END)))
         btnSave.place(x=400,y=20)
+
+    def launchInterfaceDreams(self):
+        t = Toplevel()
+        t.title("Diario de sueños")
+        t.geometry("500x500")
+        lblKeyword = Label(t, text="Palabra Magica: ")
+        lblKeyword.place(x=20, y=20)
+        txtKeyword = Entry(t)
+        txtKeyword.place(x=130, y=20)
+        txtText = Text(t, height = 22, width = 58)
+        txtText.place(x=10, y=80)
+        scrollTxtText = Scrollbar(t, orient=VERTICAL, command=txtText.yview)
+        scrollTxtText.place(x=470, y=20)
+        btnLoad = Button(t, text="Cargar")
+        btnLoad.place(x=270, y=20)
+        btnReader = Button(t, text="Lector")
+        btnReader.place(x=340, y=20)
+        btnSave = Button(t, text="Guardar")
+        btnSave.place(x=400,y=20)
+
 
     def lanzarInterfaceNotas(self):
         interfaceNotas = Toplevel()
