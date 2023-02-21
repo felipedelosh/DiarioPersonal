@@ -125,7 +125,9 @@ class TimeHackingLoko():
         scrollTxtTexto = Scrollbar(interfaceDiario, orient=VERTICAL, command=txtTexto.yview)
         scrollTxtTexto.place(x=470, y=20)
         btnLoad = Button(interfaceDiario, text="Cargar", command=lambda : self.cargarpaginaDeDiario(txtpalabraMagica.get(), txtTexto))
-        btnLoad.place(x=300, y=20)
+        btnLoad.place(x=270, y=20)
+        btnReader = Button(interfaceDiario, text="Lector", command=self.loadDiaryFullReader)
+        btnReader.place(x=340, y=20)
         btnSave = Button(interfaceDiario, text="Guardar", command=lambda : self.guardarPaginaEnDiario(txtpalabraMagica.get(), txtTexto.get("1.0", END)))
         btnSave.place(x=400,y=20)
 
@@ -748,6 +750,70 @@ class TimeHackingLoko():
                 cajaDeTexto.insert("1.0", temp)
         else:
             self.ventanaEnmergenteDeAlerta('Error', 'No encontre ni mierda')
+
+    def loadDiaryFullReader(self):
+        """
+        Show a interactive window to serach all text write in a diary
+        """
+        t = Toplevel()
+        t.title("Diary Full Reader")
+        t.geometry("800x600")
+
+        canvas = Canvas(t, width=800, height=600)
+        canvas.place(x=0, y=0)
+
+        
+        # paint a mini pages
+        lblTitles = [] # Save all titles 
+        txtNotes = [] # Save all information
+        
+        miniPagesCounter = 0
+        miniPagesAux_x = 0
+        miniPagesAux_y = 0
+        for _ in range(0, 6):
+            if miniPagesAux_y > 2:
+                miniPagesAux_y = 0
+            
+            if miniPagesCounter > 2:
+                miniPagesAux_x = 1
+
+            lblTitles.append(Label(canvas, text="txt"))
+            lblTitles[miniPagesCounter].place(x=80+(miniPagesAux_x*350), y=50+(miniPagesAux_y*180))
+            txtNotes.append(Text(canvas, width=36, height=8))
+            txtNotes[miniPagesCounter].place(x=80+(miniPagesAux_x*350), y=80+(miniPagesAux_y*180))
+
+            miniPagesAux_y = miniPagesAux_y + 1
+            miniPagesCounter = miniPagesCounter + 1
+
+
+
+        
+        # Paint a line to separate
+        canvas.create_line(0, 30, 800, 30)
+        canvas.create_line(400, 30, 400, 600)
+
+        # Control Btns
+        btns = []
+        btnsCounter = 0
+        btnsText = ["#", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M","N", "Ñ", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+        # Paint letters to filter
+        for i in btnsText:
+            btns.append(Button(canvas, text=i))
+            btns[btnsCounter].bind("<Button-1>", lambda key: self._filterDiaryFullReader(key.widget.cget('text')))
+            btns[btnsCounter].place(x=(22*btnsCounter)+4, y=2)
+            btnsCounter = btnsCounter + 1
+
+
+
+
+
+
+    def _filterDiaryFullReader(self, filter):
+        print(filter)
+
+
+
+
 
 
 
