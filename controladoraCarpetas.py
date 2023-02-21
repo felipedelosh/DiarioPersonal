@@ -73,6 +73,9 @@ class ControladoraCarpetas(object):
             os.mkdir(self.rutaDelProyecto+"\\DATA\\NEURONAS")
         
 
+        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\USOS"): # No existe la carpera creelas
+            os.mkdir(self.rutaDelProyecto+"\\DATA\\USOS")
+
     def listarTodosLosArchivosdeCarpeta(self, ruta, extension):
         """
         Retorna el nombre de todos los archivos.extension de una carpeta

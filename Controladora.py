@@ -771,7 +771,10 @@ class Controladora:
     def saveUseRunAPP(self):
         """Save a date to the user run APP"""
         path = self.rutaDelProyecto + "\\DATA\\USOS\\run.txt"
-        time = self.tiempo.estampaDeTiempo() + " " + self.tiempo.hora()
+        hour = str(self.tiempo.hora()).split(" ")[3]
+        hour = str(hour)
+
+        time = self.tiempo.estampaDeTiempo() + " " + hour
         data = ""
         try:
             with open(path, 'r', encoding="UTF-8") as f:

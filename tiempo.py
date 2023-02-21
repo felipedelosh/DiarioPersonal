@@ -49,9 +49,11 @@ class Tiempo:
 
     def hora(self):
         """
-        Esto retorna la hora
+        Esto retorna la hora string MM + NrDay + HH:MM + YYYY
         """
-        return str(time.ctime())
+        hour = str(time.ctime())
+        return hour
+
 
     def incrementarFechaXDias(self, año, mes, dia, incremento):
         """Retorna la fecha despues del incremento de dias.
