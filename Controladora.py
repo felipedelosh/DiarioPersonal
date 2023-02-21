@@ -197,6 +197,23 @@ class Controladora:
         except:
             return {}
 
+    def saveDreamDiaryPage(self, keyword, text):
+        try:
+            path = self.rutaDelProyecto + "\\DATA\\DREAMS\\" + str(self.tiempo.año())
+            file_path = path + "\\"+self.tiempo.estampaDeTiempo() + " - " + keyword + ".txt"
+            if(len(keyword.strip()) > 0):
+                text = text + "\n\n" + self.tiempo.hora() + "\n\n"
+                with open(file_path, "a", encoding="UTF-8") as f:
+                    f.write(text)
+                    f.close()
+                    
+                return True
+            else:
+                return False
+        except:
+            return False
+
+
     def guardarSentimiento(self, sentimiento):
         try:
             if sentimiento != "":

@@ -164,7 +164,7 @@ class TimeHackingLoko():
         btnLoad.place(x=270, y=20)
         btnReader = Button(t, text="Lector")
         btnReader.place(x=340, y=20)
-        btnSave = Button(t, text="Guardar")
+        btnSave = Button(t, text="Guardar", command=lambda : self.saveDreamDiaryPage(txtKeyword.get(), txtText.get("1.0", END)))
         btnSave.place(x=400,y=20)
 
 
@@ -764,7 +764,6 @@ class TimeHackingLoko():
         
         
 
-    
 
         
     """Se declaran las subinterfaces TopLevel"""
@@ -787,6 +786,17 @@ class TimeHackingLoko():
                 cajaDeTexto.insert("1.0", temp)
         else:
             self.ventanaEnmergenteDeAlerta('Error', 'No encontre ni mierda')
+
+
+    def saveDreamDiaryPage(self, keyword, text):
+        """
+        Save a dream diary page in folder : DREAMS/YEAR/timestamp + keyword .txt
+        """
+        if self.controladora.saveDreamDiaryPage(keyword, text):
+            self.ventanaEnmergenteDeAlerta('Aceptado.', 'Sueño guardado con exito.')
+        else:
+            self.ventanaEnmergenteDeAlerta('Error Fatal', 'No se hizo ni una puta mierda')
+
 
     def loadDiaryFullReader(self):
         """
