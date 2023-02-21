@@ -70,6 +70,9 @@ class TimeHackingLoko():
         self.btnConfiguracion = Button(self.tela, image=self.imgBtnConfiguracion, command=self.lanzarInterfaceConfiguracion)
         self.btnAyuda = Button(self.tela, image=self.imgBtnAyuda, command=self.lanzarInterfaceAyuda)
         """Variables"""
+        """vars to read a diary"""
+        self.allInfoDiaryPages = [] # Save title, text to diary pages... It´s only to read.
+        self.diaryPaginatorController = 0
         """Variables registro de sentimientos"""
         self.comboBoxSentimientosValor = StringVar()
         self.sentimientos = self.controladora.controladoraCarpetas.cargarEstadosEmocionanes()
@@ -762,7 +765,7 @@ class TimeHackingLoko():
         canvas = Canvas(t, width=800, height=600)
         canvas.place(x=0, y=0)
 
-        
+
         # paint a mini pages
         lblTitles = [] # Save all titles 
         txtNotes = [] # Save all information
@@ -786,35 +789,72 @@ class TimeHackingLoko():
             miniPagesCounter = miniPagesCounter + 1
 
 
-
-        
         # Paint a line to separate
         canvas.create_line(0, 30, 800, 30)
         canvas.create_line(400, 30, 400, 600)
 
+        # paint indicator
+        lblPageIndicator = Label(canvas, text="Pages: 0/0")
+        lblPageIndicator.place(x=720, y=6)
+
         # Control Btns
         btns = []
         btnsCounter = 0
-        btnsText = ["#", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M","N", "Ñ", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+        btnsText = [".", "#", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M","N", "Ñ", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
         # Paint letters to filter
         for i in btnsText:
             btns.append(Button(canvas, text=i))
-            btns[btnsCounter].bind("<Button-1>", lambda key: self._filterDiaryFullReader(key.widget.cget('text')))
+            btns[btnsCounter].bind("<Button-1>", lambda key: self._filterDiaryFullReader(key.widget.cget('text'), lblTitles, txtNotes, lblPageIndicator))
             btns[btnsCounter].place(x=(22*btnsCounter)+4, y=2)
             btnsCounter = btnsCounter + 1
+        
+        btnNextInformacion = Button(canvas, text=">>", command=lambda : self._nextPagesInDiaryFullReader(lblTitles, txtNotes, lblPageIndicator))
+        btnNextInformacion.place(x=760, y=300)
+        btnPrevInformacion = Button(canvas, text="<<", command=lambda : self._PreviuosPagesInDiaryFullReader(lblTitles, txtNotes, lblPageIndicator))
+        btnPrevInformacion.place(x=10, y=300)
+
+        
+    def _filterDiaryFullReader(self, filter, lblTitles, txtNotes, lblPageIndicator):
+        self.allInfoDiaryPages = self.controladora.loadDiaryDataFilterByLetter(filter)
+        self._refreshSixDiaryPages(lblTitles, txtNotes, lblPageIndicator)
+
+
+    def _nextPagesInDiaryFullReader(self, lblTitles, txtNotes, lblPageIndicator):
+        if self.diaryPaginatorController + 6 < len(self.allInfoDiaryPages):
+            self.diaryPaginatorController = self.diaryPaginatorController + 6
+
+            self._refreshSixDiaryPages(lblTitles, txtNotes, lblPageIndicator)
+
+
+    def _PreviuosPagesInDiaryFullReader(self, lblTitles, txtNotes, lblPageIndicator):
+        if self.diaryPaginatorController - 6 >= 0:
+            self.diaryPaginatorController = self.diaryPaginatorController - 6
+
+            self._refreshSixDiaryPages(lblTitles, txtNotes, lblPageIndicator)
+
+
+    def _refreshSixDiaryPages(self, lblTitles, txtNotes, lblPageIndicator):
+        if len(self.allInfoDiaryPages) > 0:
+            # Show 6 pages
+            for i in range(0, 6):
+                try:
+                    _title = self.allInfoDiaryPages[self.diaryPaginatorController+i]["title"]
+                    _text = self.allInfoDiaryPages[self.diaryPaginatorController+i]["text"]
+                    lblTitles[i]['text'] = _title
+                    txtNotes[i].delete('1.0', END)
+                    txtNotes[i].insert(END, _text)
+                except:
+                    lblTitles[i]['text'] = ""
+                    txtNotes[i].delete('1.0', END)
 
 
 
-
-
-
-    def _filterDiaryFullReader(self, filter):
-        print(filter)
-
-
-
-
-
+        # Update indicator
+        current_page = self.diaryPaginatorController/6
+        current_page = round(current_page)
+        total_pages = len(self.allInfoDiaryPages)/6
+        total_pages = round(total_pages)
+        lblPageIndicator['text'] = "Pages: " + str(current_page) + ":" + str(total_pages)
 
 
     def guardarNota(self, palabraMagica, texto):

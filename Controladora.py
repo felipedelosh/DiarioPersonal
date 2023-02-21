@@ -86,6 +86,61 @@ class Controladora:
         except:
             return None
 
+    def loadDiaryPageBypath(self, path):
+        """
+        Enter a path to open file and return page text
+        """
+        data = ""
+
+        try:
+            with open(path, encoding="UTF-8") as f:
+                data = f.read()
+        except:
+            pass
+
+        return data
+
+    def loadDiaryDataFilterByLetter(self, letter):
+        """
+        Enter a letter and return all titles to start of this letter
+        retrun a [{title:abc, text:abc}, {title:abc, text:abc}, {title:abc, text:abc}, {title:abc, text:abc}]
+        """
+        information = []
+        
+
+        years = self.controladoraCarpetas.listOfAllYearWriteInDiary()
+
+
+        for y in years:
+            try:
+                path = self.rutaDelProyecto + "\\DATA\\DIARIO\\" + y
+                data = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(path, '.txt')
+                self._loadDiaryDataFilterTitleByLetter(letter, path, data, information)
+            except:
+                pass
+
+        return information
+
+    def _loadDiaryDataFilterTitleByLetter(self, letter, path, data, information):
+        for i in data:
+            try:
+                title = i
+                title = title.split("-")[1]
+                title = title.strip()
+
+                if letter == ".":
+                    newData = {}
+                    newData["title"] = i
+                    newData["text"] = self.loadDiaryPageBypath(path+"\\"+i)
+                    information.append(newData)
+
+                elif letter == "#":
+                    print("Numeros")
+                else:
+                    print("Letra")
+            except:
+                pass
+
     def guardarNota(self, palabraMagica, texto):
         """
         las notas son como un diccionario:

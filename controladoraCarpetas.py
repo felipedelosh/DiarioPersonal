@@ -84,6 +84,24 @@ class ControladoraCarpetas(object):
                     nombreArchivos.append(i.name)
         return nombreArchivos
 
+    def listOfAllYearWriteInDiary(self):
+        """
+        return all years to the user write the diary pages in string
+        example: [2020,2021...]
+        """
+        years = []
+        path = self.rutaDelProyecto + "\\DATA\\DIARIO"
+
+        for i in scandir(path):
+            try:
+                if i.is_dir() and int(i.name) > 0:
+                     years.append(i.name) 
+            except:
+                pass
+
+        return years
+
+
     def listarAñosRegistradosDistribucionDeTiempo(self):
         """
         Retorna ['año', 'año', 'año' ...]
