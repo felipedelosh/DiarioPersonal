@@ -35,6 +35,9 @@ class Controladora:
         Se procede a saludar al usuario
         """
         self.saludarAlUsuario()
+        # The user use program and registe
+        self.saveUseRunAPP()
+
 
     def crearCarpetasDelSistema(self):
         """
@@ -760,6 +763,31 @@ class Controladora:
         """
         self.audioMixer.line = self.rutaDelProyecto + "\\recursos\\audio\\" + palabra
         self.audioMixer.playSound()
+
+
+    """USOS"""
+    """USOS"""
+    """USOS"""
+    def saveUseRunAPP(self):
+        """Save a date to the user run APP"""
+        path = self.rutaDelProyecto + "\\DATA\\USOS\\run.txt"
+        time = self.tiempo.estampaDeTiempo() + " " + self.tiempo.hora()
+        data = ""
+        try:
+            with open(path, 'r', encoding="UTF-8") as f:
+                data = f.read()
+        except:
+            pass
+
+        try:
+            with open(path, 'w', encoding="UTF-8") as f:
+                if data == "":
+                    f.write(time)
+                else:
+                    f.write(data+"\n"+time)
+                f.close()
+        except:
+            pass
 
 
     """AYUDA"""
