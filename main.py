@@ -143,7 +143,7 @@ class TimeHackingLoko():
         scrollTxtTexto.place(x=470, y=20)
         btnLoad = Button(interfaceDiario, text="Cargar", command=lambda : self.cargarpaginaDeDiario(txtpalabraMagica.get(), txtTexto))
         btnLoad.place(x=270, y=20)
-        btnReader = Button(interfaceDiario, text="Lector", command=self.loadDiaryFullReader)
+        btnReader = Button(interfaceDiario, text="Lector", command=lambda :self.loadFullReader("diary"))
         btnReader.place(x=340, y=20)
         btnSave = Button(interfaceDiario, text="Guardar", command=lambda : self.guardarPaginaEnDiario(txtpalabraMagica.get(), txtTexto.get("1.0", END)))
         btnSave.place(x=400,y=20)
@@ -807,7 +807,7 @@ class TimeHackingLoko():
             self.ventanaEnmergenteDeAlerta('Error', 'No encontre ni mierda')
 
 
-    def loadDiaryFullReader(self):
+    def loadFullReader(self, _type=""):
         """
         Show a interactive window to serach all text write in a diary
         """
@@ -854,17 +854,19 @@ class TimeHackingLoko():
         btns = []
         btnsCounter = 0
         btnsText = [".", "#", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M","N", "Ñ", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-        # Paint letters to filter
-        for i in btnsText:
-            btns.append(Button(canvas, text=i))
-            btns[btnsCounter].bind("<Button-1>", lambda key: self._filterDiaryFullReader(key.widget.cget('text'), lblTitles, txtNotes, lblPageIndicator))
-            btns[btnsCounter].place(x=(22*btnsCounter)+4, y=2)
-            btnsCounter = btnsCounter + 1
         
-        btnNextInformacion = Button(canvas, text=">>", command=lambda : self._nextPagesInDiaryFullReader(lblTitles, txtNotes, lblPageIndicator))
-        btnNextInformacion.place(x=760, y=300)
-        btnPrevInformacion = Button(canvas, text="<<", command=lambda : self._PreviuosPagesInDiaryFullReader(lblTitles, txtNotes, lblPageIndicator))
-        btnPrevInformacion.place(x=10, y=300)
+        if _type == "diary":
+            # Paint letters to filter
+            for i in btnsText:
+                btns.append(Button(canvas, text=i))
+                btns[btnsCounter].bind("<Button-1>", lambda key: self._filterDiaryFullReader(key.widget.cget('text'), lblTitles, txtNotes, lblPageIndicator))
+                btns[btnsCounter].place(x=(22*btnsCounter)+4, y=2)
+                btnsCounter = btnsCounter + 1
+        
+            btnNextInformacion = Button(canvas, text=">>", command=lambda : self._nextPagesInDiaryFullReader(lblTitles, txtNotes, lblPageIndicator))
+            btnNextInformacion.place(x=760, y=300)
+            btnPrevInformacion = Button(canvas, text="<<", command=lambda : self._PreviuosPagesInDiaryFullReader(lblTitles, txtNotes, lblPageIndicator))
+            btnPrevInformacion.place(x=10, y=300)
 
         
     def _filterDiaryFullReader(self, filter, lblTitles, txtNotes, lblPageIndicator):
