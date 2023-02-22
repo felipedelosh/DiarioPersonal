@@ -59,6 +59,7 @@ class TimeHackingLoko():
         self.imgBtnResultadoAnual = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/resultadoAnual.gif')
         self.imgBtnRegistoEmociones = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/emociones.gif')
         self.imgSaveFeeling = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/saveFeeling.gif')
+        self.imgFeelingReport = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/feelingReport.gif')
         self.imgBtnDecicionesDeMierda = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/decicionesDeMierda.gif')
         self.imgBtnConfiguracion = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/configuracion.gif')
         self.imgBtnAyuda = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/ayuda.gif')
@@ -316,8 +317,9 @@ class TimeHackingLoko():
         canvas = Canvas(t)
         canvas.place(x=0, y=0)
         btnSaveFeeling = Button(canvas, image=self.imgSaveFeeling, command=self.lanzarPantallaRegistroSentimientos)
-        btnSaveFeeling.place(x=20, y=20)
-
+        btnSaveFeeling.place(x=60, y=20)
+        btnFeelingReport = Button(canvas, image=self.imgFeelingReport, command=self.subInterfaceReporteDeSentimientos)
+        btnFeelingReport.place(x=220, y=20)
 
     def lanzarPantallaRegistroSentimientos(self):
         interfaceSentimientos = Toplevel()
