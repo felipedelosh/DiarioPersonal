@@ -52,6 +52,7 @@ class TimeHackingLoko():
         self.imgBtnDiario = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/diario.gif')
         self.imgPersonalDiary = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/personalDiary.gif')
         self.imgDreamDiary = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/dreams.gif')
+        self.imgPeople = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/people.gif')
         self.imgBtnAgenda = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/agenda.gif')
         self.imgBtnNotas = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/notas.gif')
         self.imgBtnEconimia = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/contabilidad.gif')
@@ -119,14 +120,16 @@ class TimeHackingLoko():
     """Se declaran las interfaces TopLevel"""
     def launchMenuDiary(self):
         t = Toplevel()
-        t.title("Diary Interface")
+        t.title("Diary Main MEnú...")
         t.geometry("250x400")
-        canvas = Canvas(t, width=400, height=250)
+        canvas = Canvas(t, width=250, height=400)
         canvas.place(x=0, y=0)
         btnPersonalDiary = Button(canvas, image=self.imgPersonalDiary, command=self.lanzarPantallaDiario)
         btnPersonalDiary.place(x=70, y=20)
         btnDreams = Button(canvas, image=self.imgDreamDiary, command=self.launchInterfaceDreams)
         btnDreams.place(x=70, y=140)
+        btnPeople = Button(canvas, image=self.imgPeople, command=self.launchInterfacePeople)
+        btnPeople.place(x=70, y=260)
 
 
     def lanzarPantallaDiario(self):
@@ -166,6 +169,32 @@ class TimeHackingLoko():
         btnReader.place(x=340, y=20)
         btnSave = Button(t, text="Guardar", command=lambda : self.saveDreamDiaryPage(txtKeyword.get(), txtText.get("1.0", END)))
         btnSave.place(x=400,y=20)
+
+    def launchInterfacePeople(self):
+        t = Toplevel()
+        t.title("Personas...")
+        t.geometry("400x500")
+        canvas = Canvas(t, height=500, width=400)
+        canvas.place(x=0, y=0)
+        lblNamePerson = Label(canvas, text="Nombre Persona: ")
+        lblNamePerson.place(x=10, y=20)
+        txtNamePerson = Entry(canvas, width=40)
+        txtNamePerson.place(x=120, y=20)
+        lblAlias = Label(canvas, text="Apodo (Alias): ")
+        lblAlias.place(x=10, y=40)
+        txtAlias = Entry(canvas, width=40)
+        txtAlias.place(x=120, y=40)
+        lblDescription = Label(canvas, text="Descripción y/o anecdota:")
+        lblDescription.place(x=10, y=100)
+        txtDescription = Text(t, height = 12, width = 44)
+        txtDescription.place(x=10, y=120)
+        lblQualification = Label(canvas, text="Calificación de la experiencia:")
+        lblQualification.place(x=10, y=350)
+        _scale = Scale(canvas, from_=0, length=360, to=100, orient=HORIZONTAL)
+        _scale.place(x=10, y=370)
+        btnSave = Button(canvas, text="GUARDAR")
+        btnSave.place(x=160, y=460)
+
 
 
     def lanzarInterfaceNotas(self):

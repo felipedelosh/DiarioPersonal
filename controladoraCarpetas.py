@@ -18,14 +18,17 @@ class ControladoraCarpetas(object):
         if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\DIARIO"): # No existe la carpera creelas
             os.mkdir(self.rutaDelProyecto+"\\DATA\\DIARIO")
 
+        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\DIARIO\\"+str(self.tiempo.año())): # No existe la carpera creelas
+            os.mkdir(self.rutaDelProyecto+"\\DATA\\DIARIO\\"+str(self.tiempo.año()))
+
         if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\DREAMS"): # No existe la carpera creelas
             os.mkdir(self.rutaDelProyecto+"\\DATA\\DREAMS")
 
         if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\DREAMS\\"+str(self.tiempo.año())): # No existe la carpera creelas
             os.mkdir(self.rutaDelProyecto+"\\DATA\\DREAMS\\"+str(self.tiempo.año()))
 
-        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\DIARIO\\"+str(self.tiempo.año())): # No existe la carpera creelas
-            os.mkdir(self.rutaDelProyecto+"\\DATA\\DIARIO\\"+str(self.tiempo.año()))
+        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\PEOPLE"): # No existe la carpera creelas
+            os.mkdir(self.rutaDelProyecto+"\\DATA\\PEOPLE")
 
         if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\SENTIMIENTOS"): # No existe la carpera creelas
             os.mkdir(self.rutaDelProyecto+"\\DATA\\SENTIMIENTOS")
