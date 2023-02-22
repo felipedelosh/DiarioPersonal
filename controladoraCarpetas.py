@@ -212,3 +212,14 @@ class ControladoraCarpetas(object):
             return True
         else:
             return False
+
+
+    def createPeopleFolder(self, nameFoler):
+        try:
+            # Exists?
+            nameFoler = str(nameFoler).lower()
+            if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\PEOPLE\\"+nameFoler):
+                os.mkdir(self.rutaDelProyecto+"\\DATA\\PEOPLE\\"+nameFoler)
+            return True
+        except:
+            return False

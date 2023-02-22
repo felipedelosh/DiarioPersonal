@@ -218,6 +218,36 @@ class Controladora:
                 pass
 
 
+    def savePeopleDescription(self, name, alias, description, qualification):
+        if self.controladoraCarpetas.createPeopleFolder(name):
+            path = self.rutaDelProyecto + "\\DATA\\PEOPLE\\" + str(name).lower() + "\\"
+            try:
+                with open(path+"name.txt", 'w', encoding="UTF-8") as f:
+                    f.write(name)
+                    f.close()
+
+                if alias != None and alias != "":
+                    with open(path+"alias.txt", 'w', encoding="UTF-8") as f:
+                        f.write(alias)
+                        f.close()
+
+                date = self.tiempo.estampaDeTiempo()
+                hour = str(self.tiempo.hora()).split(" ")[3]
+                hour = str(hour).replace(":", " ")
+
+                desc = "description-" + str(date) + "-" + hour + ".txt"
+                print(desc)
+
+                with open(path+desc, 'w', encoding="UTF-8") as f:
+                    f.write(description + "\n" +str(qualification))
+                    f.close()
+
+            except:
+                return False
+            return True
+        else:
+            return False
+
 
     def guardarNota(self, palabraMagica, texto):
         """

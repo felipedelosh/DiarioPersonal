@@ -192,10 +192,8 @@ class TimeHackingLoko():
         lblQualification.place(x=10, y=350)
         _scale = Scale(canvas, from_=0, length=360, to=100, orient=HORIZONTAL)
         _scale.place(x=10, y=370)
-        btnSave = Button(canvas, text="GUARDAR")
+        btnSave = Button(canvas, text="GUARDAR", command=lambda : self.savePeopleDescription(txtNamePerson.get(), txtAlias.get(), txtDescription.get("1.0", END), _scale.get()))
         btnSave.place(x=160, y=460)
-
-
 
     def lanzarInterfaceNotas(self):
         interfaceNotas = Toplevel()
@@ -1009,6 +1007,17 @@ class TimeHackingLoko():
         else:
             self.ventanaEnmergenteDeAlerta('Error', 'Introduce una actividad')
 
+    def savePeopleDescription(self, name, alias, description, qualification):
+        if not self.validatesTxt(name):
+            self.ventanaEnmergenteDeAlerta("Error Fatal", "Tiene que indicar el puto nombre")
+        elif not self.validatesTxt(description):
+            self.ventanaEnmergenteDeAlerta("Error Fatal", "Tiene que indicar una descripción")
+        else:
+            if self.controladora.savePeopleDescription(name, alias, description, qualification):
+                self.ventanaEnmergenteDeAlerta("Exito", "Referencia guardada")
+            else:
+                self.ventanaEnmergenteDeAlerta("Error FAtal", "No pude guardar ni mierda")
+
 
     def guardarEconomia(self, conceptos, debe, haber):
         """
@@ -1714,6 +1723,12 @@ class TimeHackingLoko():
         """
         data = self.controladora.retornarListadoDePosibilidades()
         self.ventanaEnmergenteDeAlerta("Listado de posibilidades", data)
+
+    def validatesTxt(self, txt):
+        """
+        Enter a str and return is valid
+        """
+        return txt.strip() != "" and "\"" not in txt
 
     
 thl = TimeHackingLoko()
