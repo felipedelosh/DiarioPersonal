@@ -58,6 +58,7 @@ class TimeHackingLoko():
         self.imgBtnEconimia = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/contabilidad.gif')
         self.imgBtnResultadoAnual = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/resultadoAnual.gif')
         self.imgBtnRegistoEmociones = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/emociones.gif')
+        self.imgSaveFeeling = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/saveFeeling.gif')
         self.imgBtnDecicionesDeMierda = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/decicionesDeMierda.gif')
         self.imgBtnConfiguracion = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/configuracion.gif')
         self.imgBtnAyuda = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/ayuda.gif')
@@ -68,7 +69,7 @@ class TimeHackingLoko():
         self.btnNotas = Button(self.tela, image=self.imgBtnNotas, command=self.lanzarInterfaceNotas)
         self.btnEconomia = Button(self.tela, image=self.imgBtnEconimia, command=self.lanzarInterfaceEconomia)
         self.btnResultadoAnual = Button(self.tela, image=self.imgBtnResultadoAnual, command=self.lanzarInterfaceResultadoAnual)
-        self.btnRegistroEmociones = Button(self.tela, image=self.imgBtnRegistoEmociones, command=self.lanzarPantallaRegistroSentimientos)
+        self.btnRegistroEmociones = Button(self.tela, image=self.imgBtnRegistoEmociones, command=self.launchInterfaceFeeling)
         self.btnDedcicionesDeMierda = Button(self.tela, image=self.imgBtnDecicionesDeMierda, command=self.lanzarInterfaceDecicionesDeMierda)
         self.btnConfiguracion = Button(self.tela, image=self.imgBtnConfiguracion, command=self.lanzarInterfaceConfiguracion)
         self.btnAyuda = Button(self.tela, image=self.imgBtnAyuda, command=self.lanzarInterfaceAyuda)
@@ -308,9 +309,19 @@ class TimeHackingLoko():
             tela.create_line(0,120+(i*60),1280,120+(i*60), fill='blue')
             tela.create_line(100+(i*120), 120, 100+(i*120), 660, fill='blue')
 
+    def launchInterfaceFeeling(self):
+        t = Toplevel()
+        t.title("Menú Sentimientos...")
+        t.geometry("400x500")
+        canvas = Canvas(t)
+        canvas.place(x=0, y=0)
+        btnSaveFeeling = Button(canvas, image=self.imgSaveFeeling, command=self.lanzarPantallaRegistroSentimientos)
+        btnSaveFeeling.place(x=20, y=20)
+
+
     def lanzarPantallaRegistroSentimientos(self):
         interfaceSentimientos = Toplevel()
-        interfaceSentimientos.title("Registro de sentimientos del loko")
+        interfaceSentimientos.title("Registro de sentimientos...")
         interfaceSentimientos.geometry("500x150")
         lblComoTeSientesHoy = Label(interfaceSentimientos, text="Como te sientiste hoy: ")
         lblComoTeSientesHoy.place(x=20, y=50)
