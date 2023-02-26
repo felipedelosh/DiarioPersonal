@@ -936,7 +936,7 @@ class Controladora:
     """USOS"""
     def saveUseRunAPP(self):
         """Save a date to the user run APP"""
-        path = self.rutaDelProyecto + "\\DATA\\USOS\\run.txt"
+        path = self.rutaDelProyecto + "\\DATA\\USOS\\" + str(self.tiempo.año()) + "-run.txt"
         hour = str(self.tiempo.hora()).split(" ")[3]
         hour = str(hour)
 
