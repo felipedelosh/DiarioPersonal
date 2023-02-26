@@ -1219,72 +1219,8 @@ class TimeHackingLoko():
             self.ventanaEnmergenteDeAlerta('Error', 'Pedazo de bestia ingresa el año')
 
     def mostrarGraficaSentimientos(self, dataSentimientos):
-        pantalla = Toplevel()
-        pantalla.title("Histograma sentimientos " + self.comboBoxAño.get())
-        pantalla.geometry("1080x720")
-        tela = Canvas(pantalla, width=1080, height=720, bg="snow")
-        tela.place(x=0, y=0)
-        espacioX = 0 # espacio o escalado para lineas [(a, b), (a, b), (a, b)] si hay 100 pixeles se deben de pitar cadad 33 piexles
-        yMax = 0 # Esto es el maximo valor que va a tomar Y por ejemplo [(1,5), (7,2), (5,5)] el maximo es 5
-        espacioY = 0 # Espacio para escalado del eje Y si hay 100 pixeles y 3 elementos en el eje Y se deben de pintar cada 33 pixeles
+        self.controladora.vizualizeFeelingsData(dataSentimientos)
 
-        """Se investiga cual es la maxima escala del eje Y"""
-        for i in dataSentimientos:
-            if yMax < dataSentimientos[i]:
-                yMax = dataSentimientos[i]
-
-        """Se pintan los ejes x y x0, y0, x1, y1"""
-        tela.create_line(100,550,1000,550, arrow=LAST) # Linea eje X> 900 pixeles habiles
-        tela.create_line(100,550,100,100, arrow=LAST) # Linea eje Y> 450 pixeles habiles
-
-
-        """Se pinta la frecuencia del eje Y  10, 20, 30, 40 ...  la escala
-        
-        siempre son 10 puntos de referencia por ello si hay que pintar de 0 a 150:
-        0, 15, 30, 45, 
-        """
-        espacioY = round((400/yMax)*10)
-        nroEscala = round(yMax/10)
-        for i in range(1 , 10):
-            tela.create_line(90, 540-(espacioY*i), 110, 540-(espacioY*i))
-            # Se pintan los numeros
-            tela.create_text(50, 540-(espacioY*i), text=str(nroEscala*i))
-
-        """
-        Se pintan los sentimientos y el valor
-        hay 900  pixeles para poner los X sentimientos
-
-        Para poder pintar el texto en forma vertical me toca partirlo de 2 for
-
-        Para saber que tan alto es un valor se usa la formula
-
-        YPixelesHabiles*0.?
-                0.? > (self.yMax/ValorEntrada) No se puede dividir por 0
-        
-        """
-        espacioX = round(800/len(dataSentimientos))
-        contador = 0
-        letraTempY = 0 # Controla el incremento en Y
-
-        for i in dataSentimientos:
-            letraTempY = 0
-
-            if dataSentimientos[i] != 0:
-                h = round(400*(dataSentimientos[i]/yMax))
-                # Se pinta el rectangulo
-                tela.create_rectangle((120+(espacioX*contador)), 550, (120+(espacioX-10)+(espacioX*contador)), 550-h, fill="blue")
-                # se pinta el numero
-                tela.create_text((120+(espacioX/4)+(espacioX*contador)), 540-h, text=str(dataSentimientos[i]))
-                
-            
-            for j in i:
-                tela.create_text(140+(espacioX*contador), 580+(20*letraTempY), text=j)
-                letraTempY = letraTempY + 1
-
-                if letraTempY == 6:
-                    break
-
-            contador = contador + 1
 
     def graficaCircularDelHorario(self, tela, lunes, martes, miercoles, jueves, viernes, sabado, domingo):
         """Se recolecta la informacion"""

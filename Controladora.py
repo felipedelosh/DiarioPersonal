@@ -12,6 +12,7 @@ import os # Libreria para acceder al disco duro y carpetas
 from tiempo import *
 from controladoraCarpetas import *
 from controladoraProcesamientoDeDatos import *
+from GraphicsController import *
 from tkMagicColorByLoko import *
 from ArbolDeDeciciones import *
 from AudioMixer import *
@@ -24,6 +25,7 @@ class Controladora:
         self.tiempo = Tiempo() # Metodos personalizados de tiempo
         self.controladoraCarpetas = ControladoraCarpetas(self.tiempo, self.rutaDelProyecto) # Para crear y aceder a informacion
         self.controladoraProcesamientoDeDatos = ControladoraProcesamientoDeDatos(self.rutaDelProyecto, self.tiempo) # Aca se hace la mineria de datos
+        self.graphicsController = GraphicsController()
         self.estadoDeLasCarpetas = self.crearCarpetasDelSistema()
         self.coloresParaGraficos = MagicColor() # Color
         self.coloresParaGraficoCircular = [] # Color que le va a corresponder al grafico circular
@@ -430,6 +432,9 @@ class Controladora:
         
         self.coloresParaGraficoCircular = self.retornarColores(contador)
         return dataHorario
+    
+    def vizualizeFeelingsData(self, data):
+        self.graphicsController.showFeelingsYearGraphic(data)
 
 
     def retornarColores(self, cantidad):

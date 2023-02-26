@@ -113,8 +113,19 @@ class ControladoraProcesamientoDeDatos(object):
             except:
                 pass
         
-
+        self._cleanZeroFeelings()
         return self.dataSentimientos
+    
+    def _cleanZeroFeelings(self):
+        temp = {}
+        for i in self.dataSentimientos:
+            try:
+                if self.dataSentimientos[i] > 0:
+                    temp[i] = self.dataSentimientos[i]
+            except:
+                pass
+
+        self.dataSentimientos = temp
 
     def procesarDatosSemanalHorario(self, todasLasActividades, informacion):
         """
