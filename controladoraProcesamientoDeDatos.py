@@ -13,9 +13,12 @@ Procesamiento de datos en json
 # -⁻- coding: UTF-8 -*-
 import json
 
+from StringProcessor import *
+
 
 class ControladoraProcesamientoDeDatos(object):
     def __init__(self, rutaDelProyecto, tiempo):
+        self.stringProcessor = StringProcessor()
         self.rutaDelProyecto = rutaDelProyecto
         self.tiempo = tiempo
         """
@@ -203,3 +206,80 @@ class ControladoraProcesamientoDeDatos(object):
 
 
         return reporte
+    
+
+    def getFullReport(self, data):
+        """
+        retrun a  sumary of {diary:str, dreams:str, people:str, economy:str, time:str, feelings:str, app use:str}
+        """
+        information = {}
+        self._getDiarySummary(information, data)
+
+        return information
+    
+    def _getDiarySummary(self, information, data):
+        """
+        Process all Diary data and get sumary
+        """
+        try:
+            txt = ""
+    
+            top_titles = {}
+
+            for i in data["diary_titles"]:
+                title = str(i).split("-")[1]
+                title = title.lstrip()
+                title = title.rstrip()
+                title = title.replace('.txt', '')
+                for j in title.split(" "):
+                    if j != "" and not self.stringProcessor.isExcludeWord(j):
+                        if j in top_titles:
+                            top_titles[j] = top_titles[j] + 1
+                        else:
+                            top_titles[j] = 1
+
+            top_titles = self._shorterDic(top_titles)
+            str_top_tiles = ""
+            if len(top_titles) >= 7:
+                for i in top_titles[0:7]:
+                    str_top_tiles = str_top_tiles + "\n" + str(i[0])
+            else:
+                for i in top_titles:
+                    str_top_tiles = str_top_tiles + "\n" + str(i[0])
+
+            # Add top titles
+            txt = txt + "\nLo que más vives es: " + str_top_tiles + "\n"
+
+
+            # Add total write
+            txt = txt + "\nEscribiste un total de: " + str(len(data["diary"])) + " Veces"
+            information["diary"] = txt
+        except:
+            pass
+
+
+    def _shorterDic(self, dic):
+        """
+        Enter a Dic {key:str, value:int}
+        and order via bubbleshort
+        """
+        all_data = []
+        # Copy all data in vect of tuples
+        for i in dic:
+            all_data.append((i, dic[i]))
+
+
+        # Bubble Short
+        n = len(dic)
+        swapped = False
+        for i in range(n-1):
+            for j in range(0, n-i-1):
+                if all_data[j][1] < all_data[j + 1][1]:
+                    swapped = True
+                    all_data[j], all_data[j+1] = all_data[j+1], all_data[j]
+
+                
+            if not swapped:
+                return
+
+        return all_data

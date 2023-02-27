@@ -60,7 +60,7 @@ class Controladora:
         En la carpeta RECURSOS/img/bg hay fotos.gif
         con id [0-9] se retorna por randon
         """
-        id = str(random.randint(0, 11))
+        id = str(random.randint(0, 14))
         return self.rutaDelProyecto+"\\RECURSOS\\img\\bg\\"+id+".gif"
 
     def guardarPaginaDiario(self, palabraMagica, texto):
@@ -936,6 +936,38 @@ class Controladora:
             return informacion
         except:
             return {"No data":0.5, "No Data":0.5}
+        
+    def loadCalendaryReport(self, year, month, day):
+        """
+        Retrun a String with the date info
+        """
+        data = {}
+        dataDiary = []
+        dataDiaryTitles = []
+        if year == "all":
+            all_years = self.controladoraCarpetas.listOfAllYearWriteInDiary()
+            super_path = self.rutaDelProyecto + "\\DATA\\DIARIO\\"
+            for i in all_years:
+                diary_pages = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(super_path+i, ".txt")
+                for j in diary_pages:
+                    dataDiaryTitles.append(j)
+                    file_path = super_path+i+"\\"+j
+                    dataDiary.append(self.loadFilePageByPath(file_path)) 
+
+
+        else:
+            super_path = self.rutaDelProyecto + "\\DATA\\DIARIO\\"+year
+            diary_pages = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(super_path, ".txt")
+            for j in diary_pages:
+                dataDiaryTitles.append(j)
+                file_path = super_path+"\\"+j
+                dataDiary.append(self.loadFilePageByPath(file_path)) 
+
+
+        data["diary"] = dataDiary
+        data["diary_titles"] = dataDiaryTitles
+
+        return self.controladoraProcesamientoDeDatos.getFullReport(data)
 
 
     """

@@ -88,6 +88,7 @@ class TimeHackingLoko():
         self.comboBoxVistaEconomica = StringVar() # Guarda el periodo de tiempo que se va a graficar
         self._comboBoxYear = StringVar() # Save a year to wacth in calendar
         self._comboBoxMonth = StringVar() # Save a month to wacth in calendar
+        self._dayToCalendaryFilter = 0 # To filter in calendary
 
         self.pintarYConfigurar() # se muestra la pantalla
 
@@ -146,7 +147,7 @@ class TimeHackingLoko():
         lblYear.place(x=20, y=20)
         comboBoxYear = ttk.Combobox(canvas, state='readonly', textvariable=self._comboBoxYear)
         yearsToUseAPP = self.controladora.getYearsToAPPUse()
-        comboBoxYear['values'] = yearsToUseAPP
+        comboBoxYear['values'] = ["all"]+yearsToUseAPP
         comboBoxYear.current(0)
         comboBoxYear.place(x=20, y=50)
         # Get The Month
@@ -154,8 +155,8 @@ class TimeHackingLoko():
         lblMonth.place(x=180, y=20)
         getCurrentMonth = self.controladora.tiempo.mes()
         comboBoxMonth = ttk.Combobox(canvas, state='readonly', textvariable=self._comboBoxMonth)
-        comboBoxMonth['values'] = self.controladora.tiempo.meses
-        comboBoxMonth.current(getCurrentMonth-1)
+        comboBoxMonth['values'] = ["all"]+self.controladora.tiempo.meses
+        comboBoxMonth.current(getCurrentMonth)
         comboBoxMonth.bind('<<ComboboxSelected>>', lambda k : self._refreshAdaysInCalendary(comboBoxMonth.current(), canvas))
         comboBoxMonth.place(x=180, y=50)
         # USE
@@ -166,31 +167,59 @@ class TimeHackingLoko():
         # Paint month days
         self._refreshAdaysInCalendary(comboBoxMonth.current(), canvas)
 
-
-
-        btnGetView = Button(canvas, text="Vizualizar")
+        btnGetView = Button(canvas, text="Vizualizar", command=self._vizualizeDateCalendary)
         btnGetView.place(x=250, y=350)
 
     def _refreshAdaysInCalendary(self, month_number, canvas):
         """
         Enter a month and paints the days in canvas
         """
-        days = self.controladora.tiempo.diasDeMes(month_number)
-        btnsDays = []
-        
-        counter = 0
-        _x = 60
-        _y = 120
-        for i in range(0, days):
-            if counter == 9:
-                _x = 60
-                _y = _y + 50
-                counter = 0
+        if month_number != "all":
+            days = self.controladora.tiempo.diasDeMes(month_number-1)
+            btnsDays = []
+            
+            counter = 0
+            _x = 60
+            _y = 120
+            for i in range(0, days):
+                if counter == 9:
+                    _x = 60
+                    _y = _y + 50
+                    counter = 0
 
-            btnsDays.append(Button(canvas, text=str(i+1)))
-            btnsDays[i].place(x=_x+(50*counter), y=_y)
+                btnsDays.append(Button(canvas, text=str(i+1)))
+                btnsDays[i].place(x=_x+(50*counter), y=_y)
+                btnsDays[i].bind("<Button-1>", lambda b: self._markADayInCalendary(b.widget.cget('text')))
 
-            counter = counter + 1
+                counter = counter + 1
+
+    def _markADayInCalendary(self, day):
+        """
+        If you prees a day button in calendary save it to filter then
+        """
+        self._dayToCalendaryFilter = day
+
+
+    def _vizualizeDateCalendary(self):
+        """
+        If you mark a date in calendary get the report
+        """
+        data = self.controladora.loadCalendaryReport(self._comboBoxYear.get(), self._comboBoxMonth.get(), self._dayToCalendaryFilter)
+        t = Toplevel()
+        t.title("Resumen...")
+        t.geometry("640x480")
+        canvas = Canvas(t, height=480, width=640)
+        canvas.place(x=0, y=0)
+        txt = Text(canvas, width=76, height=28)
+        txt.place(x=10, y=10)
+
+        _txt = ""
+        for i in data:
+            _txt = _txt + str(i).upper() + "\n__________________________\n"
+            _txt = _txt + data[i] + "\n"
+
+        txt.insert(END, _txt)
+
             
 
     def lanzarPantallaDiario(self):
