@@ -73,6 +73,7 @@ class Controladora:
                 f = open(archivo, "a", encoding="UTF-8")
                 f.write(texto)
                 f.close()
+                self.saveUseWrite("diary")
                 return True
             else:
                 return False
@@ -244,6 +245,7 @@ class Controladora:
                     f.write(description + "\n" +str(qualification))
                     f.close()
 
+                self.saveUseWrite("people")
             except:
                 return False
             return True
@@ -266,6 +268,7 @@ class Controladora:
                 f = open(archivo, "a", encoding="UTF-8")
                 f.write(texto)
                 f.close()
+                self.saveUseWrite("note")
                 return True
             else:
                 return False
@@ -343,6 +346,7 @@ class Controladora:
                     f.write(text)
                     f.close()
 
+                self.saveUseWrite("dream")
                 return True
             else:
                 return False
@@ -373,6 +377,7 @@ class Controladora:
                 f = open(archivo, 'w', encoding="UTF-8")
                 f.write(sentimiento)
                 f.close()
+                self.saveUseWrite("feeling")
                 return True
             else:
                 return False
@@ -940,8 +945,38 @@ class Controladora:
     """USOS"""
     """USOS"""
     def saveUseRunAPP(self):
-        """Save a date to the user run APP"""
+        """
+        Save a date to the user run APP
+        """
         path = self.rutaDelProyecto + "\\DATA\\USOS\\" + str(self.tiempo.año()) + "-run.txt"
+        hour = str(self.tiempo.hora()).split(" ")[3]
+        hour = str(hour)
+
+        time = self.tiempo.estampaDeTiempo() + " " + hour
+        data = ""
+        try:
+            with open(path, 'r', encoding="UTF-8") as f:
+                data = f.read()
+        except:
+            pass
+
+        try:
+            with open(path, 'w', encoding="UTF-8") as f:
+                if data == "":
+                    f.write(time)
+                else:
+                    f.write(data+"\n"+time)
+                f.close()
+        except:
+            pass
+
+
+    def saveUseWrite(self, _type):
+        """
+        Save the date to the user write in app.
+        _type is a contex for example: diary, dream, economy
+        """
+        path = self.rutaDelProyecto + "\\DATA\\USOS\\" + str(self.tiempo.año()) + "-" + _type + ".txt"
         hour = str(self.tiempo.hora()).split(" ")[3]
         hour = str(hour)
 
@@ -982,6 +1017,3 @@ class Controladora:
             return f.read()
         except:
             return "Error acediendo a HDD"
-
-
-            

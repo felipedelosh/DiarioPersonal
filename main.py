@@ -1078,6 +1078,7 @@ class TimeHackingLoko():
 
         if errorDeReporte == 0:
             if self.controladora.controladoraProcesamientoDeDatos.guardarReporteEconomicoDebeHaber(txtReporte, self.comboBoxEconomiaDia.get(), self.comboBoxEconomiaMes.get()):
+                self.controladora.saveUseWrite("economy")
                 self.ventanaEnmergenteDeAlerta('$Acept', 'Reporte Guardado Con exito')
             else:
                 self.ventanaEnmergenteDeAlerta('error', 'Esa Mierda no se pudo guardar')
