@@ -66,7 +66,7 @@ class TimeHackingLoko():
         self.imageIcoPersona = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/ico/persona.png')
         """Imagenes de la pantalla principal"""
         self.btnDiario = Button(self.tela, image=self.imgBtnDiario, command=self.launchMenuDiary)
-        self.btnAgenda = Button(self.tela, image=self.imgBtnAgenda)
+        self.btnAgenda = Button(self.tela, image=self.imgBtnAgenda, command=self.launchCalendary)
         self.btnNotas = Button(self.tela, image=self.imgBtnNotas, command=self.lanzarInterfaceNotas)
         self.btnEconomia = Button(self.tela, image=self.imgBtnEconimia, command=self.lanzarInterfaceEconomia)
         self.btnResultadoAnual = Button(self.tela, image=self.imgBtnResultadoAnual, command=self.lanzarInterfaceResultadoAnual)
@@ -74,7 +74,7 @@ class TimeHackingLoko():
         self.btnDedcicionesDeMierda = Button(self.tela, image=self.imgBtnDecicionesDeMierda, command=self.lanzarInterfaceDecicionesDeMierda)
         self.btnConfiguracion = Button(self.tela, image=self.imgBtnConfiguracion, command=self.lanzarInterfaceConfiguracion)
         self.btnAyuda = Button(self.tela, image=self.imgBtnAyuda, command=self.lanzarInterfaceAyuda)
-        """Variables"""
+        """Vars"""
         """vars to read a diary"""
         self.allInfoDiaryPages = [] # Save title, text to diary pages... It´s only to read.
         self.diaryPaginatorController = 0
@@ -86,6 +86,8 @@ class TimeHackingLoko():
         self.comboBoxEconomiaDia = StringVar() # Guarda en que dia estamos o que dia se necesita
         self.comboBoxEconomiaMes = StringVar() # Guarda en que mes estamos o cual se necesita
         self.comboBoxVistaEconomica = StringVar() # Guarda el periodo de tiempo que se va a graficar
+        self._comboBoxYear = StringVar() # Save a year to wacth in calendar
+        self._comboBoxMonth = StringVar() # Save a month to wacth in calendar
 
         self.pintarYConfigurar() # se muestra la pantalla
 
@@ -133,6 +135,63 @@ class TimeHackingLoko():
         btnPeople = Button(canvas, image=self.imgPeople, command=self.launchInterfacePeople)
         btnPeople.place(x=70, y=260)
 
+    def launchCalendary(self):
+        t = Toplevel()
+        t.title("Agenda")
+        t.geometry("600x400")
+        canvas = Canvas(t, height=400, width=600)
+        canvas.place(x=0, y=0)
+        # Get all years to user write
+        lblYear = Label(canvas, text="Año: ")
+        lblYear.place(x=20, y=20)
+        comboBoxYear = ttk.Combobox(canvas, state='readonly', textvariable=self._comboBoxYear)
+        yearsToUseAPP = self.controladora.getYearsToAPPUse()
+        comboBoxYear['values'] = yearsToUseAPP
+        comboBoxYear.current(0)
+        comboBoxYear.place(x=20, y=50)
+        # Get The Month
+        lblMonth = Label(canvas, text="Mes: ")
+        lblMonth.place(x=180, y=20)
+        getCurrentMonth = self.controladora.tiempo.mes()
+        comboBoxMonth = ttk.Combobox(canvas, state='readonly', textvariable=self._comboBoxMonth)
+        comboBoxMonth['values'] = self.controladora.tiempo.meses
+        comboBoxMonth.current(getCurrentMonth-1)
+        comboBoxMonth.bind('<<ComboboxSelected>>', lambda k : self._refreshAdaysInCalendary(comboBoxMonth.current(), canvas))
+        comboBoxMonth.place(x=180, y=50)
+        # USE
+        """
+        Filter By Diary, Dream, Economy ...
+        """
+
+        # Paint month days
+        self._refreshAdaysInCalendary(comboBoxMonth.current(), canvas)
+
+
+
+        btnGetView = Button(canvas, text="Vizualizar")
+        btnGetView.place(x=250, y=350)
+
+    def _refreshAdaysInCalendary(self, month_number, canvas):
+        """
+        Enter a month and paints the days in canvas
+        """
+        days = self.controladora.tiempo.diasDeMes(month_number)
+        btnsDays = []
+        
+        counter = 0
+        _x = 60
+        _y = 120
+        for i in range(0, days):
+            if counter == 9:
+                _x = 60
+                _y = _y + 50
+                counter = 0
+
+            btnsDays.append(Button(canvas, text=str(i+1)))
+            btnsDays[i].place(x=_x+(50*counter), y=_y)
+
+            counter = counter + 1
+            
 
     def lanzarPantallaDiario(self):
         interfaceDiario = Toplevel()

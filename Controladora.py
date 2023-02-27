@@ -761,6 +761,35 @@ class Controladora:
         Retorna el # dia en que estamos
         """
         return self.tiempo.diaNumero()
+    
+    def getYearsToAPPUse(self):
+        """
+        Return all Year of user save a files in all types: economy, diary, dreams ...
+        [2020, 2021, 2022, ...]
+        """
+        years = []
+
+        for i in self.controladoraCarpetas.listarAñosDeEconomia():
+            years.append(i)
+
+        for i in self.controladoraCarpetas.listarAñosDeRegistroSentimientos():
+            if i not in years:
+                years.append(i)
+
+        for i in self.controladoraCarpetas.listarAñosRegistradosDistribucionDeTiempo():
+            if i not in years:
+                years.append(i)
+
+        for i in self.controladoraCarpetas.listOfAllYearWriteInDiary():
+            if i not in years:
+                years.append(i)
+
+        for i in self.controladoraCarpetas.listOfAllYearWriteInDiary():
+            if i not in years:
+                years.append(i)
+
+        return years
+
 
     def guardarInformacionPerfil(self, informacion):
         """
