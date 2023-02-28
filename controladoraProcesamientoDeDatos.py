@@ -278,10 +278,10 @@ class ControladoraProcesamientoDeDatos(object):
                 str_top_date = ""
                 if len(top_date) >= 3:
                     for i in top_date[0:3]:
-                        str_top_date = str_top_date + "\n *  " + str(i[0])
+                        str_top_date = str_top_date + "\n *  " + self._translateDay(str(i[0]))
                 else:
                     for i in top_date:
-                        str_top_date = str_top_date + "\n *  " + str(i[0])
+                        str_top_date = str_top_date + "\n *  " + self._translateDay(str(i[0]))
 
                 txt = txt + "\nLos días en que más escribes son: \n\n" + str_top_date + "\n"
 
@@ -361,3 +361,16 @@ class ControladoraProcesamientoDeDatos(object):
                 return all_data
 
         return all_data
+    
+
+    def _translateDay(self, keyDay):
+        """
+        Enter a Key of day and return spanish name
+        if enter mon output : lunes
+        """
+        _t = {'Mon': 'Lunes', 'Tue': 'Martes', 'Wed': 'Miercoles', 'Thu': 'Jueves', 'Fri': 'Viernes', 'Sat': 'Sabado', 'Sun':'Domingo'}
+
+        try:
+            return _t[keyDay]
+        except:
+            return keyDay
