@@ -256,7 +256,6 @@ class ControladoraProcesamientoDeDatos(object):
             for i in data["diary"]:
                 self._getMostWriteWordInText(top_words, top_date, i)
 
-
             top_words = self._shorterDic(top_words)
             if top_words != None:
                 str_top_words = ""
@@ -272,10 +271,9 @@ class ControladoraProcesamientoDeDatos(object):
                 # Add top words
                 txt = txt + "\nAquello que más escribes es: \n\n" + str_top_words + "\n"
                 
-
+            
             top_date = self._shorterDic(top_date)
-
-
+            
             if top_date != None:
                 str_top_date = ""
                 if len(top_date) >= 3:
@@ -304,8 +302,10 @@ class ControladoraProcesamientoDeDatos(object):
         data = txt.split("\n")
         rich_text = data[0:len(data)-3]
         date_text = data[-3]
+        
 
         self._countADayInDate(date_text, top_date)
+        
 
         for i in rich_text:
             for j in str(i).split(" "):
@@ -326,6 +326,7 @@ class ControladoraProcesamientoDeDatos(object):
         date = txtTimeStamp.split(" ")
         day = date[0]
 
+
         if str(day).lower() in days:
             if day in top_date:
                 top_date[day] = top_date[day] + 1
@@ -345,8 +346,9 @@ class ControladoraProcesamientoDeDatos(object):
             all_data.append((i, dic[i]))
 
 
+
         # Bubble Short
-        n = len(dic)
+        n = len(all_data)
         swapped = False
         for i in range(n-1):
             for j in range(0, n-i-1):
@@ -356,6 +358,6 @@ class ControladoraProcesamientoDeDatos(object):
 
                 
             if not swapped:
-                return
+                return all_data
 
         return all_data
