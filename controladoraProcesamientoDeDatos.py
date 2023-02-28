@@ -271,8 +271,18 @@ class ControladoraProcesamientoDeDatos(object):
             # Add top words
             txt = txt + "\nAquello que más escribes es: \n\n" + str_top_words + "\n"
 
-            
+            top_date = self._shorterDic(top_date)
+            str_top_date = ""
+            if len(top_date) >= 3:
+                for i in top_date[0:3]:
+                    str_top_date = str_top_date + "\n *  " + str(i[0])
+            else:
+                for i in top_date:
+                    str_top_date = str_top_date + "\n *  " + str(i[0])
 
+            txt = txt + "\nLos días en que más escribes son: \n\n" + str_top_date + "\n"
+
+            
 
             # Add total write
             txt = txt + "\nEscribiste un total de: " + str(len(data["diary"])) + " Veces"
@@ -282,11 +292,15 @@ class ControladoraProcesamientoDeDatos(object):
 
     def _getMostWriteWordInText(self, top_words, top_date, txt):
         """
-        Enter a TXT and return {"top_words":{"str", #frecuency, "str", #frecuency, "str", #frecuency}, "top_date": {"day", #count}}
+        Enter a TXT and add
+        top_words" = "str", #frecuency, "str", #frecuency, "str", #frecuency
+        top_date = "day", #count
         """
         data = txt.split("\n")
         rich_text = data[0:len(data)-3]
         date_text = data[-3]
+
+        self._countADayInDate(date_text, top_date)
 
         for i in rich_text:
             for j in str(i).split(" "):
@@ -296,6 +310,22 @@ class ControladoraProcesamientoDeDatos(object):
                         top_words[word] = top_words[word] + 1
                     else:
                         top_words[word] = 1
+
+
+    def _countADayInDate(self, txtTimeStamp, top_date):
+        """
+        Enter a str: txtTimeStamp if is a date save count  day: MON, TUE... in top_date
+        """
+        days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+
+        date = txtTimeStamp.split(" ")
+        day = date[0]
+
+        if str(day).lower() in days:
+            if day in top_date:
+                top_date[day] = top_date[day] + 1
+            else:
+                top_date[day] = 1
 
 
 
