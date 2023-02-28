@@ -239,17 +239,17 @@ class ControladoraProcesamientoDeDatos(object):
                             top_titles[word] = 1
 
             top_titles = self._shorterDic(top_titles)
-            str_top_tiles = ""
-            if len(top_titles) >= 7:
-                for i in top_titles[0:7]:
-                    str_top_tiles = str_top_tiles + "\n *  " + str(i[0])
-            else:
-                for i in top_titles:
-                    str_top_tiles = str_top_tiles + "\n *  " + str(i[0])
+            if top_titles != None:
+                str_top_tiles = ""
+                if len(top_titles) >= 7:
+                    for i in top_titles[0:7]:
+                        str_top_tiles = str_top_tiles + "\n *  " + str(i[0])
+                else:
+                    for i in top_titles:
+                        str_top_tiles = str_top_tiles + "\n *  " + str(i[0])
 
-            # Add top titles
-            txt = txt + "\nLo que más vives es: \n\n" + str_top_tiles + "\n"
-
+                # Add top titles
+                txt = txt + "\nLo que más vives es: \n\n" + str_top_tiles + "\n"
 
             top_words = {}
             top_date = {}
@@ -258,31 +258,36 @@ class ControladoraProcesamientoDeDatos(object):
 
 
             top_words = self._shorterDic(top_words)
-            str_top_words = ""
+            if top_words != None:
+                str_top_words = ""
 
-            if len(top_titles) >= 15:
-                for i in top_titles[0:15]:
-                    str_top_words = str_top_words + "\n *  " + str(i[0])
-            else:
-                for i in top_titles:
-                    str_top_words = str_top_words + "\n *  " + str(i[0])
+                if len(top_words) >= 15:
+                    for i in top_words[0:15]:
+                        str_top_words = str_top_words + "\n *  " + str(i[0])
+                else:
+                    for i in top_words:
+                        str_top_words = str_top_words + "\n *  " + str(i[0])
 
 
-            # Add top words
-            txt = txt + "\nAquello que más escribes es: \n\n" + str_top_words + "\n"
+                # Add top words
+                txt = txt + "\nAquello que más escribes es: \n\n" + str_top_words + "\n"
+                
 
             top_date = self._shorterDic(top_date)
-            str_top_date = ""
-            if len(top_date) >= 3:
-                for i in top_date[0:3]:
-                    str_top_date = str_top_date + "\n *  " + str(i[0])
-            else:
-                for i in top_date:
-                    str_top_date = str_top_date + "\n *  " + str(i[0])
 
-            txt = txt + "\nLos días en que más escribes son: \n\n" + str_top_date + "\n"
 
-            
+            if top_date != None:
+                str_top_date = ""
+                if len(top_date) >= 3:
+                    for i in top_date[0:3]:
+                        str_top_date = str_top_date + "\n *  " + str(i[0])
+                else:
+                    for i in top_date:
+                        str_top_date = str_top_date + "\n *  " + str(i[0])
+
+                txt = txt + "\nLos días en que más escribes son: \n\n" + str_top_date + "\n"
+
+                
 
             # Add total write
             txt = txt + "\nEscribiste un total de: " + str(len(data["diary"])) + " Veces"

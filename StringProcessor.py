@@ -11,7 +11,7 @@ class StringProcessor:
         self.adverbs_site = ['aquí', 'allí', 'ahí', 'allá', 'acá', 'arriba', 'abajo', 'cerca', 'lejos', 'adelante', 'delante', 'detrás', 'encima', 'debajo', 'enfrente', 'atrás', 'alrededor']
         self.adverbs_time = ['antes', 'después', 'luego', 'pronto', 'tarde', 'temprano', 'todavía', 'aún', 'ya', 'ayer', 'hoy', 'mañana', 'anteayer', 'siempre', 'nunca', 'jamás', 'próximamente', 'prontamente', 'anoche', 'enseguida', 'ahora', 'anteriormente']
         self.excludeWord = ['y', 'que', 'se', 'es', 'muy']
-        self.strangerCharacters = ['.', ':', "\\", '(', ')', "\'", '$', '>', '-', '[', ']']
+        self.strangerCharacters = ['.', ':', "\\", '(', ')', "\'", '$', '>', '-', '[', ']', '+']
 
     def cleanWord(self, word):
         if str(word.strip()) == "":
