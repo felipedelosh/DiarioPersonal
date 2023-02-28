@@ -5,7 +5,7 @@
 10am:dormir
 11am:programar
 12am:alimentación
-1pm:sexo
+1pm:redes sociales
 2pm:bicicleta
 3pm:bicicleta
 4pm:bicicleta

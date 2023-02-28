@@ -954,7 +954,6 @@ class Controladora:
                     file_path = super_path+i+"\\"+j
                     dataDiary.append(self.loadFilePageByPath(file_path)) 
 
-
         else:
             super_path = self.rutaDelProyecto + "\\DATA\\DIARIO\\"+year
             diary_pages = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(super_path, ".txt")
@@ -966,6 +965,9 @@ class Controladora:
 
         data["diary"] = dataDiary
         data["diary_titles"] = dataDiaryTitles
+
+
+        
 
         return self.controladoraProcesamientoDeDatos.getFullReport(data)
 

@@ -225,7 +225,6 @@ class ControladoraProcesamientoDeDatos(object):
             txt = ""
     
             top_titles = {}
-
             for i in data["diary_titles"]:
                 title = str(i).split("-")[1]
                 title = title.lstrip()
@@ -233,22 +232,46 @@ class ControladoraProcesamientoDeDatos(object):
                 title = title.replace('.txt', '')
                 for j in title.split(" "):
                     if j != "" and not self.stringProcessor.isExcludeWord(j):
-                        if j in top_titles:
-                            top_titles[j] = top_titles[j] + 1
+                        word = self.stringProcessor.cleanWord(j)
+                        if word in top_titles:
+                            top_titles[word] = top_titles[word] + 1
                         else:
-                            top_titles[j] = 1
+                            top_titles[word] = 1
 
             top_titles = self._shorterDic(top_titles)
             str_top_tiles = ""
             if len(top_titles) >= 7:
                 for i in top_titles[0:7]:
-                    str_top_tiles = str_top_tiles + "\n" + str(i[0])
+                    str_top_tiles = str_top_tiles + "\n *  " + str(i[0])
             else:
                 for i in top_titles:
-                    str_top_tiles = str_top_tiles + "\n" + str(i[0])
+                    str_top_tiles = str_top_tiles + "\n *  " + str(i[0])
 
             # Add top titles
-            txt = txt + "\nLo que más vives es: " + str_top_tiles + "\n"
+            txt = txt + "\nLo que más vives es: \n\n" + str_top_tiles + "\n"
+
+
+            top_words = {}
+            top_date = {}
+            for i in data["diary"]:
+                self._getMostWriteWordInText(top_words, top_date, i)
+
+
+            top_words = self._shorterDic(top_words)
+            str_top_words = ""
+
+            if len(top_titles) >= 15:
+                for i in top_titles[0:15]:
+                    str_top_words = str_top_words + "\n *  " + str(i[0])
+            else:
+                for i in top_titles:
+                    str_top_words = str_top_words + "\n *  " + str(i[0])
+
+
+            # Add top words
+            txt = txt + "\nAquello que más escribes es: \n\n" + str_top_words + "\n"
+
+            
 
 
             # Add total write
@@ -256,6 +279,24 @@ class ControladoraProcesamientoDeDatos(object):
             information["diary"] = txt
         except:
             pass
+
+    def _getMostWriteWordInText(self, top_words, top_date, txt):
+        """
+        Enter a TXT and return {"top_words":{"str", #frecuency, "str", #frecuency, "str", #frecuency}, "top_date": {"day", #count}}
+        """
+        data = txt.split("\n")
+        rich_text = data[0:len(data)-3]
+        date_text = data[-3]
+
+        for i in rich_text:
+            for j in str(i).split(" "):
+                if str(j).strip() != "" and not self.stringProcessor.isExcludeWord(j):
+                    word = self.stringProcessor.cleanWord(j)
+                    if j in top_words:
+                        top_words[word] = top_words[word] + 1
+                    else:
+                        top_words[word] = 1
+
 
 
     def _shorterDic(self, dic):
