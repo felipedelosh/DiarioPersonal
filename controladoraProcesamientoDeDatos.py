@@ -213,7 +213,12 @@ class ControladoraProcesamientoDeDatos(object):
         retrun a  sumary of {diary:str, dreams:str, people:str, economy:str, time:str, feelings:str, app use:str}
         """
         information = {}
-        self._getDiarySummary(information, data)
+        try:
+            self._getDiarySummary(information, data)
+            self._getDreamSumary(information, data)
+
+        except:
+            pass
 
         return information
     
@@ -224,32 +229,11 @@ class ControladoraProcesamientoDeDatos(object):
         try:
             txt = ""
     
-            top_titles = {}
-            for i in data["diary_titles"]:
-                title = str(i).split("-")[1]
-                title = title.lstrip()
-                title = title.rstrip()
-                title = title.replace('.txt', '')
-                for j in title.split(" "):
-                    if j != "" and not self.stringProcessor.isExcludeWord(j):
-                        word = self.stringProcessor.cleanWord(j)
-                        if word in top_titles:
-                            top_titles[word] = top_titles[word] + 1
-                        else:
-                            top_titles[word] = 1
-
+            top_titles = self._getCounterWriterWords(data["diary_titles"])
             top_titles = self._shorterDic(top_titles)
-            if top_titles != None:
-                str_top_tiles = ""
-                if len(top_titles) >= 7:
-                    for i in top_titles[0:7]:
-                        str_top_tiles = str_top_tiles + "\n *  " + str(i[0])
-                else:
-                    for i in top_titles:
-                        str_top_tiles = str_top_tiles + "\n *  " + str(i[0])
 
-                # Add top titles
-                txt = txt + "\nLo que más vives es: \n\n" + str_top_tiles + "\n"
+            if top_titles != None:
+                txt = txt + "\nLo que más vives es: \n\n" + self._apendTopTitlesInTxt(top_titles) + "\n"
 
             top_words = {}
             top_date = {}
@@ -258,40 +242,37 @@ class ControladoraProcesamientoDeDatos(object):
 
             top_words = self._shorterDic(top_words)
             if top_words != None:
-                str_top_words = ""
-
-                if len(top_words) >= 15:
-                    for i in top_words[0:15]:
-                        str_top_words = str_top_words + "\n *  " + str(i[0])
-                else:
-                    for i in top_words:
-                        str_top_words = str_top_words + "\n *  " + str(i[0])
-
-
-                # Add top words
-                txt = txt + "\nAquello que más escribes es: \n\n" + str_top_words + "\n"
+                txt = txt + "\nAquello que más escribes es: \n\n" + self._apendTopWordsInTxt(top_words) + "\n"
                 
-            
+
             top_date = self._shorterDic(top_date)
-            
             if top_date != None:
-                str_top_date = ""
-                if len(top_date) >= 3:
-                    for i in top_date[0:3]:
-                        str_top_date = str_top_date + "\n *  " + self._translateDay(str(i[0]))
-                else:
-                    for i in top_date:
-                        str_top_date = str_top_date + "\n *  " + self._translateDay(str(i[0]))
-
-                txt = txt + "\nLos días en que más escribes son: \n\n" + str_top_date + "\n"
-
-                
+                txt = txt + "\nLos días en que más escribes son: \n\n" + self._apendTopDaysInTxt(top_date) + "\n"
 
             # Add total write
             txt = txt + "\nEscribiste un total de: " + str(len(data["diary"])) + " Veces"
             information["diary"] = txt
         except:
             pass
+
+
+    def _getCounterWriterWords(self, str_vec):
+        """
+        Enter a vector [str, str, str, str]
+        and return a {str(word):int(#), str(word):int(#), str(word):int(#) ...}
+        """
+        top_words = {}
+
+        for i in str_vec:
+            clean_txt = self.stringProcessor.cleanWord(i)
+            for j in clean_txt.split(" "):
+                if j != "" and not self.stringProcessor.isExcludeWord(j):
+                    if j in top_words:
+                        top_words[j] = top_words[j] + 1
+                    else:
+                        top_words[j] = 1
+
+        return top_words
 
     def _getMostWriteWordInText(self, top_words, top_date, txt):
         """
@@ -333,10 +314,90 @@ class ControladoraProcesamientoDeDatos(object):
             else:
                 top_date[day] = 1
 
-    def getDreamSumary(self):
-        pass
+    def _getDreamSumary(self, information, data):
+        """
+        Process all Dreams data and get sumary
+        """
+        try:
+            txt = ""
+
+            top_titles = self._getCounterWriterWords(data["dreams_titles"])
+            top_titles = self._shorterDic(top_titles)
+
+            if top_titles != None:
+                txt = txt + "\nLo que más sueñas es: \n\n" + self._apendTopTitlesInTxt(top_titles) + "\n"
+
+            top_words = {}
+            top_date = {}
+            for i in data["dreams"]:
+                self._getMostWriteWordInText(top_words, top_date, i)
+
+            top_words = self._shorterDic(top_words)
+            if top_words != None:
+                txt = txt + "\nAquello que más ves en tus sueños es: \n\n" + self._apendTopWordsInTxt(top_words) + "\n"
+
+            top_date = self._shorterDic(top_date)
+            if top_date != None:
+                txt = txt + "\nLos días en que más sueñas son: \n\n" + self._apendTopDaysInTxt(top_date) + "\n"
+
+            # Add total write
+            txt = txt + "\nSoñaste un total de: " + str(len(data["dreams"])) + " Veces"
+            information["dreams"] = txt
+        except:
+            pass
+    
+
+    def _apendTopTitlesInTxt(self, vec_titles):
+        """
+        Enter a vec=[] and return 7 titles in str
+        """
+        str_top_tiles = "" 
+        if vec_titles != None and len(vec_titles) > 0:
+            if len(vec_titles) >= 7:
+                for i in vec_titles[0:7]:
+                    str_top_tiles = str_top_tiles + "\n *  " + str(i[0])
+            else:
+                for i in vec_titles:
+                    str_top_tiles = str_top_tiles + "\n *  " + str(i[0])
+        else:
+            pass
+
+        return str_top_tiles
+    
+
+    def _apendTopWordsInTxt(self, vec_word):
+        """
+        Enter a vec
+        """
+        str_top_words = ""
+
+        if len(vec_word) >= 15:
+            for i in vec_word[0:15]:
+                str_top_words = str_top_words + "\n *  " + str(i[0])
+        else:
+            for i in vec_word:
+                str_top_words = str_top_words + "\n *  " + str(i[0])
+
+        return str_top_words 
+    
+
+    def _apendTopDaysInTxt(self, vec_day):
+        """
+        
+        """
+        str_top_date  = ""
+
+        if len(vec_day) > 3:
+                for i in vec_day[0:3]:
+                    str_top_date = str_top_date + "\n *  " + self._translateDay(str(i[0]))
+        else:
+            for i in vec_day:
+                str_top_date = str_top_date + "\n *  " + self._translateDay(str(i[0]))
+
+        return str_top_date 
 
 
+            
 
     def _shorterDic(self, dic):
         """

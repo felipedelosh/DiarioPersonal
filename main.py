@@ -189,7 +189,7 @@ class TimeHackingLoko():
         _txt = ""
         for i in data:
             _txt = _txt + str(i).upper() + "\n__________________________\n"
-            _txt = _txt + data[i] + "\n"
+            _txt = _txt + data[i] + "\n\n\n\n\n\n"
 
         txt.insert(END, _txt)
 

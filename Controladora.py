@@ -948,12 +948,23 @@ class Controladora:
         super_path = self.rutaDelProyecto + "\\DATA\\DIARIO\\"
         self._getDataFilterByDate("diary", dataDiary, dataDiaryTitles, super_path, year, month, day)
 
-
-        data["diary"] = dataDiary
-        data["diary_titles"] = dataDiaryTitles
+        if len(dataDiary) > 0 and len(dataDiaryTitles) > 0:
+            data["diary"] = dataDiary
+            data["diary_titles"] = dataDiaryTitles
         # End Diary
 
+
         # Dreams
+        dataDreams = []
+        dataDreamsTitles = []
+        super_path = self.rutaDelProyecto + "\\DATA\\DREAMS\\"
+        self._getDataFilterByDate("dreams", dataDreams, dataDreamsTitles, super_path, year, month, day)
+
+        if len(dataDreams) > 0 and len(dataDreamsTitles) > 0:
+            data["dreams"] = dataDreams
+            data["dreams_titles"] = dataDreamsTitles
+        # End dreams
+
 
 
         
@@ -964,6 +975,7 @@ class Controladora:
     def _getDataFilterByDate(self, key, data, data_titles, path, year, month, day):
         """
         Enter this args:
+
             - key: is a control to filter folder
             - data: is a empty []
             - data_titles: is a empty []
@@ -976,8 +988,14 @@ class Controladora:
         """
         if year == "all":
 
-            if key == "diary":
-                all_years = self.controladoraCarpetas.listOfAllYearWriteInDiary()
+            try:
+                if key == "diary":
+                    all_years = self.controladoraCarpetas.listOfAllYearWriteInDiary()
+
+                if key == "dreams":
+                    all_years = self.controladoraCarpetas.listOfAllYearWriteInDreams()
+            except:
+                return
 
             
             for i in all_years:
@@ -988,19 +1006,14 @@ class Controladora:
                     file_path = path+i+"\\"+j
                     data.append(self.loadFilePageByPath(file_path))
         else:
-            get_all_files_names = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(path+year, ".txt")
-            for j in get_all_files_names:
-                data_titles.append(j)
-                file_path = path+year+"\\"+j
-                data.append(self.loadFilePageByPath(file_path))
-
-
-
-
-
-
-                
-
+            try:
+                get_all_files_names = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(path+year, ".txt")
+                for j in get_all_files_names:
+                    data_titles.append(j)
+                    file_path = path+year+"\\"+j
+                    data.append(self.loadFilePageByPath(file_path))
+            except:
+                return
 
 
 
