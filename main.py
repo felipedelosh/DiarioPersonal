@@ -4,36 +4,9 @@ a los 29 dias de sept de 2020
 
 Diario del loko v2.0
 
-Esta es la version del diario del loko 2.0 -> ControlC+ControlV de la vr 1.0 pero se corrigio el dise+o
+Más que un software me propongo a proporcionar, organizar y gestionar mi información más personal.
 
-InterfaceGrafica <-> Controladora <-> [controlCarpetas, ControlDatos, ControlTiempo]
-
-+ Interfaz Visual Interactiva
--- Sonidos
-
-a los 17 dias de sep de 2020 me dispongo a crear un programa de Uso personal. por eso esta en español
-
-+ Diario 100% > test get set
-+ Agenda
-+ Notas 50% > test set
-+ Economia
-    > Formulario debe y haber
-+ Resultado Anual
-    > Registro De logros durante Mi vida: Año : logroA, logroB // RegistrarLogro 100%
-    > Registrar Actividad DATA/RESULTADOANUAL/ACTIVIDnADES/AÑO/estapaDeTiempo.txt > Registro las cosas que hago> caminar, comer, hablar con amigos 100%
-+ Registro de sentimientos Diario 100 > Test set
-
-
-a los 30 dias de oct de 2020:
-
-Se abre la nueva herramienta esto ocaciono que: "Un grafo de si una decicion desencadena mas posibilidades"
-
-
-31 01 2021
-
-Se habre la central de ayuda
-
-+ Esto algun día debe de servir de estudio para probar como el vivir afecta al ser humano.
+Sientase libre de copiar, modificar y usar a su antojo.
 
 """
 # -⁻- coding: UTF-8 -*-

@@ -333,6 +333,9 @@ class ControladoraProcesamientoDeDatos(object):
             else:
                 top_date[day] = 1
 
+    def getDreamSumary(self):
+        pass
+
 
 
     def _shorterDic(self, dic):

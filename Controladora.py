@@ -941,35 +941,68 @@ class Controladora:
         """
         Retrun a String with the date info
         """
+        # Diary
         data = {}
         dataDiary = []
         dataDiaryTitles = []
-        if year == "all":
-            all_years = self.controladoraCarpetas.listOfAllYearWriteInDiary()
-            super_path = self.rutaDelProyecto + "\\DATA\\DIARIO\\"
-            for i in all_years:
-                diary_pages = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(super_path+i, ".txt")
-                for j in diary_pages:
-                    dataDiaryTitles.append(j)
-                    file_path = super_path+i+"\\"+j
-                    dataDiary.append(self.loadFilePageByPath(file_path)) 
-
-        else:
-            super_path = self.rutaDelProyecto + "\\DATA\\DIARIO\\"+year
-            diary_pages = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(super_path, ".txt")
-            for j in diary_pages:
-                dataDiaryTitles.append(j)
-                file_path = super_path+"\\"+j
-                dataDiary.append(self.loadFilePageByPath(file_path)) 
+        super_path = self.rutaDelProyecto + "\\DATA\\DIARIO\\"
+        self._getDataFilterByDate("diary", dataDiary, dataDiaryTitles, super_path, year, month, day)
 
 
         data["diary"] = dataDiary
         data["diary_titles"] = dataDiaryTitles
+        # End Diary
+
+        # Dreams
 
 
         
 
         return self.controladoraProcesamientoDeDatos.getFullReport(data)
+
+
+    def _getDataFilterByDate(self, key, data, data_titles, path, year, month, day):
+        """
+        Enter this args:
+            - key: is a control to filter folder
+            - data: is a empty []
+            - data_titles: is a empty []
+            - path: is a path to examinate a folder.
+            - year: is a year to filter
+            - month: is a month to filter
+            - day: is a day to filter
+
+        all information is save in data and data_titles
+        """
+        if year == "all":
+
+            if key == "diary":
+                all_years = self.controladoraCarpetas.listOfAllYearWriteInDiary()
+
+            
+            for i in all_years:
+                get_all_files_names = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(path+i, ".txt")
+            
+                for j in get_all_files_names:
+                    data_titles.append(j)
+                    file_path = path+i+"\\"+j
+                    data.append(self.loadFilePageByPath(file_path))
+        else:
+            get_all_files_names = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(path+year, ".txt")
+            for j in get_all_files_names:
+                data_titles.append(j)
+                file_path = path+year+"\\"+j
+                data.append(self.loadFilePageByPath(file_path))
+
+
+
+
+
+
+                
+
+
+
 
 
     """
