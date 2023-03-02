@@ -965,6 +965,18 @@ class Controladora:
             data["dreams_titles"] = dataDreamsTitles
         # End dreams
 
+        # People
+        dataPeople = {}
+        dataPeopleNames = []
+        super_path = self.rutaDelProyecto + "\\DATA\\PEOPLE\\"
+        self._getAllDataPeople(dataPeople, dataPeopleNames, super_path, year, month, day)
+
+        if len(dataPeople) > 0 and len(dataPeopleNames) > 0:
+            data["people"] = dataPeople
+            data["people_names"] = dataPeopleNames
+
+
+        # End people
 
 
         
@@ -1014,9 +1026,32 @@ class Controladora:
                     data.append(self.loadFilePageByPath(file_path))
             except:
                 return
+            
 
+    def _getAllDataPeople(self, data, data_titles, path, year, month, day):
+        """
+        Enter args:
+         - Data: is {} and save descriptions
+         - data_titles: is a name of folder people
+         - path: is a path to examinate a folder.
+         - year: is a year to filter
+         - month: is a month to filter
+         - day: is a day to filter
+        """
+        get_people_folder_names = self.controladoraCarpetas.listOfAllPeople()
 
+        for i in get_people_folder_names:
+            data_titles.append(i)
+            # Create a name
+            if i not in data:
+                data[i] = {}
 
+            get_all_files_names = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(path+i, ".txt")
+
+            for j in get_all_files_names:
+                file_path = path + "\\" + i + "\\" + j
+                data[i][j] = self.loadFilePageByPath(file_path)
+                
 
     """
     AUDIO

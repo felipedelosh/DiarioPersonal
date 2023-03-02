@@ -130,6 +130,22 @@ class ControladoraCarpetas(object):
                 pass
 
         return years
+    
+    def listOfAllPeople(self):
+        """
+        return all people in the people folder
+        """
+        people = []
+
+        path = self.rutaDelProyecto + "\\DATA\\PEOPLE"
+        for i in scandir(path):
+            try:
+                if i.is_dir():
+                    people.append(i.name)
+            except:
+                pass
+
+        return people
 
 
     def listarAñosRegistradosDistribucionDeTiempo(self):

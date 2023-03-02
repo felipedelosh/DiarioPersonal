@@ -216,6 +216,7 @@ class ControladoraProcesamientoDeDatos(object):
         try:
             self._getDiarySummary(information, data)
             self._getDreamSumary(information, data)
+            self._getPeopleSumary(information, data)
 
         except:
             pass
@@ -251,7 +252,7 @@ class ControladoraProcesamientoDeDatos(object):
 
             # Add total write
             txt = txt + "\nEscribiste un total de: " + str(len(data["diary"])) + " Veces"
-            information["diary"] = txt
+            information["Diario"] = txt
         except:
             pass
 
@@ -342,9 +343,65 @@ class ControladoraProcesamientoDeDatos(object):
 
             # Add total write
             txt = txt + "\nSoñaste un total de: " + str(len(data["dreams"])) + " Veces"
-            information["dreams"] = txt
+            information["Sueños"] = txt
         except:
             pass
+
+    def _getPeopleSumary(self, information, data):
+        """
+        Proccess all people data and append in information
+        """
+        try:
+            txt = ""
+            
+            txt = self._analizedDataPeople(data)
+            
+            txt = txt + "\n\n\nConectaste con un total de: "+ str(len(data["people_names"])) + " Personas."
+
+            # Add information
+            information["Personas"] = txt
+        except:
+            pass
+
+    def _analizedDataPeople(self, data):
+        """
+        
+        """
+        txt = ""
+
+        for i in data["people"]:
+            # Save a Name:
+            txt = txt + "\n *  " + str(i).upper()
+
+            emotional = ""
+            count = 0
+
+            for j in data["people"][i]:
+                if "alias" in j:
+                    txt = txt + "\nAlias: " + data["people"][i][j]
+
+                if "description-" in j:
+                    points = data["people"][i][j].split("\n")[-1]
+                    emotional = emotional + self._rtnEmotional(str(points))
+                    count = count + 1
+            
+            txt = txt + "\nEfectos en ti: " + emotional
+            txt = txt + "\nTotal descripciones: " + str(count) + "\n\n"
+
+
+        return txt 
+    
+    def _rtnEmotional(self, emotional):
+        """
+        
+        """
+        emoji = ['😔', '☹️', '🤨', '😐', '🙃', '🙂', '😀', '😄', '😆', '😁']
+
+        try:
+            emotional = round(int(emotional)/len(emoji)) - 1
+            return emoji[emotional]
+        except:
+            return ""
     
 
     def _apendTopTitlesInTxt(self, vec_titles):
