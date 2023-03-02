@@ -27,7 +27,7 @@ class Software:
         self.comboBoxTypeSelector['values'] = ['all', 'diary', 'dreams', 'time', 'feelings', 'economy']
         self.comboBoxTypeSelector.current(0)
         self.txtConsole = Text(self.canvas, width=77, height=10)
-        self.btnCreateInfo = Button(self.canvas, text="Crear INFO", command= lambda : self.controller.generateInfo(self._comboBoxYear.get(), self._comboBoxTypeSelector.get()))
+        self.btnCreateInfo = Button(self.canvas, text="Crear INFO", command= lambda : self.generateInfo(self._comboBoxYear.get(), self._comboBoxTypeSelector.get()))
 
         self.vizualizedAndRun()
 
@@ -44,6 +44,12 @@ class Software:
 
 
         self.screem.mainloop()
+
+    def generateInfo(self, year, _type):
+        self.controller.generateInfo(year, _type)
+        self.txtConsole.delete('1.0', END)
+        self.txtConsole.insert(END, self.controller.consoleText)
+        
 
 
 

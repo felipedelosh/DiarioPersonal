@@ -365,7 +365,7 @@ class ControladoraProcesamientoDeDatos(object):
 
     def _analizedDataPeople(self, data):
         """
-        
+        Serach in all description of people the points and get a emoji
         """
         txt = ""
 
@@ -393,13 +393,16 @@ class ControladoraProcesamientoDeDatos(object):
     
     def _rtnEmotional(self, emotional):
         """
-        
+        Enter a points [0, 100] and return emoji
         """
         emoji = ['😔', '☹️', '🤨', '😐', '🙃', '🙂', '😀', '😄', '😆', '😁']
 
         try:
-            emotional = round(int(emotional)/len(emoji)) - 1
-            return emoji[emotional]
+            emotional = round(int(emotional)/len(emoji))
+            if emotional == 0:
+                return emoji[emotional]
+            else:
+                return emoji[emotional-1]
         except:
             return ""
     
