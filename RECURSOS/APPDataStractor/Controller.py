@@ -7,6 +7,8 @@ class Controller:
         self.path = str(os.path.dirname(os.path.abspath(__file__)))
         self._outputDataDiary = {}
         self._counterOutputDataDiary = 0
+        self._outputDAtaEconomy = {}
+        self._counterOutputDataEconomy = 0
         self.consoleText = ""
         self._loadStatus = False
         self.dataSQL = ""
@@ -49,6 +51,8 @@ class Controller:
             t_personal_feeling_counter = True
 
         if type_info == "all" or type_info == "economy":
+            self._outputDAtaEconomy = {}
+            self._counterOutputDataEconomy = 0
             t_economy_t_account = True
 
         for i in self.dataSQL.split("\n"):
@@ -105,13 +109,55 @@ class Controller:
                                 self._outputDataDiary[data_year][file_name] = text 
                                 self._counterOutputDataDiary = self._counterOutputDataDiary  + 1
 
+                if t_economy_t_account:
+                    if "t_economy_t_account" in i:
+                        data = str(i).split("INSERT INTO t_economy_t_account (timeStamp, id, concept, debit, credit) VALUES ")[1]
+                        data = data.split(", ")
+
+                        
+
+                        date = data[0]
+                        # Erase (' '
+                        date = date[2:-1]
+
+                        year = date.split(":")[0]
+            
+                        if year not in self._outputDAtaEconomy:
+                            self._outputDAtaEconomy[year] = {}
+
+                        file_name = self._getEconomyFilename(date)
+
+                        if file_name not in self._outputDAtaEconomy[year]:
+                            self._outputDAtaEconomy[year][file_name] = ""
+
+                        concept = data[2]
+                        concept = concept.replace("\'", '')
+                        concept = concept.lstrip()
+                        concept = concept.rstrip()
+
+                        money_in = data[3]
+                        money_out = data[4]
+                        money_out = money_out.replace(");", "")
+
+                        # Save
+                        self._outputDAtaEconomy[year][file_name] = self._outputDAtaEconomy[year][file_name] + concept + ";" + money_in + ";" + money_out + ";\n"
+                        self._counterOutputDataEconomy = self._counterOutputDataEconomy + 1
+
+
+
+
         
         # Save LOGS
         if t_personal_page_diary:
             path = self.path + "\\OUTPUT\\DIARIO\\"
             self.saveFiles(path ,self._outputDataDiary)
-            self.consoleText = self.consoleText + "Total info encontrada = " + str(self._counterOutputDataDiary) + "\n"
+            self.consoleText = self.consoleText + "Total info encontrada Diario = " + str(self._counterOutputDataDiary) + "\n"
 
+
+        if t_economy_t_account:
+            path = self.path + "\\OUTPUT\\ECONOMIA\\"
+            self.saveFiles(path ,self._outputDAtaEconomy)
+            self.consoleText = self.consoleText + "Total info encontrada Diario = " + str(self._counterOutputDataEconomy) + "\n"
 
     def saveFiles(self, path, data):
         try:
@@ -177,3 +223,11 @@ class Controller:
     def _getNameOfMonthById(self, nroMonth):
         months = {1:"Jan",2:"Feb",3:"Mar",4:"Apr",5:"May",6:"Jun",7:"Jul",8:"Aug",9:"Sep",10:"Oct",11:"Nov",12:"Dec"}
         return months[nroMonth]
+    
+    def _getEconomyFilename(self, date):
+        """
+        Enter a date 2022:Agosto:14 and return Agosto 14.xlsx
+        """
+        date = date.split(":")
+
+        return date[1] + " " + date[2] + ".xlsx"
