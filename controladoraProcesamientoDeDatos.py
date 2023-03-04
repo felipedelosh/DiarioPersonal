@@ -217,6 +217,7 @@ class ControladoraProcesamientoDeDatos(object):
             self._getDiarySummary(information, data)
             self._getDreamSumary(information, data)
             self._getPeopleSumary(information, data)
+            self._getEconomySumary(information, data)
 
         except:
             pass
@@ -455,6 +456,53 @@ class ControladoraProcesamientoDeDatos(object):
                 str_top_date = str_top_date + "\n *  " + self._translateDay(str(i[0]))
 
         return str_top_date 
+    
+
+    def _getEconomySumary(self, information, data):
+        try:
+            txt = ""
+
+            _counter_mov = 0
+            _aku_money_in = 0
+            _aku_money_out = 0
+
+            for i in data["economy"]:
+                _total_in = 0
+                _total_out = 0
+
+                txt = txt +  "\nAño: " + i
+                
+                for j in data["economy"][i]:
+                    e_data = data["economy"][i][j]
+
+                    for k in e_data.split("\n"):
+                        if str(k).strip() != "":
+                            _counter_mov = _counter_mov + 1
+                            try:
+                                e_i_info = k.split(";")
+
+                                description = e_i_info[0]
+
+                                e_in = int(e_i_info[1])
+                                _aku_money_in = _aku_money_in + e_in # For all time
+                                _total_in = _total_in + e_in # Only for the year
+
+                                e_out = int(e_i_info[2])
+                                _aku_money_out = _aku_money_out + e_out
+                                _total_out = _total_out - e_out
+                            except:
+                                pass
+
+                txt = txt + "\nEntradas: $" + str(_total_in) + " ,Salidas: $" + str(_total_out) + "\n\n"
+
+            txt = txt + "\nTotal movimientos economicos: " + str(_counter_mov) + ".\n"
+            txt = txt + "\nTotal dinero entrante: $" + str(_aku_money_in)  + "."
+            txt = txt + "\nTotal dinero saliente: $" + str(_aku_money_out)  + "."
+
+
+            information["Economia"] = txt
+        except:
+            pass
 
 
             

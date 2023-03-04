@@ -982,8 +982,11 @@ class Controladora:
         super_path = self.rutaDelProyecto + "\\DATA\\ECONOMIA\\"
         self._getDataFilterByDate("economy", dataEconomy, [], super_path, year, month, day)
 
+        if len(dataEconomy) > 0:
+            data["economy"] = dataEconomy
+        # End Economy
 
-        
+
 
         return self.controladoraProcesamientoDeDatos.getFullReport(data)
 
@@ -1104,7 +1107,7 @@ class Controladora:
                             data[i][j] = self.loadFilePageByPath(file_path)
 
                     
-                    
+
     """
     AUDIO
     AUDIO
