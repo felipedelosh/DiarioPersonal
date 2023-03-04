@@ -971,12 +971,16 @@ class Controladora:
         super_path = self.rutaDelProyecto + "\\DATA\\PEOPLE\\"
         self._getAllDataPeople(dataPeople, dataPeopleNames, super_path, year, month, day)
 
-        if len(dataPeople) > 0 and len(dataPeopleNames) > 0:
+        if (len(dataPeople) > 0 and len(dataPeopleNames)) > 0:
             data["people"] = dataPeople
             data["people_names"] = dataPeopleNames
-
-
         # End people
+
+
+        # Economy
+        dataEconomy = {}
+        super_path = self.rutaDelProyecto + "\\DATA\\ECONOMIA\\"
+        self._getDataFilterByDate("economy", dataEconomy, [], super_path, year, month, day)
 
 
         
@@ -1006,24 +1010,51 @@ class Controladora:
 
                 if key == "dreams":
                     all_years = self.controladoraCarpetas.listOfAllYearWriteInDreams()
+
+                if key == "economy":
+                    all_years = self.controladoraCarpetas.listarAñosDeEconomia()
             except:
                 return
 
             
             for i in all_years:
-                get_all_files_names = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(path+i, ".txt")
+                if key != "economy":
+                    get_all_files_names = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(path+i, ".txt")
+                
+                    for j in get_all_files_names:
+                        data_titles.append(j)
+                        file_path = path+i+"\\"+j
+                        data.append(self.loadFilePageByPath(file_path))
+                else:
+                    get_all_files_names = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(path+i, ".xlsx")
+                    
+                    if i not in data:
+                        data[i] = {}
+
+                    for j in get_all_files_names:
+                        if j not in data[i]:
+                            data[i][j] = {}
+
+                        file_path = path+i+"\\"+j
+                        data[i][j] = self.loadFilePageByPath(file_path)
             
-                for j in get_all_files_names:
-                    data_titles.append(j)
-                    file_path = path+i+"\\"+j
-                    data.append(self.loadFilePageByPath(file_path))
         else:
             try:
-                get_all_files_names = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(path+year, ".txt")
-                for j in get_all_files_names:
-                    data_titles.append(j)
-                    file_path = path+year+"\\"+j
-                    data.append(self.loadFilePageByPath(file_path))
+                if key != "economy":
+                    get_all_files_names = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(path+year, ".txt")
+                    for j in get_all_files_names:
+                        data_titles.append(j)
+                        file_path = path+year+"\\"+j
+                        data.append(self.loadFilePageByPath(file_path))
+                else:
+                    get_all_files_names = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(path+year, ".xlsx")
+                    
+                    if year not in data:
+                        data[year] = {}
+
+                    for i in get_all_files_names:
+                        file_path = path+year+"\\"+i
+                        data[year][i] = self.loadFilePageByPath(file_path)
             except:
                 return
             
@@ -1041,18 +1072,39 @@ class Controladora:
         get_people_folder_names = self.controladoraCarpetas.listOfAllPeople()
 
         for i in get_people_folder_names:
-            data_titles.append(i)
-            # Create a name
-            if i not in data:
-                data[i] = {}
+            if year == "all":
+                data_titles.append(i)
+                # Create a name
+                if i not in data:
+                    data[i] = {}
 
-            get_all_files_names = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(path+i, ".txt")
+                get_all_files_names = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(path+i, ".txt")
 
-            for j in get_all_files_names:
-                file_path = path + "\\" + i + "\\" + j
-                data[i][j] = self.loadFilePageByPath(file_path)
-                
 
+                for j in get_all_files_names:
+                    file_path = path + "\\" + i + "\\" + j
+                    data[i][j] = self.loadFilePageByPath(file_path)
+            else:
+                get_all_files_names = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(path+i, ".txt")
+
+                for j in get_all_files_names:
+                    if "description-" in j:
+                        date_description = j.split("description-")[1]
+                        date_description = date_description.split(" ")[0]
+
+                        if year == date_description:
+                            if i not in data_titles:
+                                data_titles.append(i)
+
+                            # Create a name
+                            if i not in data:
+                                data[i] = {}
+
+                            file_path = path + "\\" + i + "\\" + j
+                            data[i][j] = self.loadFilePageByPath(file_path)
+
+                    
+                    
     """
     AUDIO
     AUDIO

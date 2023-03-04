@@ -90,10 +90,15 @@ class ControladoraCarpetas(object):
         Retorna el nombre de todos los archivos.extension de una carpeta
         """
         nombreArchivos = []
-        for i in scandir(ruta):
-            if i.is_file():
-                if extension in i.name:
-                    nombreArchivos.append(i.name)
+        
+        try:
+            for i in scandir(ruta):
+                if i.is_file():
+                    if extension in i.name:
+                        nombreArchivos.append(i.name)
+        except:
+            pass
+
         return nombreArchivos
 
     def listOfAllYearWriteInDiary(self):
