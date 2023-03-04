@@ -773,79 +773,6 @@ class TimeHackingLoko():
         btnGuardar.place(x=300, y=450)
 
 
-    def subInterfaceLectorNotas(self):
-        """
-        lanza la interface de lector de notas, la controladora carga la informacion contenida en 
-        DATA/NOTAS
-        """
-        interfaceLectorNotas = Toplevel()
-        interfaceLectorNotas.title("Enciclopedia")
-        interfaceLectorNotas.geometry("800x600")
-        lienzo = Canvas(interfaceLectorNotas, width=800, height=600)
-        lienzo.place(x=0, y=0)
-        lblTitles = [] # Aqui se guardan los titulos de las notas
-        txtNotes = []
-        btnsText = ["#", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M","N", "Ñ", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-        btns = []
-        contador = 0
-
-        # Se crean unas entradas por defecto
-        informacion = {"a.txt":"aaaa", "b.txt":"bbbb", "c.txt":"cccc", "d.txt":"dddd", "e.txt":"eeee", "f.txt":"ffff", "h.txt":"hhhh"}
-        contadorInformacion = 0
-
-        contadorTXT = 0 # Para pintar las 6 entradas de las paginas
-        conx = 0 # Para posicionar la entrada en x
-        cony = 0 # para posicionar la entrada en y
-        for i in informacion:
-            if contadorInformacion < 6:
-                if cony > 2:
-                    cony = 0
-
-                if contadorTXT > 2:
-                    conx = 1
-
-                lblTitles.append(Label(lienzo, text=i))
-                lblTitles[contadorTXT].place(x=80+(conx*350), y=50+(cony*180))
-                txtNotes.append(Text(lienzo, width=36, height=8))
-                txtNotes[contadorTXT].place(x=80+(conx*350), y=80+(cony*180))
-
-                cony = cony + 1
-                contadorTXT = contadorTXT + 1
-                contadorInformacion = contadorInformacion + 1
-
-        for i in btnsText:
-            btns.append(Button(lienzo, text=i))
-            btns[contador].bind("<Button-1>", lambda key: self._subInterfaceNotasPressBtn(key.widget.cget('text'), lienzo))
-            btns[contador].place(x=(22*contador)+4, y=2)
-            contador = contador + 1
-
-        lienzo.create_line(0, 30, 800, 30)
-        lienzo.create_line(400, 30, 400, 600)
-        btnNextInformacion = Button(lienzo, text=">>", command= lambda cont=contadorInformacion : self._subInterfaceNotasRefrescarInformacionSiguiente(informacion, cont))
-        btnNextInformacion.place(x=760, y=300)
-        btnPrevInformacion = Button(lienzo, text="<<", command= lambda cont=contadorInformacion : self._subInterfaceNotasRefrescarInformacionAnterior(informacion, cont))
-        btnPrevInformacion.place(x=10, y=300)
-        
-
-    def _subInterfaceNotasPressBtn(self, key, lienzo):
-        print(self.controladora.cargarNotas(key))
-
-    def _subInterfaceNotasRefrescarInformacionSiguiente(self, informacion, contadorInformacion):
-        """
-        se pintan las siguientes 6 notas
-        """
-        print(contadorInformacion)
-        if contadorInformacion < len(informacion):
-            print("siguiente")
-            contadorInformacion = contadorInformacion + 6
-
-    def _subInterfaceNotasRefrescarInformacionAnterior(self, informacion, contadorInformacion):
-        """
-        se pintan las anteriores 6 notas
-        """
-        print(contadorInformacion)
-        if contadorInformacion>=0:
-            print("anterior")
 
     def subInterfacePilaresDeLaFelicidad(self):
         """
@@ -863,9 +790,7 @@ class TimeHackingLoko():
         btnVer.place(x=200, y=20)
 
         
-        
-
-
+    
         
     """Se declaran las subinterfaces TopLevel"""
     """Se declaran las subinterfaces TopLevel"""
