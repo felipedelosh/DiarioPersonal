@@ -30,6 +30,7 @@ class TimeHackingLoko():
         self.imgBtnNotas = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/notas.gif')
         self.imgBtnEconimia = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/contabilidad.gif')
         self.imgBtnResultadoAnual = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/resultadoAnual.gif')
+        self.imgFemputadora = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/femputadora.gif')
         self.imgBtnRegistoEmociones = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/emociones.gif')
         self.imgSaveFeeling = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/saveFeeling.gif')
         self.imgFeelingReport = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/feelingReport.gif')
@@ -48,7 +49,8 @@ class TimeHackingLoko():
         self.btnAgenda = Button(self.tela, image=self.imgBtnAgenda, command=self.launchCalendary)
         self.btnNotas = Button(self.tela, image=self.imgBtnNotas, command=self.lanzarInterfaceNotas)
         self.btnEconomia = Button(self.tela, image=self.imgBtnEconimia, command=self.launchEconomyMenu)
-        self.btnResultadoAnual = Button(self.tela, image=self.imgBtnResultadoAnual, command=self.lanzarInterfaceResultadoAnual)
+        #self.btnResultadoAnual = Button(self.tela, image=self.imgBtnResultadoAnual, command=self.lanzarInterfaceResultadoAnual)
+        self.btnFemputadora = Button(self.tela, image=self.imgFemputadora, command=self.launchFemputadoraInterface)
         self.btnRegistroEmociones = Button(self.tela, image=self.imgBtnRegistoEmociones, command=self.launchInterfaceFeeling)
         self.btnDedcicionesDeMierda = Button(self.tela, image=self.imgBtnDecicionesDeMierda, command=self.lanzarInterfaceDecicionesDeMierda)
         self.btnConfiguracion = Button(self.tela, image=self.imgBtnConfiguracion, command=self.lanzarInterfaceConfiguracion)
@@ -81,7 +83,8 @@ class TimeHackingLoko():
         self.btnAgenda.place(x=250, y=30)
         self.btnNotas.place(x=460, y=30)
         self.btnEconomia.place(x=30, y=180)
-        self.btnResultadoAnual.place(x=250, y=180)
+        #self.btnResultadoAnual.place(x=250, y=180)
+        self.btnFemputadora.place(x=250, y=180)
         self.btnRegistroEmociones.place(x=460, y=180)
         self.btnDedcicionesDeMierda.place(x=30, y=330)
         self.btnConfiguracion.place(x=250, y=330)
@@ -341,6 +344,22 @@ class TimeHackingLoko():
         btnCargar.place(x=400, y=32)
         btnGuardar = Button(interfaceEconomia, text="Guardar", command=lambda : self.guardarEconomia(txtConcepto, txtDebe, txtHaber))
         btnGuardar.place(x=500, y=32)
+
+    def launchFemputadoraInterface(self):
+        t = Toplevel()
+        t.title("Femputadora")
+        t.geometry("640x480")
+        canvas = Canvas(t, height=4480, width=640, bg="gray12")
+        canvas.place(x=0, y=0)
+        lblEnterText = Label(canvas, text="Ingrese el texto: ", bg="gray10", fg="white")
+        lblEnterText.place(x=20, y=20)
+        txtUserEntry = Entry(canvas ,width=80, fg="white", bg="gray20")
+        txtUserEntry.place(x=120, y=20)
+        txtMachineOutput = Text(canvas, fg="white", bg="gray8", height=22, width=70)
+        txtMachineOutput.place(x=30, y=60)
+
+        txtUserEntry.bind('<Key>', lambda event : self._enterTXTinFemputadora(event, txtUserEntry, txtMachineOutput))
+
 
 
     def lanzarInterfaceResultadoAnual(self):
@@ -1686,6 +1705,24 @@ class TimeHackingLoko():
         """
         data = self.controladora.retornarListadoDePosibilidades()
         self.ventanaEnmergenteDeAlerta("Listado de posibilidades", data)
+
+    """
+    AYUDA
+    AYUDA
+    AYUDA
+    """
+
+    def _enterTXTinFemputadora(self, event, textArea, txtMachineOutput):
+        txt = textArea.get()
+
+        if txt.strip() != "":
+            if event.keysym == "Return":
+                print(txt)
+                self._clearTXTinFemputadora(textArea)
+
+    def _clearTXTinFemputadora(self, textArea):
+        textArea.delete(0, END)
+        
 
     def validatesTxt(self, txt):
         """

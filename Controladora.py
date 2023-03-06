@@ -8,8 +8,9 @@ tiempo
 
 control de archivos de imagenes de fondo, imagenes de botonos y sonidos.
 """
-import os # Libreria para acceder al disco duro y carpetas
-from tiempo import *
+import os # TO get path project
+from Femputadora import *
+from tiempo import * 
 from controladoraCarpetas import *
 from controladoraProcesamientoDeDatos import *
 from GraphicsController import *
@@ -31,7 +32,7 @@ class Controladora:
         self.coloresParaGraficoCircular = [] # Color que le va a corresponder al grafico circular
         self.arbolDeDeDecicion = Arbol() # Es un arbol temporal que guarda las deciciones
         self.arbolDeDecicionListo = False # Me dice si se cargo o creo el arbol
-
+        self.femputadora = Femputadora()
 
         """
         Se procede a saludar al usuario
