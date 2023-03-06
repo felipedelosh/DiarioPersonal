@@ -37,6 +37,9 @@ class TimeHackingLoko():
         self.imgViewTimeDistribution = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/timeDistribution.gif')
         self.imgSchedule = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/schedule.gif')
         self.imgBtnDecicionesDeMierda = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/decicionesDeMierda.gif')
+        self.imgTAccount = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/taccount.gif')
+        self.imgEconomyReport = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/economyReport.gif')
+        self.imgBox = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/box.gif')
         self.imgBtnConfiguracion = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/configuracion.gif')
         self.imgBtnAyuda = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/ayuda.gif')
         self.imageIcoPersona = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/ico/persona.png')
@@ -44,7 +47,7 @@ class TimeHackingLoko():
         self.btnDiario = Button(self.tela, image=self.imgBtnDiario, command=self.launchMenuDiary)
         self.btnAgenda = Button(self.tela, image=self.imgBtnAgenda, command=self.launchCalendary)
         self.btnNotas = Button(self.tela, image=self.imgBtnNotas, command=self.lanzarInterfaceNotas)
-        self.btnEconomia = Button(self.tela, image=self.imgBtnEconimia, command=self.lanzarInterfaceEconomia)
+        self.btnEconomia = Button(self.tela, image=self.imgBtnEconimia, command=self.launchEconomyMenu)
         self.btnResultadoAnual = Button(self.tela, image=self.imgBtnResultadoAnual, command=self.lanzarInterfaceResultadoAnual)
         self.btnRegistroEmociones = Button(self.tela, image=self.imgBtnRegistoEmociones, command=self.launchInterfaceFeeling)
         self.btnDedcicionesDeMierda = Button(self.tela, image=self.imgBtnDecicionesDeMierda, command=self.lanzarInterfaceDecicionesDeMierda)
@@ -195,6 +198,21 @@ class TimeHackingLoko():
             _txt = _txt + data[i] + "\n\n\n\n\n\n"
 
         txt.insert(END, _txt)
+
+
+    def launchEconomyMenu(self):
+        t = Toplevel()
+        t.title("Menú Economia...")
+        t.geometry("400x500")
+        canvas = Canvas(t, height=500, width=400)
+        canvas.place(x=0, y=0)
+        btnTAccount = Button(canvas, image=self.imgTAccount, command=self.lanzarInterfaceEconomia)
+        btnTAccount.place(x=140, y=20)
+        btnEconomyReport = Button(canvas, image=self.imgEconomyReport, command=self.subInterfaceReporteEconomico)
+        btnEconomyReport.place(x=140, y=140)
+        btnBox = Button(canvas, image=self.imgBox, command=self.subInterfacebalaceDeCajas)
+        btnBox.place(x=140, y=260)
+        
 
             
 
