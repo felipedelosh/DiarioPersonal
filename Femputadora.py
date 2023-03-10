@@ -8,7 +8,6 @@ Chatbot
 import re
 import random
 
-
 class Question(object):
     def __init__(self, function, str_response, list_of_words, single_response, required_words) -> None:
         self.function = function
@@ -34,9 +33,14 @@ class Femputadora:
 
 
     def getResponse(self, txt):
-        txt = self.clearText(txt)
-        response = self.check_all_messages(txt)
-        print(response)
+        """
+        The user enter a txt and femputadora analized
+        return a codename of function
+        """
+        _txt = self.clearText(txt)
+        self.update_chat("USER", txt)
+        response = self.check_all_messages(_txt)
+        return response
 
 
     def check_all_messages(self, message):
@@ -79,6 +83,30 @@ class Femputadora:
             return 0
         
 
+    # ------------------------------------------------------------
+    # ------------------------------------------------------------
+    # ------------------------------------------------------------    
+
+    """Chatbot Historial"""
+    """Chatbot Historial"""
+    """Chatbot Historial"""
+
+    def update_chat(self, user, txt):
+        if self.conversation == "":
+            self.conversation = user + ":\n" + txt + "\n"
+        else:
+            self.conversation = self.conversation + "\n" + user + ":\n" + txt + "\n"
+
+    """END Chatbot Historial"""
+    """END Chatbot Historial"""
+    """END Chatbot Historial"""
+
+
+    # ------------------------------------------------------------
+    # ------------------------------------------------------------
+    # ------------------------------------------------------------
+
+
     """Response funtions"""
     """Response funtions"""
     """Response funtions"""
@@ -87,7 +115,6 @@ class Femputadora:
         responses = ['Podrias Repetir?', 'No estoy seguro', 'No tengo esa información']
         return responses[random.randint(0, len(responses)-1)]
     
-
     """END Response funtions"""
     """END Response funtions"""
     """END Response funtions"""

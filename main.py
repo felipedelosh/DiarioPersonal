@@ -1712,6 +1712,10 @@ class TimeHackingLoko():
     END AYUDA
     """
 
+    """FEMPUTADORA"""
+    """FEMPUTADORA"""
+    """FEMPUTADORA"""
+
     def _enterTXTinFemputadora(self, event, textArea, txtMachineOutput):
         txt = textArea.get()
 
@@ -1719,11 +1723,20 @@ class TimeHackingLoko():
             if event.keysym == "Return":
                 self.controladora.userInputTXT(txt)
                 self._clearTXTinFemputadora(textArea)
+                self.updateChatHistorial(txtMachineOutput)
 
 
     def _clearTXTinFemputadora(self, textArea):
         textArea.delete(0, END)
+
+
+    def updateChatHistorial(self, txtMachineOutput):
+        txtMachineOutput.delete("1.0", "end")
+        txtMachineOutput.insert(END, self.controladora.getFemputadoraChatHistorial())
         
+    """END FEMPUTADORA"""
+    """END FEMPUTADORA"""
+    """END FEMPUTADORA"""
 
     def validatesTxt(self, txt):
         """

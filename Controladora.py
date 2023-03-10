@@ -1228,11 +1228,29 @@ class Controladora:
         """
         Enter a text to chatbot analizer
         """
-        self.femputadora.getResponse(txt)
+        code = self.femputadora.getResponse(txt)
+        response = self.executeCodeFemputadora(code)
+        self.femputadora.update_chat("FEMPUTADORA", response)
 
-    """FEMPUTADORA"""
-    """FEMPUTADORA"""
-    """FEMPUTADORA"""
+    def executeCodeFemputadora(self, code):
+        """
+        Enter a Femputadora function code and execute.
+        Note: the Femputadora function name see in file : .json
+        """
+        if code == "hi()":
+            return self.femputadora_hi()
+
+    def getFemputadoraChatHistorial(self):
+        return self.femputadora.conversation
+    
+
+    def femputadora_hi(self):
+        return "Hola loco"
+
+
+    """END FEMPUTADORA"""
+    """END FEMPUTADORA"""
+    """END FEMPUTADORA"""
 
 
     """AYUDA"""
