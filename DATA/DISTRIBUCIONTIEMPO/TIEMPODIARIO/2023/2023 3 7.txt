@@ -1,0 +1,24 @@
+6am:FAPTIME
+7am:higiene personal
+8am:dormir
+9am:dormir
+10am:dormir
+11am:redes sociales
+12am:redes sociales
+1pm:alimentación
+2pm:vida social
+3pm:vida social
+4pm:vida social
+5pm:viajar
+6pm:viajar
+7pm:viajar
+8pm:viajar
+9pm:vida social
+10pm:redes sociales
+11pm:video juegos
+12pm:dormir
+1am:dormir
+2am:dormir
+3am:dormir
+4am:dormir
+5am:dormir

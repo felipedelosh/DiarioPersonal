@@ -244,3 +244,18 @@ class ControladoraCarpetas(object):
             return True
         except:
             return False
+        
+
+    def getTextInFile(self, path):
+        """
+        Enter a path to open file and return text
+        """
+        data = ""
+
+        try:
+            with open(path, encoding="UTF-8") as f:
+                data = f.read()
+        except:
+            pass
+
+        return data  

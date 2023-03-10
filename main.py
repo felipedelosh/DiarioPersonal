@@ -1707,9 +1707,9 @@ class TimeHackingLoko():
         self.ventanaEnmergenteDeAlerta("Listado de posibilidades", data)
 
     """
-    AYUDA
-    AYUDA
-    AYUDA
+    END AYUDA
+    END AYUDA
+    END AYUDA
     """
 
     def _enterTXTinFemputadora(self, event, textArea, txtMachineOutput):
@@ -1717,8 +1717,9 @@ class TimeHackingLoko():
 
         if txt.strip() != "":
             if event.keysym == "Return":
-                print(txt)
+                self.controladora.userInputTXT(txt)
                 self._clearTXTinFemputadora(textArea)
+
 
     def _clearTXTinFemputadora(self, textArea):
         textArea.delete(0, END)

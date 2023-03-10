@@ -1,0 +1,16 @@
+{
+    "function" : "hi()",
+    "str_response" : "hola",
+    "list_of_words" : [
+        "hola",
+        "hello",
+        "hi",
+        "saludos",
+        "buenas",
+        "buenas tardes",
+        "buenos dias",
+        "buenas noches"
+    ],
+    "single_response" : true,
+    "required_words" : []
+}

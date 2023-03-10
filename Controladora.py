@@ -9,6 +9,7 @@ tiempo
 control de archivos de imagenes de fondo, imagenes de botonos y sonidos.
 """
 import os # TO get path project
+import json
 from Femputadora import *
 from tiempo import * 
 from controladoraCarpetas import *
@@ -32,8 +33,8 @@ class Controladora:
         self.coloresParaGraficoCircular = [] # Color que le va a corresponder al grafico circular
         self.arbolDeDeDecicion = Arbol() # Es un arbol temporal que guarda las deciciones
         self.arbolDeDecicionListo = False # Me dice si se cargo o creo el arbol
-        self.femputadora = Femputadora()
-
+        self.questionsChatbot = self.loadQuestions()
+        self.femputadora = Femputadora(self.questionsChatbot)
         """
         Se procede a saludar al usuario
         """
@@ -1197,6 +1198,41 @@ class Controladora:
                 f.close()
         except:
             pass
+
+    """FEMPUTADORA"""
+    """FEMPUTADORA"""
+    """FEMPUTADORA"""
+    def loadQuestions(self):
+        """
+        Load all questions to chatbot in folder:
+        DATA\QUESTIONS
+        """
+        path = self.rutaDelProyecto + "\\DATA\\QUESTIONS"
+
+        chatbotQuestions = []
+        questions = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(path, ".json")
+
+        for i in questions:
+            try:
+                brute_data = self.controladoraCarpetas.getTextInFile(path + "\\" + i)
+                json_data = json.loads(brute_data)
+                q = Question(**json_data)
+                chatbotQuestions.append(q)
+            except:
+                pass
+
+        return chatbotQuestions
+
+
+    def userInputTXT(self, txt):
+        """
+        Enter a text to chatbot analizer
+        """
+        self.femputadora.getResponse(txt)
+
+    """FEMPUTADORA"""
+    """FEMPUTADORA"""
+    """FEMPUTADORA"""
 
 
     """AYUDA"""
