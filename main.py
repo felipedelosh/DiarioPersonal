@@ -357,7 +357,7 @@ class TimeHackingLoko():
         txtUserEntry.place(x=120, y=20)
         txtMachineOutput = Text(canvas, fg="white", bg="gray8", height=22, width=70)
         txtMachineOutput.place(x=30, y=60)
-
+        self.controladora.saveUseWrite("femputadora")
         txtUserEntry.bind('<Key>', lambda event : self._enterTXTinFemputadora(event, txtUserEntry, txtMachineOutput))
 
 

@@ -6,7 +6,6 @@ Chatbot
 
 """
 import re
-import random
 
 class Question(object):
     def __init__(self, function, str_response, list_of_words, single_response, required_words) -> None:
@@ -56,7 +55,7 @@ class Femputadora:
         best_match = max(highest_prob, key=highest_prob.get)
 
         if highest_prob[best_match] < 1:
-            return self.unknown()
+            return "unknow()"
         else:
             return best_match
 
@@ -82,11 +81,7 @@ class Femputadora:
         else:
             return 0
         
-
-    # ------------------------------------------------------------
-    # ------------------------------------------------------------
-    # ------------------------------------------------------------    
-
+        
     """Chatbot Historial"""
     """Chatbot Historial"""
     """Chatbot Historial"""
@@ -100,21 +95,3 @@ class Femputadora:
     """END Chatbot Historial"""
     """END Chatbot Historial"""
     """END Chatbot Historial"""
-
-
-    # ------------------------------------------------------------
-    # ------------------------------------------------------------
-    # ------------------------------------------------------------
-
-
-    """Response funtions"""
-    """Response funtions"""
-    """Response funtions"""
-
-    def unknown(self):
-        responses = ['Podrias Repetir?', 'No estoy seguro', 'No tengo esa información']
-        return responses[random.randint(0, len(responses)-1)]
-    
-    """END Response funtions"""
-    """END Response funtions"""
-    """END Response funtions"""

@@ -1237,12 +1237,20 @@ class Controladora:
         Enter a Femputadora function code and execute.
         Note: the Femputadora function name see in file : .json
         """
-        if code == "hi()":
+        if code == "unknow()":
+            return self.femputadora_unknow()
+        elif code == "hi()":
             return self.femputadora_hi()
+        
 
     def getFemputadoraChatHistorial(self):
         return self.femputadora.conversation
     
+
+    def femputadora_unknow(self):
+        responses = ['Podrias Repetir?', 'No estoy seguro', 'No tengo esa información']
+        return responses[random.randint(0, len(responses)-1)]
+
 
     def femputadora_hi(self):
         return "Hola loco"
