@@ -1253,7 +1253,7 @@ class Controladora:
 
 
     def femputadora_hi(self):
-        return "Hola loco"
+        return "Hola"
 
 
     """END FEMPUTADORA"""

@@ -8,9 +8,8 @@ Chatbot
 import re
 
 class Question(object):
-    def __init__(self, function, str_response, list_of_words, single_response, required_words) -> None:
+    def __init__(self, function, list_of_words, single_response, required_words) -> None:
         self.function = function
-        self.str_response = str_response
         self.list_of_words = list_of_words
         self.single_response = single_response
         self.required_words = required_words
