@@ -8,6 +8,7 @@ dormir
 deporte
 estudiar
 FAPTIME
+fiesta
 higiene personal
 internet
 ocio

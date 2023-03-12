@@ -1733,6 +1733,8 @@ class TimeHackingLoko():
     def updateChatHistorial(self, txtMachineOutput):
         txtMachineOutput.delete("1.0", "end")
         txtMachineOutput.insert(END, self.controladora.getFemputadoraChatHistorial())
+        txtMachineOutput.see(END)
+
         
     """END FEMPUTADORA"""
     """END FEMPUTADORA"""
