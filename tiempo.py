@@ -18,6 +18,15 @@ class Tiempo:
         # Para saber que mes tiene 31 y 31 dias, feb no le voy a contar el bisciesto
         self.duracionMeses = [31,28,31,30,31,30,31,31,30,31,30,31]
 
+    def getOnlyHour(self):
+        """
+        Get hour 
+        """
+        hour = str(time.ctime()).split(" ")
+        hour = hour[-2]
+
+        return hour
+
     def año(self):
         """Retorna en que a+o estamios"""
         return self.tiempo.year

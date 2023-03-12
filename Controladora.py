@@ -1150,8 +1150,7 @@ class Controladora:
         Save a date to the user run APP
         """
         path = self.rutaDelProyecto + "\\DATA\\USOS\\" + str(self.tiempo.año()) + "-run.txt"
-        hour = str(self.tiempo.hora()).split(" ")[4]
-        hour = str(hour)
+        hour = str(self.tiempo.getOnlyHour())
 
         time = self.tiempo.estampaDeTiempo() + " " + hour
         data = ""
@@ -1178,8 +1177,7 @@ class Controladora:
         _type is a contex for example: diary, dream, economy
         """
         path = self.rutaDelProyecto + "\\DATA\\USOS\\" + str(self.tiempo.año()) + "-" + _type + ".txt"
-        hour = str(self.tiempo.hora()).split(" ")[4]
-        hour = str(hour)
+        hour = str(self.tiempo.getOnlyHour())
 
         time = self.tiempo.estampaDeTiempo() + " " + hour
         data = ""
