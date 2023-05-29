@@ -1,10 +1,11 @@
 * Registrar algo que te paso en la vida : agenda
 * Dejar claro lo que significa una palabra: notas
 * Administrar tus finanzas : economia
-* Que hisiste importante en estos ultimos años : 2020 : cuarentena
+* Que hisiste importante en estos ultimos años.
 * Como estas invirtiendo cada hora del dia: 12 pm almorzar, 12 pm dormir.
 * Tu horario personal: Que deberias hacer cada hora del día.
 * Grafica de ingresos y egresos : por año, por mes del año actual.
 * Grafica de como inviestes tu tiempo: veras con % como estas gastando tu vida año a año.
 * registrar tu perfil : tu nombre tu edad tu frase tu username 
+* Chatbot.
 * Ayuda con el programa: ver el manual de usuario, ver este listado... el que estas en este momento mirando, ver como esta programada esta mierda.

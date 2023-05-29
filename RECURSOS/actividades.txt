@@ -13,7 +13,9 @@ higiene personal
 internet
 ocio
 leer
+mascota
 moto
+novia
 que haceres domesticos
 peliculas
 pagos
@@ -21,6 +23,7 @@ programar
 redes sociales
 sexo
 teatro
+televisión
 trabajar
 viajar
 video juegos

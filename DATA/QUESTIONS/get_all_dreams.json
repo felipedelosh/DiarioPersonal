@@ -1,0 +1,18 @@
+{
+    "function" : "get_all_dreams()",
+    "list_of_words" : [
+        "sueños",
+        "sueño",
+        "fantasia",
+        "fantasias",
+        "todos",
+        "dormido",
+        "dormir",
+        "Zzz",
+        "dormido",
+        "mis",
+        "cuales"
+    ],
+    "single_response" : true,
+    "required_words" : []
+}

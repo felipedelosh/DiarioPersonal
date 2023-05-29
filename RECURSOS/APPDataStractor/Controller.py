@@ -7,6 +7,8 @@ class Controller:
         self.path = str(os.path.dirname(os.path.abspath(__file__)))
         self._outputDataDiary = {}
         self._counterOutputDataDiary = 0
+        self._outputDataFeelings = {}
+        self._counterOutputDataFeelings = 0
         self._outputDAtaEconomy = {}
         self._counterOutputDataEconomy = 0
         self.consoleText = ""
@@ -49,6 +51,7 @@ class Controller:
 
         if type_info == "all" or type_info == "feelings":
             t_personal_feeling_counter = True
+
 
         if type_info == "all" or type_info == "economy":
             self._outputDAtaEconomy = {}
@@ -109,6 +112,42 @@ class Controller:
                                 self._outputDataDiary[data_year][file_name] = text 
                                 self._counterOutputDataDiary = self._counterOutputDataDiary  + 1
 
+
+                if t_personal_feeling_counter:
+                    if "t_personal_feeling_counter" in i:
+                        data = str(i).split("INSERT INTO t_personal_feeling_counter (timeStamp, feelingName) VALUES ")[1]
+                        data = data.split(", ")
+                        
+                        date = data[0]
+                        date = date.replace("'", '')
+                        date = date.replace("(", '')
+                        date = date.split(":")
+                        YYYY = date[0]
+                        MM = date[1]
+                        MM = self._getNumberOfMonthByFullNameMonth(MM)
+                        DD = date[2]
+
+                        # Name of file YYYY MM DD
+                        fileName = f"{YYYY} {MM} {DD}.txt"
+
+
+                        # Need Create Year in info?
+                        if YYYY not in self._outputDataFeelings.keys():
+                            self._outputDataFeelings[YYYY] = {}
+
+
+                        if fileName not in self._outputDataFeelings[YYYY].keys():
+                            self._outputDataFeelings[YYYY][fileName] = ""
+
+                        
+
+                        # Save a feeling
+                        concept = data[1]
+                        concept = concept.replace("'", "")
+                        concept = concept.replace(");", "")
+                        self._outputDataFeelings[YYYY][fileName] = concept
+                        self._counterOutputDataFeelings = self._counterOutputDataFeelings + 1
+
                 if t_economy_t_account:
                     if "t_economy_t_account" in i:
                         data = str(i).split("INSERT INTO t_economy_t_account (timeStamp, id, concept, debit, credit) VALUES ")[1]
@@ -154,10 +193,17 @@ class Controller:
             self.consoleText = self.consoleText + "Total info encontrada Diario = " + str(self._counterOutputDataDiary) + "\n"
 
 
+        if t_personal_feeling_counter:
+            path = self.path + "\\OUTPUT\\SENTIMIENTOS\\"
+            self.saveFiles(path ,self._outputDataFeelings)
+            self.consoleText = self.consoleText + "Total info encontrada Sentimientos = " + str(self._counterOutputDataFeelings) + "\n"
+            
+            
+
         if t_economy_t_account:
             path = self.path + "\\OUTPUT\\ECONOMIA\\"
             self.saveFiles(path ,self._outputDAtaEconomy)
-            self.consoleText = self.consoleText + "Total info encontrada Diario = " + str(self._counterOutputDataEconomy) + "\n"
+            self.consoleText = self.consoleText + "Total info encontrada Economia = " + str(self._counterOutputDataEconomy) + "\n"
 
     def saveFiles(self, path, data):
         try:
@@ -219,6 +265,10 @@ class Controller:
     def _getNameOfDayByID(self, nroDay):
         days = {0:"Mon", 1:"Tue",2:"Wed",3:"Thu",4:"Fri",5:"Sat",6:"Sun"}
         return days[nroDay]
+    
+    def _getNumberOfMonthByFullNameMonth(self, nameMonth):
+        months = {"Enero": 1,"Febrero": 2,"Marzo": 3,"Abril": 4,"Mayo": 5,"Junio": 6,"Julio": 7,"Agosto": 8,"Septiembre": 9,"Octubre": 10,"Noviembre": 11, "Diciembre": 12}
+        return months[nameMonth]
     
     def _getNameOfMonthById(self, nroMonth):
         months = {1:"Jan",2:"Feb",3:"Mar",4:"Apr",5:"May",6:"Jun",7:"Jul",8:"Aug",9:"Sep",10:"Oct",11:"Nov",12:"Dec"}

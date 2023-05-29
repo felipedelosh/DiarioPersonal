@@ -265,12 +265,16 @@ class TimeHackingLoko():
         canvas.place(x=0, y=0)
         lblNamePerson = Label(canvas, text="Nombre Persona: ")
         lblNamePerson.place(x=10, y=20)
-        txtNamePerson = Entry(canvas, width=40)
+        txtNamePerson = Entry(canvas, width=36)
         txtNamePerson.place(x=120, y=20)
+        btnShowAllPeople = Button(canvas, text="?", command=self._showAllPeopleNames)
+        btnShowAllPeople.place(x=350, y=18)
         lblAlias = Label(canvas, text="Apodo (Alias): ")
-        lblAlias.place(x=10, y=40)
-        txtAlias = Entry(canvas, width=40)
-        txtAlias.place(x=120, y=40)
+        lblAlias.place(x=10, y=48)
+        txtAlias = Entry(canvas, width=36)
+        txtAlias.place(x=120, y=48)
+        btnShowAllAlias = Button(canvas, text="?", command=self._showAllPeopleAlias)
+        btnShowAllAlias.place(x=350, y=46)
         lblDescription = Label(canvas, text="Descripción y/o anecdota:")
         lblDescription.place(x=10, y=100)
         txtDescription = Text(t, height = 12, width = 44)
@@ -281,6 +285,30 @@ class TimeHackingLoko():
         _scale.place(x=10, y=370)
         btnSave = Button(canvas, text="GUARDAR", command=lambda : self.savePeopleDescription(txtNamePerson.get(), txtAlias.get(), txtDescription.get("1.0", END), _scale.get()))
         btnSave.place(x=160, y=460)
+
+    def _showAllPeopleNames(self):
+        data = self.controladora.controladoraCarpetas.listOfAllPeople()
+        _title = "Todos los Nombres"
+        _names = ""
+        if data == []:
+            self.ventanaEnmergenteDeAlerta(_title, "HP no hay Nadie... 4everAlone .l..")
+        else:
+            for i in data:
+                _names = _names + i + "\n"
+            self.ventanaEnmergenteDeAlerta(_title, _names)
+
+    def _showAllPeopleAlias(self):
+        data = self.controladora.controladoraCarpetas.listOfNamePeopleAndAlias()
+        _title = "Todos los Alias"
+        _names = ""
+        if data == []:
+            self.ventanaEnmergenteDeAlerta(_title, "HP no hay Nadie... Nadie MRK!!!!")
+        else:
+            for i in data:
+                _names = _names + i + "\n"
+            self.ventanaEnmergenteDeAlerta(_title, _names)
+    
+
 
     def lanzarInterfaceNotas(self):
         interfaceNotas = Toplevel()

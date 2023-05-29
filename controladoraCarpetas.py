@@ -117,7 +117,7 @@ class ControladoraCarpetas(object):
                 pass
 
         return years
-
+    
 
     def listOfAllYearWriteInDreams(self):
         """
@@ -136,6 +136,26 @@ class ControladoraCarpetas(object):
 
         return years
     
+    def getTitlesOfAllDreams(self):
+        """
+        return [DATE-DREAM, DATE-DREAM, DATE-DREAM,DATE-DREAM ....]
+        Get all Titles of Dreams in all 
+        """
+        _y = self.listOfAllYearWriteInDreams()
+
+        output = []
+
+        for i in _y:
+            try:
+                path = self.rutaDelProyecto + "\\DATA\\DREAMS\\" + i
+                _titles = self.listarTodosLosArchivosdeCarpeta(path, ".txt")
+                for x in _titles:
+                    output.append(x)
+            except:
+                pass
+
+        return output
+    
     def listOfAllPeople(self):
         """
         return all people in the people folder
@@ -151,6 +171,36 @@ class ControladoraCarpetas(object):
                 pass
 
         return people
+    
+    def listOfAllPeopleAlias(self):
+        """
+        return ALL alias in a people folder
+        """
+        _all_people = []
+        data = []
+
+        for i in self.listOfAllPeople():
+            path = self.rutaDelProyecto + "\\DATA\\PEOPLE\\" + i + "\\alias.txt"
+            _data = self.getTextInFile(path)
+            data.append(_data)
+
+        return data
+    
+
+    def listOfNamePeopleAndAlias(self):
+        """
+        return ALL 'Name: alias' in a people folder
+        """
+        _all_people = []
+        data = []
+
+        for i in self.listOfAllPeople():
+            path = self.rutaDelProyecto + "\\DATA\\PEOPLE\\" + i + "\\alias.txt"
+            _data = self.getTextInFile(path)
+            data.append(i+": "+_data)
+
+        return data
+
 
 
     def listarAñosRegistradosDistribucionDeTiempo(self):

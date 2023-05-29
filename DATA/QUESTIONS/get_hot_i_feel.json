@@ -1,0 +1,17 @@
+{
+    "function" : "how_i_feel()",
+    "list_of_words" : [
+        "sentimientos",
+        "sentimental",
+        "como",
+        "siento",
+        "vida",
+        "sentirme",
+        "sentir",
+        "me",
+        "mis",
+        "cuales"
+    ],
+    "single_response" : true,
+    "required_words" : []
+}

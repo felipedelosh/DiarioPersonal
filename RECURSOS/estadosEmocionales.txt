@@ -5,6 +5,7 @@ ira
 miedo
 hostilidad
 frustración
+enfermo
 odio
 culpa
 celos

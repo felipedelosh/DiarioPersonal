@@ -116,8 +116,8 @@ class ControladoraProcesamientoDeDatos(object):
             except:
                 pass
         
-        self._cleanZeroFeelings()
-        return self.dataSentimientos
+        # Dont return 0 information.
+        return self._cleanZeroFeelings()
     
     def _cleanZeroFeelings(self):
         temp = {}
@@ -128,7 +128,7 @@ class ControladoraProcesamientoDeDatos(object):
             except:
                 pass
 
-        self.dataSentimientos = temp
+        return temp
 
     def procesarDatosSemanalHorario(self, todasLasActividades, informacion):
         """

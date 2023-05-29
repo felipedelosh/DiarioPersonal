@@ -241,7 +241,6 @@ class Controladora:
                 hour = str(hour).replace(":", " ")
 
                 desc = "description-" + str(date) + "-" + hour + ".txt"
-                print(desc)
 
                 with open(path+desc, 'w', encoding="UTF-8") as f:
                     f.write(description + "\n" +str(qualification))
@@ -1117,22 +1116,49 @@ class Controladora:
     """
     def saludarAlUsuario(self):
         """
-        Dependiendo de la hora da un saludo
+        Play AUDIO only  one times per day
         """
-        hora = str(self.tiempo.hora()).split(":")[0]
-        hora = hora.split(" ")
-        hora = int(hora[len(hora)-1])
+        # When is the last time to APP say HI?
+        path = self.rutaDelProyecto + "\\DATA\\USOS\\" + str(self.tiempo.año()) + "-APPsayHI.txt"
+        lastTIme = self.controladoraCarpetas.getTextInFile(path)
 
-        if hora >= 20:
-            self.audioMixer.line = self.rutaDelProyecto + "\\recursos\\audio\\buenas noches"
-            self.audioMixer.playSound()
+        if lastTIme != "":
+            lastTIme = lastTIme.split("\n")[-1]
+
+        # Get Current TIME
+        hour = str(self.tiempo.getOnlyHour())
+        time = self.tiempo.estampaDeTiempo() + " " + hour
+
+        # Is not Equal DAY
+        lastTIme = lastTIme.split(" ")
+        time = time.split(" ") 
+
+        bool_say_hi = False
+
+        if lastTIme[0:2] == time[0:2]:
+            # Create a rules to say hi few times to day
+            bool_say_hi = False
         else:
-            if hora > 12:
-                self.audioMixer.line = self.rutaDelProyecto + "\\recursos\\audio\\buenas tardes"
+            bool_say_hi = True
+
+        if bool_say_hi:
+            hora = hour.split(":")[0]
+            hora = int(hora)
+
+            if hora >= 20:
+                self.audioMixer.line = self.rutaDelProyecto + "\\recursos\\audio\\buenas noches"
                 self.audioMixer.playSound()
             else:
-                self.audioMixer.line = self.rutaDelProyecto + "\\recursos\\audio\\buenos dias"
-                self.audioMixer.playSound()
+                if hora > 12:
+                    self.audioMixer.line = self.rutaDelProyecto + "\\recursos\\audio\\buenas tardes"
+                    self.audioMixer.playSound()
+                else:
+                    self.audioMixer.line = self.rutaDelProyecto + "\\recursos\\audio\\buenos dias"
+                    self.audioMixer.playSound()
+
+            # Save the usage
+            self.saveUseAPPSayHI()
+        
 
     def decir(self, palabra):
         """
@@ -1197,6 +1223,34 @@ class Controladora:
         except:
             pass
 
+
+    def saveUseAPPSayHI(self):
+        """
+        Save when the APP reproduces HI audio
+        * Creates for only say hi 3 times to day
+        """
+        path = self.rutaDelProyecto + "\\DATA\\USOS\\" + str(self.tiempo.año()) + "-APPsayHI.txt"
+        hour = str(self.tiempo.getOnlyHour())
+
+        time = self.tiempo.estampaDeTiempo() + " " + hour
+        data = ""
+        try:
+            with open(path, 'r', encoding="UTF-8") as f:
+                data = f.read()
+        except:
+            pass
+
+        try:
+            with open(path, 'w', encoding="UTF-8") as f:
+                if data == "":
+                    f.write(time)
+                else:
+                    f.write(data+"\n"+time)
+                f.close()
+        except:
+            pass
+
+
     """FEMPUTADORA"""
     """FEMPUTADORA"""
     """FEMPUTADORA"""
@@ -1239,6 +1293,10 @@ class Controladora:
             return self.femputadora_unknow()
         elif code == "hi()":
             return self.femputadora_hi()
+        elif code == "get_all_dreams()":
+            return self.femputadora_get_all_dreams()
+        elif code == "how_i_feel()":
+            return self.how_i_feel()
         
 
     def getFemputadoraChatHistorial(self):
@@ -1246,13 +1304,76 @@ class Controladora:
     
 
     def femputadora_unknow(self):
-        responses = ['Podrias Repetir?', 'No estoy seguro', 'No tengo esa información']
+        responses = ['Podrias Repetir?', 'No estoy seguro', 'No tengo esa información', 'no se de lo que hablas']
         return responses[random.randint(0, len(responses)-1)]
 
 
     def femputadora_hi(self):
         return "Hola"
+    
+    def femputadora_get_all_dreams(self):
+        data = self.controladoraCarpetas.getTitlesOfAllDreams()
+        sms = ""
+        if data == []:
+            sms = "No hay Sueños Aún...\n"
+        else:
+            sms = "Estos son tus sueños:\n"
+            for i in data:
+                sms = sms + i + "\n"
+            
+        return sms
+    
+    def how_i_feel(self):
+        # get current year
+        YYYY = str(self.tiempo.año())
 
+        # Get all Feelings
+        _all_feelings = self.controladoraCarpetas.cargarEstadosEmocionanes()
+
+        # Get all years of feelings
+        _years = self.controladoraCarpetas.listarAñosDeRegistroSentimientos()
+
+        # Top Data Feelings
+        _data = {}
+
+        # Prepare final Output
+        for i in _years:
+            ruta = self.rutaDelProyecto+"\\DATA\\SENTIMIENTOS\\"+str(i)
+            _feelings = []
+            _all_filenames_in_folder = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(ruta, ".txt")
+
+            for x in _all_filenames_in_folder:
+                try:
+                    with open(ruta+"\\"+x ,'r', encoding="UTF-8") as f:
+                        _feelings.append(f.read())
+                except:
+                    pass 
+
+            dataSentimientos = self.controladoraProcesamientoDeDatos.procesarDatosSentimientos(_all_feelings, _feelings)
+            
+            # Save
+            _temp = self.controladoraProcesamientoDeDatos._shorterDic(dataSentimientos)
+
+            _rich_data = []
+            if len(_temp) >= 3:
+                for x in _temp[0:2]:
+                    _rich_data.append(f"{str(x[0])} un total de: {str(x[1])} veces")
+            else:
+                for x in _temp:
+                    _rich_data.append(f"{str(x[0])} un total de: {str(x[1])} veces")
+
+
+            _data[i] = _rich_data
+                    
+        # Representate a information to user
+        sms = f"Lo que más sentiste en {str(YYYY)}:\nfue {str(_data[YYYY][0])}\n\n"
+
+        for i in _data:
+            if i != YYYY:
+                sms = sms + f"Lo que más sentiste en {str(i)}:\nes {str(_data[i])}\n\n"
+
+        return sms
+ 
 
     """END FEMPUTADORA"""
     """END FEMPUTADORA"""
