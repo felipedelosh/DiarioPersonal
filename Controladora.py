@@ -35,12 +35,28 @@ class Controladora:
         self.arbolDeDecicionListo = False # Me dice si se cargo o creo el arbol
         self.questionsChatbot = self.loadQuestions()
         self.femputadora = Femputadora(self.questionsChatbot)
+        self.triggers = self._updateTriggers() # Always Refresh When the program is RUN
+        self.femputadora_triggers = Femputadora(self.triggers)
         """
         Se procede a saludar al usuario
         """
         self.saludarAlUsuario()
         # The user use program and registe
         self.saveUseRunAPP()
+
+    def _updateTriggers(self):
+        """
+        Read a folder DATA/TRIGGERS and gell all [Question, ...]
+        """
+        _json_triggers = self.controladoraCarpetas.get_all_triggers()
+
+        triggers = []
+        for i in _json_triggers:
+            q_t = Question(**i)
+            triggers.append(q_t)
+        
+        return triggers
+        
 
 
     def crearCarpetasDelSistema(self):
@@ -76,6 +92,26 @@ class Controladora:
                 f.write(texto)
                 f.close()
                 self.saveUseWrite("diary")
+                # Femputadora analize a words
+                
+                try:
+                    # Erase a timestamps
+                    txt = str(texto).split("\n")
+                    txt = txt[0:-4]
+                    # Reconstrucut
+                    sms = ""
+                    for x in txt:
+                        sms = sms + " " + x 
+                    
+                    sms = sms.lstrip()
+                    sms = sms.rstrip()
+
+                    # Execute_action
+                    action = self.femputadora_triggers.getResponse(sms)
+                    self.execute_trigger_event(action)
+                except:
+                    pass
+                #print(f"femputadora: {self.femputadora_triggers.getResponse(sms)}")
                 return True
             else:
                 return False
@@ -449,8 +485,12 @@ class Controladora:
         """
         colores = []
 
-        for i in range(0, cantidad):
+        for _ in range(0, cantidad):
             colores.append(self.coloresParaGraficos.colorAleatoreo())
+        
+        # Try to return equals colors in journaly
+        # Find a BUG always paint -1 elemetns
+        #print(self.coloresParaGraficos.returnStaticColors(cantidad))
 
         return colores
     
@@ -1135,7 +1175,7 @@ class Controladora:
 
         bool_say_hi = False
 
-        if lastTIme[0:2] == time[0:2]:
+        if lastTIme[0:3] == time[0:3]:
             # Create a rules to say hi few times to day
             bool_say_hi = False
         else:
@@ -1159,14 +1199,6 @@ class Controladora:
             # Save the usage
             self.saveUseAPPSayHI()
         
-
-    def decir(self, palabra):
-        """
-        Sera dicha una palabra
-        """
-        self.audioMixer.line = self.rutaDelProyecto + "\\recursos\\audio\\" + palabra
-        self.audioMixer.playSound()
-
 
     """USOS"""
     """USOS"""
@@ -1378,6 +1410,83 @@ class Controladora:
     """END FEMPUTADORA"""
     """END FEMPUTADORA"""
     """END FEMPUTADORA"""
+
+
+    """TRIGGERS"""
+    """TRIGGERS"""
+    """TRIGGERS"""
+    def execute_trigger_event(self, code):
+        """
+        Enter a code 'name of method' and excecute 1 time >24hours Only<
+        """
+        # Get Trigger Date information
+        _path = self.rutaDelProyecto + "\\DATA\\USOS\\"
+        _getAllTriggers = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(_path, ".txt")
+        triggers_time = {}
+        trigger_execute = False
+        _time_now = self.tiempo.estampaDeTiempo()
+
+        for i in _getAllTriggers:
+            if "trigger." in i:
+                _file_d_path = _path + i
+                _data = self.controladoraCarpetas.getTextInFile(_file_d_path)
+                if _data != "":
+                    triggers_time[i] = _data
+
+
+        # Talk About Money Problems
+        if code == "think_work_money()":
+            try:
+                _last_time = ""
+
+                for x in triggers_time:
+                    if code in x:
+                        _last_time = triggers_time[x]
+                        break
+
+                if _last_time != "":
+                    _last_time = _last_time.split("\n")[-1]
+                    _last_time = _last_time.split(" ")
+                    _last_time = _last_time[0] + " " + _last_time[1] + " " + _last_time[2]
+
+                    if _last_time == _time_now:
+                        trigger_execute = False
+                    else:
+                        trigger_execute = True
+
+                    #print(f"Tempo ya: {_time_now}, tiempo trigger:{_last_time}")
+                else:
+                    trigger_execute = True
+            except:
+                trigger_execute = True
+
+
+            if trigger_execute:
+                self.think_work_money()
+        #END  Talk About Money Problems
+
+
+
+
+
+        # -------------------
+        # -------------------
+        # -------------------
+        # Save a Trigger use
+        if trigger_execute:
+            self.saveUseWrite("trigger."+code)
+
+
+
+
+    def think_work_money(self):
+        audo_path = self.rutaDelProyecto + "\\recursos\\audio\\hablar_trabajo_dinero"
+        self.audioMixer.line = audo_path
+        self.audioMixer.playSound()
+
+    """TRIGGERS"""
+    """TRIGGERS"""
+    """TRIGGERS"""
 
 
     """AYUDA"""

@@ -1,0 +1,12 @@
+{
+    "function" : "think_work_money()",
+    "list_of_words" : [
+        "trabajo",
+        "trabajar",
+        "dinero",
+        "deudas",
+        "problemas"
+    ],
+    "single_response" : true,
+    "required_words" : []
+}

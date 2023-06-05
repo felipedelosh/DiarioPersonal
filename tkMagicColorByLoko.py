@@ -124,3 +124,18 @@ class MagicColor:
                 vec.append(i)
 
         return vec
+    
+
+    def returnStaticColors(self, quantity):
+        """
+        Enter a quantity (integer) and return always same colors
+        """
+        _break = 10
+        _colors = []
+        
+        for i in range(0, quantity+1):
+            k = len(self.colores)%(_break+i)
+            _colors.append(self.colores[k])
+
+
+        return _colors

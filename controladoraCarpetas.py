@@ -4,6 +4,7 @@ y verificacion de que las carpetas existan
 """
 
 import os
+import json
 from os import scandir
 
 class ControladoraCarpetas(object):
@@ -100,6 +101,28 @@ class ControladoraCarpetas(object):
             pass
 
         return nombreArchivos
+    
+
+    def get_all_triggers(self):
+        """
+        return all .json infolder DATA/TRIGGERS/*.json
+        """
+        _path = self.rutaDelProyecto + "\\DATA\\TRIGGERS"
+        _file_names = self.listarTodosLosArchivosdeCarpeta(_path, ".json")
+
+        data = []
+        for i in _file_names:
+            try:
+                brute_data = self.getTextInFile(_path + "\\" + i)
+                data.append(json.loads(brute_data))
+            except:
+                pass
+
+        return data
+
+
+
+
 
     def listOfAllYearWriteInDiary(self):
         """
