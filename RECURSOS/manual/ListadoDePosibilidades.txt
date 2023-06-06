@@ -1,4 +1,5 @@
 * Registrar algo que te paso en la vida : agenda
+* Alarmas en caso de que estes pasando por eventos en ti vida.
 * Dejar claro lo que significa una palabra: notas
 * Administrar tus finanzas : economia
 * Que hisiste importante en estos ultimos años.

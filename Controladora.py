@@ -1424,8 +1424,8 @@ class Controladora:
         _getAllTriggers = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(_path, ".txt")
         triggers_time = {}
         trigger_execute = False
-        _time_now = self.tiempo.estampaDeTiempo()
 
+        # Load ALL triggers
         for i in _getAllTriggers:
             if "trigger." in i:
                 _file_d_path = _path + i
@@ -1434,36 +1434,25 @@ class Controladora:
                     triggers_time[i] = _data
 
 
+
+
+        # -------------------
+        # -------------------
         # Talk About Money Problems
         if code == "think_work_money()":
-            try:
-                _last_time = ""
-
-                for x in triggers_time:
-                    if code in x:
-                        _last_time = triggers_time[x]
-                        break
-
-                if _last_time != "":
-                    _last_time = _last_time.split("\n")[-1]
-                    _last_time = _last_time.split(" ")
-                    _last_time = _last_time[0] + " " + _last_time[1] + " " + _last_time[2]
-
-                    if _last_time == _time_now:
-                        trigger_execute = False
-                    else:
-                        trigger_execute = True
-
-                    #print(f"Tempo ya: {_time_now}, tiempo trigger:{_last_time}")
-                else:
-                    trigger_execute = True
-            except:
-                trigger_execute = True
-
+            trigger_execute = self._execute_trigger_event_validate_time(triggers_time, code)
 
             if trigger_execute:
                 self.think_work_money()
         #END  Talk About Money Problems
+
+        # if the user have porn alert
+        if code == "porn_alert()":
+            trigger_execute = self._execute_trigger_event_validate_time(triggers_time, code)
+
+            if trigger_execute:
+                self.porn_alert()
+        #END if the user have porn alert
 
 
 
@@ -1478,9 +1467,37 @@ class Controladora:
 
 
 
+    def _execute_trigger_event_validate_time(self, triggers_time, code):
+        """
+        return bool
+        Enter a TriggersTimeFile and compare trigger >< date.today
+        """
+        _time_now = self.tiempo.estampaDeTiempo()
+
+        _last_time = ""
+
+        for x in triggers_time:
+            if code in x:
+                _last_time = triggers_time[x]
+                break
+
+        if _last_time != "":
+            _last_time = _last_time.split("\n")[-1]
+            _last_time = _last_time.split(" ")
+            _last_time = _last_time[0] + " " + _last_time[1] + " " + _last_time[2]
+
+        
+        return _last_time != _time_now
+
+
 
     def think_work_money(self):
         audo_path = self.rutaDelProyecto + "\\recursos\\audio\\hablar_trabajo_dinero"
+        self.audioMixer.line = audo_path
+        self.audioMixer.playSound()
+
+    def porn_alert(self):
+        audo_path = self.rutaDelProyecto + "\\recursos\\audio\\porn_alert"
         self.audioMixer.line = audo_path
         self.audioMixer.playSound()
 
