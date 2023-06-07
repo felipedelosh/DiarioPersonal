@@ -72,6 +72,15 @@ class Controladora:
 
     def retornarRutaDelProyecto(self):
         return self.rutaDelProyecto
+    
+    
+    def returnIMGRnBtnRousourceX(self, resource):
+        """
+        Read a img in folder: RECURSOS\img\btns\ <Resource> \ <ResourceFile> + rnd + .gif 
+        And you rtrn rnd img
+        """
+        id = str(random.randint(0, 9))
+        return self.rutaDelProyecto+f"\\RECURSOS\\img\\btns\\{resource}\\{resource}"+id+".gif"
 
     def retornarRutaImagenDeFondo(self):
         """

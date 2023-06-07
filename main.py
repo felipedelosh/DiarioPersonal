@@ -22,12 +22,12 @@ class TimeHackingLoko():
         self.tela = Canvas(self.pantalla, width=640, height=480) # Aqui se van a pintar los elementos en pantalla
         """Se invocan las imagenes"""
         self.imgFondo = PhotoImage(file=self.controladora.retornarRutaImagenDeFondo())
-        self.imgBtnDiario = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/diario.gif')
-        self.imgPersonalDiary = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/personalDiary.gif')
-        self.imgDreamDiary = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/dreams.gif')
+        self.imgBtnDiario = PhotoImage(file=self.controladora.returnIMGRnBtnRousourceX("diary"))
+        self.imgPersonalDiary = PhotoImage(file=self.controladora.returnIMGRnBtnRousourceX("diary"))
+        self.imgDreamDiary = PhotoImage(file=self.controladora.returnIMGRnBtnRousourceX("dreams"))
         self.imgPeople = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/people.gif')
-        self.imgBtnAgenda = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/agenda.gif')
-        self.imgBtnNotas = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/notas.gif')
+        self.imgBtnAgenda = PhotoImage(file=self.controladora.returnIMGRnBtnRousourceX("calendary"))
+        self.imgBtnNotas = PhotoImage(file=self.controladora.returnIMGRnBtnRousourceX("notes"))
         self.imgBtnEconimia = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/contabilidad.gif')
         self.imgBtnResultadoAnual = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/resultadoAnual.gif')
         self.imgFemputadora = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/femputadora.gif')
