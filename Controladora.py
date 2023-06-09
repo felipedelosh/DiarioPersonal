@@ -20,6 +20,7 @@ from ArbolDeDeciciones import *
 from AudioMixer import *
 import random
 
+
 class Controladora:
     def __init__(self):
         self.rutaDelProyecto = str(os.path.dirname(os.path.abspath(__file__))) # En donde estoy padado
@@ -44,6 +45,7 @@ class Controladora:
         # The user use program and registe
         self.saveUseRunAPP()
 
+
     def _updateTriggers(self):
         """
         Read a folder DATA/TRIGGERS and gell all [Question, ...]
@@ -58,7 +60,6 @@ class Controladora:
         return triggers
         
 
-
     def crearCarpetasDelSistema(self):
         """
         Se procede a acceder al disco duro y verificar si las carpetas de trabajo existen
@@ -69,6 +70,7 @@ class Controladora:
             return True
         except:
             return False
+
 
     def retornarRutaDelProyecto(self):
         return self.rutaDelProyecto
@@ -81,6 +83,44 @@ class Controladora:
         """
         id = str(random.randint(0, 9))
         return self.rutaDelProyecto+f"\\RECURSOS\\img\\btns\\{resource}\\{resource}"+id+".gif"
+    
+
+    def retrunIMGBtnFeelings(self):
+        """
+        Read all .gif images in folder: RECURSOS\img\btns\feelings\real\*.gif
+        if the emotion is the most popular render a imagen of feeling
+        if the feeling dont exits retrun random feeling
+        """
+        try:
+            path = self.rutaDelProyecto + "\\RECURSOS\\img\\btns\\feelings\\real"
+            _files_img_emotions = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(path, '.gif')
+            
+            #get current year
+            YYYY = self.tiempo.año()
+
+            # Read the most feeling in year
+            data_feelings = self.procesarDatosSentimientos(YYYY)
+            if len(data_feelings) == 0 or data_feelings == {}:
+                return self.returnIMGRnBtnRousourceX("feelings")
+            elif  len(data_feelings) == 1:
+                data = self.controladoraProcesamientoDeDatos._shorterDic(data_feelings)
+                if data[0][0] + ".gif" in _files_img_emotions:
+                    return path + "\\" + data[0][0] + ".gif"
+                else:
+                    return self.returnIMGRnBtnRousourceX("feelings")
+            elif len(data_feelings) > 1:
+                # Order feels
+                data = self.controladoraProcesamientoDeDatos._shorterDic(data_feelings) # [(a, #), ... (z, #)]
+
+                if data[0][0] + ".gif" in _files_img_emotions:
+                    return path + "\\" + data[0][0] + ".gif"
+                else:
+                    return self.returnIMGRnBtnRousourceX("feelings")
+            else:
+                return self.returnIMGRnBtnRousourceX("feelings")
+        except:
+            return self.returnIMGRnBtnRousourceX("feelings")
+        
 
     def retornarRutaImagenDeFondo(self):
         """
@@ -436,7 +476,7 @@ class Controladora:
         los datos para ser graficados.
         """
         # Se llaman todos los nombre archivos de ese a+o
-        ruta = self.rutaDelProyecto+"\\DATA\\SENTIMIENTOS\\"+año
+        ruta = self.rutaDelProyecto+"\\DATA\\SENTIMIENTOS\\"+str(año)
         listadoNombreArchivoSentimientos = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(ruta, ".txt")
         sentimientos = []
         # Se abren los archivos y se guardan en una lista

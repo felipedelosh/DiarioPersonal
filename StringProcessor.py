@@ -11,7 +11,7 @@ class StringProcessor:
         self.adverbs_site = ['aquí', 'allí', 'ahí', 'allá', 'acá', 'arriba', 'abajo', 'cerca', 'lejos', 'adelante', 'delante', 'detrás', 'encima', 'debajo', 'enfrente', 'atrás', 'alrededor']
         self.adverbs_time = ['antes', 'después', 'luego', 'pronto', 'tarde', 'temprano', 'todavía', 'aún', 'ya', 'ayer', 'hoy', 'mañana', 'anteayer', 'siempre', 'nunca', 'jamás', 'próximamente', 'prontamente', 'anoche', 'enseguida', 'ahora', 'anteriormente']
         self.excludeWord = ['al', 'y', 'como','o','le', 'que', 'se', 'ese', 'su', 'es', 'me', 'muy', 'te', 'fue', 'xq', 'más', 'mas', 'tan', 'pero']
-        self.strangerCharacters = ['.txt', '*', ':', "\\", '(', ')', "\'", '$', '>', '-', '[', ']', '+', '.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+        self.strangerCharacters = ['.txt', ',', '*', ':', "\\", '(', ')', "\'", '$', '>', '-', '[', ']', '+', '.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
     def cleanWord(self, word):
         """
