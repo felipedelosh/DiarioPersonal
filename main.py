@@ -17,13 +17,17 @@ import math
 
 class TimeHackingLoko():
     def __init__(self):
+        print("Init ProGram :)")
         self.controladora = Controladora()
+        print("Load Controler")
         self.pantalla = Tk() # Esta es la pantalla principal. 
         self.tela = Canvas(self.pantalla, width=640, height=480) # Aqui se van a pintar los elementos en pantalla
         """Se invocan las imagenes"""
         self.imgFondo = PhotoImage(file=self.controladora.retornarRutaImagenDeFondo())
+        print("Load Images...")
         self.imgBtnDiario = PhotoImage(file=self.controladora.returnIMGRnBtnRousourceX("diary"))
         self.imgPersonalDiary = PhotoImage(file=self.controladora.returnIMGRnBtnRousourceX("diary"))
+        print("Load Diary IMG...")
         self.imgDreamDiary = PhotoImage(file=self.controladora.returnIMGRnBtnRousourceX("dreams"))
         self.imgPeople = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/people.gif')
         self.imgBtnAgenda = PhotoImage(file=self.controladora.returnIMGRnBtnRousourceX("calendary"))
@@ -32,6 +36,7 @@ class TimeHackingLoko():
         self.imgBtnResultadoAnual = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/resultadoAnual.gif')
         self.imgFemputadora = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/femputadora.gif')
         self.imgBtnRegistoEmociones = PhotoImage(file=self.controladora.retrunIMGBtnFeelings())
+        print("Load Feelings...")
         self.imgSaveFeeling = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/saveFeeling.gif')
         self.imgFeelingReport = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/feelingReport.gif')
         self.imgSaveTimeDistribution = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/saveTimeDistribution.gif')
@@ -70,7 +75,7 @@ class TimeHackingLoko():
         self._comboBoxYear = StringVar() # Save a year to wacth in calendar
         self._comboBoxMonth = StringVar() # Save a month to wacth in calendar
         self._dayToCalendaryFilter = 0 # To filter in calendary
-
+        print("All Vars CharGED :o")
         self.pintarYConfigurar() # se muestra la pantalla
 
     
@@ -141,10 +146,12 @@ class TimeHackingLoko():
         comboBoxMonth.current(getCurrentMonth)
         comboBoxMonth.bind('<<ComboboxSelected>>', lambda k : self._refreshAdaysInCalendary(comboBoxMonth.current(), canvas))
         comboBoxMonth.place(x=180, y=50)
-        # USE
-        """
-        Filter By Diary, Dream, Economy ...
-        """
+        # Mark days
+        lblDays = Label(canvas, text="Día: ")
+        lblDays.place(x=360, y=20)
+        lblDaysFilter = Label(canvas, text="ALL")
+        lblDaysFilter.place(x=360, y=50)
+
 
         # Paint month days
         self._refreshAdaysInCalendary(comboBoxMonth.current(), canvas)
@@ -188,7 +195,7 @@ class TimeHackingLoko():
         """
         data = self.controladora.loadCalendaryReport(self._comboBoxYear.get(), self._comboBoxMonth.get(), self._dayToCalendaryFilter)
         t = Toplevel()
-        t.title("Resumen...")
+        t.title("Resumen... YYYY>"+str(self._comboBoxYear.get())+" MM>"+str(self._comboBoxMonth.get()))
         t.geometry("640x480")
         canvas = Canvas(t, height=480, width=640)
         canvas.place(x=0, y=0)

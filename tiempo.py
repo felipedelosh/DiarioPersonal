@@ -51,7 +51,10 @@ class Tiempo:
 
     def diasDeMes(self, mes):
         """
-        Retorna de los meses del 0 -> Enero 11 -> Diciembre
+        Retorna de los meses del
+        mes = integer 
+        0 -> Enero 
+        11 -> Diciembre
         cuantos dias tienen dicho mes
         """
         return self.duracionMeses[mes]
@@ -153,3 +156,20 @@ class Tiempo:
         Año NumeroMes NumeroDia
         """
         return str(self.año()) + " " + str(self.mes()) + " " + str(self.diaNumero())
+
+
+    def getMonthNumberByMonthName(self, monthName):
+        """
+        Enter a name of month
+        and return the number of month...
+        Example:
+        Enero RTRN 1
+        Diciembre RTRN 12
+        """
+        counter = 1
+        for i in self.meses:
+            if i == monthName:
+                return counter
+            counter = counter + 1
+        
+        return -1

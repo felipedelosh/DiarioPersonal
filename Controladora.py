@@ -1125,11 +1125,12 @@ class Controladora:
                         data[i] = {}
 
                     for j in get_all_files_names:
-                        if j not in data[i]:
-                            data[i][j] = {}
+                        if self._filterDataByIDAndMonth("economy", j, month):
+                            if j not in data[i]:
+                                data[i][j] = {}
 
-                        file_path = path+i+"\\"+j
-                        data[i][j] = self.loadFilePageByPath(file_path)
+                            file_path = path+i+"\\"+j
+                            data[i][j] = self.loadFilePageByPath(file_path)
             
         else:
             try:
@@ -1151,6 +1152,30 @@ class Controladora:
             except:
                 return
             
+
+    def _filterDataByIDAndMonth(self, idData, data, month):
+        """
+        Enter a idData is a Str id
+        data is str a name
+        month is a name of month
+        """
+        if str(month).lower() == "all":
+            return True
+
+        try:
+            #nroMonth = str(self.tiempo.getMonthNumberByMonthName(month))
+
+            if idData == "economy":
+                data_nro_month = str(data).split(".")[0]
+                data_nro_month = str(data).split(" ")[0]
+
+                if data_nro_month == month:
+                    return True
+
+            return False
+        except:
+            return False
+  
 
     def _getAllDataPeople(self, data, data_titles, path, year, month, day):
         """
