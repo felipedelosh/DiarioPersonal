@@ -1096,7 +1096,7 @@ class Controladora:
         all information is save in data and data_titles
         """
         if year == "all":
-
+            # Load ALL years in regs
             try:
                 if key == "diary":
                     all_years = self.controladoraCarpetas.listOfAllYearWriteInDiary()
@@ -1108,17 +1108,21 @@ class Controladora:
                     all_years = self.controladoraCarpetas.listarAñosDeEconomia()
             except:
                 return
+            # END to load Years
 
             
+            # Charge the Speficy data
             for i in all_years:
                 if key != "economy":
                     get_all_files_names = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(path+i, ".txt")
                 
                     for j in get_all_files_names:
-                        data_titles.append(j)
-                        file_path = path+i+"\\"+j
-                        data.append(self.loadFilePageByPath(file_path))
+                        if self._filterDataByIDAndMonth("diary", j, month):
+                            data_titles.append(j)
+                            file_path = path+i+"\\"+j
+                            data.append(self.loadFilePageByPath(file_path))
                 else:
+                    # Is Economy
                     get_all_files_names = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(path+i, ".xlsx")
                     
                     if i not in data:
@@ -1137,9 +1141,10 @@ class Controladora:
                 if key != "economy":
                     get_all_files_names = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(path+year, ".txt")
                     for j in get_all_files_names:
-                        data_titles.append(j)
-                        file_path = path+year+"\\"+j
-                        data.append(self.loadFilePageByPath(file_path))
+                        if self._filterDataByIDAndMonth("diary", j, month):
+                            data_titles.append(j)
+                            file_path = path+year+"\\"+j
+                            data.append(self.loadFilePageByPath(file_path))
                 else:
                     get_all_files_names = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(path+year, ".xlsx")
                     
@@ -1147,8 +1152,9 @@ class Controladora:
                         data[year] = {}
 
                     for i in get_all_files_names:
-                        file_path = path+year+"\\"+i
-                        data[year][i] = self.loadFilePageByPath(file_path)
+                        if self._filterDataByIDAndMonth("economy", i, month):
+                            file_path = path+year+"\\"+i
+                            data[year][i] = self.loadFilePageByPath(file_path)
             except:
                 return
             
@@ -1163,7 +1169,12 @@ class Controladora:
             return True
 
         try:
-            #nroMonth = str(self.tiempo.getMonthNumberByMonthName(month))
+            if idData == "diary":
+                nroMonth = str(self.tiempo.getMonthNumberByMonthName(month))
+                data_nro_month = str(data).split("-")[0]
+                data_nro_month = str(data_nro_month).split(" ")[1]
+                if data_nro_month == nroMonth:
+                    return True
 
             if idData == "economy":
                 data_nro_month = str(data).split(".")[0]
