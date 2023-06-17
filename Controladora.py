@@ -84,6 +84,25 @@ class Controladora:
         id = str(random.randint(0, 9))
         return self.rutaDelProyecto+f"\\RECURSOS\\img\\btns\\{resource}\\{resource}"+id+".gif"
     
+    
+    def returnIMGBtnPeople(self):
+        """
+        Read all quantity of pleople you conect...
+        retrun a representative image
+        """
+        try:
+            qty_people = len(self.controladoraCarpetas.listOfAllPeople())
+
+            if qty_people == 0:
+                return self.rutaDelProyecto+"\\RECURSOS\\img\\btns\\people\\people0.gif"
+            
+            if qty_people < 10:
+                return self.rutaDelProyecto+f"\\RECURSOS\\img\\btns\\people\\people{qty_people}.gif"
+
+            return self.returnIMGRnBtnRousourceX("people")
+        except:
+            print("Error En People...")
+            return self.returnIMGRnBtnRousourceX("people")
 
     def retrunIMGBtnFeelings(self):
         """
