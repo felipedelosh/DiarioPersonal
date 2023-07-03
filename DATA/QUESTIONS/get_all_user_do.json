@@ -1,0 +1,16 @@
+{
+    "function" : "get_all_do()",
+    "list_of_words" : [
+        "hacer",
+        "hago",
+        "que",
+        "poder",
+        "voy",
+        "vida",
+        "rutina",
+        "actividades",
+        "cosas"
+    ],
+    "single_response" : true,
+    "required_words" : []
+}

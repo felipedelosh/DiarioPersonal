@@ -27,7 +27,7 @@ class Controladora:
         self.audioMixer = AudioMixer() # Reproductor de sonido
         self.tiempo = Tiempo() # Metodos personalizados de tiempo
         self.controladoraCarpetas = ControladoraCarpetas(self.tiempo, self.rutaDelProyecto) # Para crear y aceder a informacion
-        self.controladoraProcesamientoDeDatos = ControladoraProcesamientoDeDatos(self.rutaDelProyecto, self.tiempo) # Aca se hace la mineria de datos
+        self.controladoraProcesamientoDeDatos = ControladoraProcesamientoDeDatos(self.rutaDelProyecto, self.tiempo, self.controladoraCarpetas) # Aca se hace la mineria de datos
         self.graphicsController = GraphicsController()
         self.estadoDeLasCarpetas = self.crearCarpetasDelSistema()
         self.coloresParaGraficos = MagicColor() # Color
@@ -140,6 +140,40 @@ class Controladora:
         except:
             return self.returnIMGRnBtnRousourceX("feelings")
         
+
+    def returnIMGBtnDRUGS(self):
+        """
+        Read all drugs in current year and return a img > moda
+        """
+        try:
+            YYYY = self.tiempo.año()
+            path = self.rutaDelProyecto + "\\RECURSOS\\img\\btns\\drugs\\"
+
+            _files_img_drugs = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(path, '.gif')
+            #Get the most popular DRUG
+            path = self.rutaDelProyecto + "\\DATA\\DRUGS\\" + str(YYYY)
+            _files_names_drugs_yyyy = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(path, '.txt')
+
+            # Get TOP
+            dic_count = {}
+            for i in _files_names_drugs_yyyy:
+                _drug = str(i.split("-")[0]).strip()
+                if _drug not in dic_count.keys():
+                    dic_count[_drug] = 0
+                dic_count[_drug] = dic_count[_drug] + 1
+
+            # Order
+            dic_count = self.controladoraProcesamientoDeDatos._shorterDic(dic_count)
+
+            if dic_count[0][0]  + '.gif'  in _files_img_drugs:
+                return self.retornarRutaDelProyecto() + f"/RECURSOS/img/btns/drugs/{dic_count[0][0]}.gif"
+            else:
+                return self.retornarRutaDelProyecto()+'/RECURSOS/img/weed.gif'
+
+        except:
+            pass
+
+        return self.retornarRutaDelProyecto()+'/RECURSOS/img/weed.gif'
 
     def retornarRutaImagenDeFondo(self):
         """
@@ -898,6 +932,20 @@ class Controladora:
                 years.append(i)
 
         return years
+    
+
+    def getAllDrugs(self):
+        """
+        read RECURSOS/drugs.txt and return all info
+        """
+        return self.controladoraCarpetas.getAllDrugs()
+    
+
+    def saveDrugs(self, drug_title, drug_detonate, drug_feel):
+        """
+        save in DATA/DRUGS
+        """
+        return self.controladoraCarpetas.saveDrug(drug_title, drug_detonate, drug_feel)
 
 
     def guardarInformacionPerfil(self, informacion):
@@ -1433,6 +1481,8 @@ class Controladora:
             return self.femputadora_get_all_dreams()
         elif code == "how_i_feel()":
             return self.how_i_feel()
+        elif code == "get_all_do()":
+            return self.get_all_do()
         
 
     def getFemputadoraChatHistorial(self):
@@ -1510,6 +1560,38 @@ class Controladora:
 
         return sms
  
+
+    def get_all_do(self):
+        path = self.rutaDelProyecto + "\\DATA\\DISTRIBUCIONTIEMPO\\TIEMPODIARIO"
+        years = self.controladoraCarpetas.listALLFolderInPath(path)
+        _count_years = 0
+
+        data = "Lo Que más has hecho es:\n"
+
+        for i in years:
+            try:
+                if int(i) > 0:
+                    _p = path + "\\" + str(i)
+                    _d = self.controladoraProcesamientoDeDatos.sumaryALLActivities24H(_p)
+                    _d = self.controladoraProcesamientoDeDatos._shorterDic(_d)
+                    _temp = ""
+                    for j in _d: 
+                        _temp = _temp + "Para: " + str(j[0]) + " un total de:" + str(j[1]) + "\n"
+                    data = data + "\nPara el Año: " + str(i) + "\n" + _temp + "\n"
+                    _count_years = _count_years + 1
+            except:
+                pass
+
+        if _count_years == 0:
+            data = data + "No Tengo Información de que haces con tu vida."
+        elif _count_years == 1:
+            data = data + "\nSolo tengo la información de un año."
+        elif _count_years > 1:
+            data = data + "\nEn " + str(_count_years) + " años."
+        
+        
+
+        return data
 
     """END FEMPUTADORA"""
     """END FEMPUTADORA"""

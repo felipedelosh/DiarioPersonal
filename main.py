@@ -36,7 +36,7 @@ class TimeHackingLoko():
         self.imgBtnResultadoAnual = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/resultadoAnual.gif')
         self.imgFemputadora = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/femputadora.gif')
         self.imgBtnRegistoEmociones = PhotoImage(file=self.controladora.retrunIMGBtnFeelings())
-        print("Load Feelings...")
+        print("Load img BTN Feelings...")
         self.imgSaveFeeling = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/saveFeeling.gif')
         self.imgFeelingReport = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/feelingReport.gif')
         self.imgSaveTimeDistribution = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/saveTimeDistribution.gif')
@@ -49,6 +49,8 @@ class TimeHackingLoko():
         self.imgBtnConfiguracion = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/configuracion.gif')
         self.imgBtnAyuda = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/ayuda.gif')
         self.imageIcoPersona = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/ico/persona.png')
+        self.imgDRUGS = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/weed.gif')
+        self.imgPopularDrug = PhotoImage(file=self.controladora.returnIMGBtnDRUGS())
         """Imagenes de la pantalla principal"""
         self.btnDiario = Button(self.tela, image=self.imgBtnDiario, command=self.launchMenuDiary)
         self.btnAgenda = Button(self.tela, image=self.imgBtnAgenda, command=self.launchCalendary)
@@ -76,6 +78,7 @@ class TimeHackingLoko():
         self._comboBoxYear = StringVar() # Save a year to wacth in calendar
         self._comboBoxMonth = StringVar() # Save a month to wacth in calendar
         self._dayToCalendaryFilter = 0 # To filter in calendary
+        self._comboBoxDRUGS = StringVar()
         print("All Vars CharGED :o")
         self.pintarYConfigurar() # se muestra la pantalla
 
@@ -463,6 +466,8 @@ class TimeHackingLoko():
         btnViewTimeDistribution.place(x=220, y=140)
         btnSchedule = Button(canvas, image=self.imgSchedule, command=self.subInterfaceHorario)
         btnSchedule.place(x=60, y=260)
+        btnDRUGS = Button(canvas, image=self.imgDRUGS, command=self.subInterfaceDRUGS)
+        btnDRUGS.place(x=60, y=380)
 
     def lanzarPantallaRegistroSentimientos(self):
         interfaceSentimientos = Toplevel()
@@ -871,8 +876,54 @@ class TimeHackingLoko():
         btnVer = Button(lienzo, text="Graficar", command=lambda: self.graficarPilaresDeLaFelicidad(lienzo, comboxAñosActividades.get()))
         btnVer.place(x=200, y=20)
 
+
+    def subInterfaceDRUGS(self):
+        """
+        View a Drugs Interface.
+        """
+        t = Toplevel()
+        t.geometry("640x480")
+        t.title("Every Body Fall In DRUGS")
+        canvas = Canvas(t, width=640, height=480)
+        canvas.place(x=0, y=0)
+        lbl_warning = Label(canvas, text="Advertencia: - La Droga más Consumida es: ")
+        lbl_warning.place(x=20, y=20)
+        canvas.create_image(20,50,image=self.imgPopularDrug, anchor=NW)
+        canvas.create_line(10, 180, 630, 180)
+        cbx_drugs = ttk.Combobox(canvas, state='readonly', textvariable=self._comboBoxDRUGS)
+        cbx_drugs.place(x=250, y=200)
+        cbx_options = self.controladora.getAllDrugs()
+        cbx_drugs['values'] = cbx_options
+        cbx_drugs.current(0)
+        lbl_title_cbx = Label(canvas, text="Cual fue la ultima droga que consumiste: ")
+        lbl_title_cbx.place(x=20, y=200)
+        lbl_detonate = Label(canvas, text="Cual fue el detonante:")
+        lbl_detonate.place(x=20, y=240)
+        txt_detonate = Text(canvas, width=75, height=3)
+        txt_detonate.place(x=20, y=270)
+        lbl_feel = Label(canvas, text="Que te hace sentir esa sustancia: ")
+        lbl_feel.place(x=20, y=330)
+        txt_feel = Text(canvas, width=75, height=3)
+        txt_feel.place(x=20, y=360)
+        btnSAVE = Button(canvas, text="Guardar", command=lambda : self._saveDrug(txt_detonate ,txt_feel))
+        btnSAVE.place(x=560, y=440)
+
+    def _saveDrug(self, txt_detonate, txt_feel):
         
-    
+        if not self.validatesTxt(txt_detonate.get("1.0", END)):
+            self.ventanaEnmergenteDeAlerta("Error Fatal", "Tienes que indicar aquello que te hizo comsumir...\nEjemplo: me siento muy triste.")
+        else:
+            if not self.validatesTxt(txt_feel.get("1.0", END)):
+                self.ventanaEnmergenteDeAlerta("Error :/", "Indica Que te HiZo Sentir Esa sustanCIA")
+            else:
+                if self.controladora.saveDrugs(self._comboBoxDRUGS.get(), txt_detonate.get("1.0", END), txt_feel.get("1.0", END)):      
+                    self.clearTextArea(txt_detonate)
+                    self.clearTextArea(txt_feel)
+                    self.ventanaEnmergenteDeAlerta("EXITO", "Se ha guardado correctamente")
+                else:
+                    self.ventanaEnmergenteDeAlerta("ERROR", "No se pudo hacer ni mierda.")
+            
+
         
     """Se declaran las subinterfaces TopLevel"""
     """Se declaran las subinterfaces TopLevel"""
@@ -1781,6 +1832,12 @@ class TimeHackingLoko():
         Enter a str and return is valid
         """
         return txt.strip() != "" and "\"" not in txt
+    
+    def clearTextArea(self, txtArea):
+        """
+        Enter Text and clean
+        """
+        txtArea.delete("1.0", END)
 
     
 thl = TimeHackingLoko()

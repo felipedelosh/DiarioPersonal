@@ -12,15 +12,16 @@ Procesamiento de datos en json
 """
 # -⁻- coding: UTF-8 -*-
 import json
-
+import os # TO get path project, read folders
 from StringProcessor import *
 
 
 class ControladoraProcesamientoDeDatos(object):
-    def __init__(self, rutaDelProyecto, tiempo):
+    def __init__(self, rutaDelProyecto, tiempo, folderController):
         self.stringProcessor = StringProcessor()
         self.rutaDelProyecto = rutaDelProyecto
         self.tiempo = tiempo
+        self.folderControler = folderController
         """
         Este dicionario guarda los logros mas importantes del a+o
         Año:LogroA, LogroB
@@ -129,6 +130,28 @@ class ControladoraProcesamientoDeDatos(object):
                 pass
 
         return temp
+    
+    def sumaryALLActivities24H(self, path):
+        """
+        Enter a DATA\DISTRIBUCIONTIEMPO\YYYY 
+        and return {"Activity":#, "Activity":#, "Activity":#}
+        """
+        data = {}
+
+        try:
+            for i in self.folderControler.listarTodosLosArchivosdeCarpeta(path, ".txt"):
+                _data = self.folderControler.getTextInFile(path + "\\" + str(i))
+                for j in _data.split("\n"):
+                    if str(j) != "":
+                        _act = str(j).split(":")[-1]
+                        if _act not in data.keys():
+                            data[_act] = 0
+                        data[_act] = data[_act] + 1
+        except:
+            pass
+
+        return data
+        
 
     def procesarDatosSemanalHorario(self, todasLasActividades, informacion):
         """
@@ -511,6 +534,7 @@ class ControladoraProcesamientoDeDatos(object):
         """
         Enter a Dic {key:str, value:int}
         and order via bubbleshort
+        return [('X', #),...('Z', #))]
         """
         all_data = []
         # Copy all data in vect of tuples

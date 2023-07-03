@@ -86,6 +86,12 @@ class ControladoraCarpetas(object):
         if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\USOS"): # No existe la carpera creelas
             os.mkdir(self.rutaDelProyecto+"\\DATA\\USOS")
 
+        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\DRUGS"): # No existe la carpera creelas
+            os.mkdir(self.rutaDelProyecto+"\\DATA\\DRUGS")
+
+        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\DRUGS\\"+str(self.tiempo.año())): # No existe la carpera creelas
+            os.mkdir(self.rutaDelProyecto+"\\DATA\\DRUGS\\"+str(self.tiempo.año()))
+
     def listarTodosLosArchivosdeCarpeta(self, ruta, extension):
         """
         Retorna el nombre de todos los archivos.extension de una carpeta
@@ -101,6 +107,21 @@ class ControladoraCarpetas(object):
             pass
 
         return nombreArchivos
+    
+    def listALLFolderInPath(self, path):
+        """
+        Enter a x/y/z and return ['Folder1',... 'FolderN']
+        """
+        folders = []
+
+        try:
+            for i in scandir(path):
+                if i.is_dir():
+                    folders.append(i.name)
+        except:
+            pass
+
+        return folders
     
 
     def get_all_triggers(self):
@@ -159,6 +180,7 @@ class ControladoraCarpetas(object):
 
         return years
     
+
     def getTitlesOfAllDreams(self):
         """
         return [DATE-DREAM, DATE-DREAM, DATE-DREAM,DATE-DREAM ....]
@@ -179,6 +201,7 @@ class ControladoraCarpetas(object):
 
         return output
     
+
     def listOfAllPeople(self):
         """
         return all people in the people folder
@@ -194,6 +217,7 @@ class ControladoraCarpetas(object):
                 pass
 
         return people
+    
     
     def listOfAllPeopleAlias(self):
         """
@@ -317,6 +341,46 @@ class ControladoraCarpetas(object):
             return True
         except:
             return False
+        
+
+    def getAllDrugs(self):
+        """
+        Load RECURSOS\drugs.txt and return all drugs
+        """
+        drugs = []
+        try:
+            path = self.rutaDelProyecto + "\\RECURSOS\\drugs.txt"
+
+            temp = self.getTextInFile(path)
+            for i in temp.split("\n"):
+                drugs.append(i)
+        except:
+            pass
+        
+
+        return drugs
+    
+    def saveDrug(self, drug_title, drug_detonate, drug_feel):
+        try:
+            YYYY = self.tiempo.año()
+
+            path = self.rutaDelProyecto + "\\DATA\\DRUGS\\" + str(YYYY) + "\\" + drug_title + " - " + self.tiempo.estampaDeTiempo() + ".txt"
+
+            # Exists ???
+            data = ""
+            try:
+                with open(path, 'r', encoding="UTF-8") as f:
+                    data = f.read()
+            except:
+                pass
+            
+            with open(path, 'w', encoding="UTF-8") as f:
+                f.write(drug_detonate + "\n\n\n" + drug_feel + "\n" + self.tiempo.hora() + "\n" + data)    
+
+            return True
+        except:
+            return False
+        
         
 
     def getTextInFile(self, path):
