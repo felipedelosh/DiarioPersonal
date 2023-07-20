@@ -151,7 +151,53 @@ class ControladoraProcesamientoDeDatos(object):
             pass
 
         return data
-        
+    
+    
+
+    def getSumaryYYYYAllActivities24HPerDayOfWeek(self, path):
+        """
+        Enter a PATH DATA\DISTRIBUCIONTIEMPO\YYYY 
+        and return {"name of day":{"HOUR":{"activuty":counter..."activuty":counter}}}
+        """
+        data = {}
+
+        #init data with days
+        for i in self.tiempo.diasDeLaSemana:
+            data[i] = {}
+
+
+        for i in self.folderControler.listarTodosLosArchivosdeCarpeta(path, ".txt"):
+            try:
+                # Get all day summary
+                _data = self.folderControler.getTextInFile(path + "\\" + str(i))
+                _whatDay = str(i).split(".txt")[0]
+                _whatDay = str(_whatDay).split(" ")
+                YYYY = int(_whatDay[0])
+                MM = int(_whatDay[1])
+                DD = int(_whatDay[2])
+                # Get name of day in the date YYYY MM DD
+                _whatDay = self.tiempo.getNameOfDayByDate([YYYY, MM, DD])
+                for j in _data.split("\n"):
+                    _temp = str(j).split(":")
+                    _hour = _temp[0]
+                    _activity = _temp[1]
+
+                    if not str(_hour) in data[_whatDay].keys():
+                        data[_whatDay][_hour] = {}
+
+                    if not _activity in data[_whatDay][_hour].keys():
+                        data[_whatDay][_hour][_activity] = 0
+
+                    data[_whatDay][_hour][_activity] = data[_whatDay][_hour][_activity] + 1
+            except:
+                pass
+
+
+
+        return data
+
+
+
 
     def procesarDatosSemanalHorario(self, todasLasActividades, informacion):
         """

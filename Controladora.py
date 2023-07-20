@@ -577,6 +577,48 @@ class Controladora:
         self.coloresParaGraficoCircular = self.retornarColores(contador)
         return dataHorario
     
+
+    def processDiaryActivitiesInWeek(self):
+        """
+        Cacth the current year and return all things to do 24h in the year peer only WEEK
+        """
+        data = 0
+        YYYY = self.tiempo.año()
+        path = self.rutaDelProyecto + f"\\DATA\\DISTRIBUCIONTIEMPO\\TIEMPODIARIO\\{YYYY}"
+        
+        # Get all data via name of week
+        data = self.controladoraProcesamientoDeDatos.getSumaryYYYYAllActivities24HPerDayOfWeek(path)
+
+        # Get Only Unique Values
+        _temp = {}
+        for i in data:
+            try:
+                if i not in _temp.keys():
+                    _temp[i] = {}
+                for j in data[i]:
+                    if j not in _temp[i].keys():
+                        _temp[i][j] = ""
+                    #is unique value? 
+                    _qtyActivities = len(data[i][j])
+                    if _qtyActivities == 1:
+                        test_dict = data[i][j]
+                        _activity = str(list(test_dict.keys())[0])
+                        _temp[i][j] = _activity
+                    elif _qtyActivities > 1:
+                        # In the future put here if you hav more of 2 activities
+                        _top = self.controladoraProcesamientoDeDatos._shorterDic(data[i][j]) # [('A', x), ('B', y)]  x > y
+                        _top = _top[0][0]
+                        _temp[i][j] = _top
+            except:
+                pass
+
+
+
+        data = _temp
+        return data
+    
+
+    
     def vizualizeFeelingsData(self, data):
         self.graphicsController.showFeelingsYearGraphic(data)
 

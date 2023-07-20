@@ -173,3 +173,19 @@ class Tiempo:
             counter = counter + 1
         
         return -1
+    
+
+    def getNameOfDayByDate(self, d):
+        """
+        Enter a date [YYYY, MM, DD] and return a name of day
+        """
+        day = ""
+
+        try:
+            _d = date(d[0], d[1], d[2])
+            _d = _d.weekday()
+            day = self.diasDeLaSemana[_d]
+        except:
+            pass
+
+        return day

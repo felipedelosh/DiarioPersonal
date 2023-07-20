@@ -733,11 +733,13 @@ class TimeHackingLoko():
             domingo[j].place(x=720, y=60+(26*j))
 
         btnLimpiarHorario = Button(interfaceHorario, text="Limpiar", command=lambda : self.limpiarHorario(lunes, martes, miercoles, jueves, viernes, sabado, domingo))
-        btnLimpiarHorario.place(x=900, y=10)
+        btnLimpiarHorario.place(x=880, y=10)
         btnCargarHorario = Button(interfaceHorario, text="Cargar", command=lambda : self.cargarHorario(lunes, martes, miercoles, jueves, viernes, sabado, domingo))
-        btnCargarHorario.place(x=1000, y=10)
+        btnCargarHorario.place(x=960, y=10)
+        btnChargeScheduleFromData = Button(interfaceHorario, text="Cargar L mode", command=lambda : self.loadScheduleFromData(lunes, martes, miercoles, jueves, viernes, sabado, domingo))
+        btnChargeScheduleFromData.place(x=1020, y=10)
         btnGuardarHorario = Button(interfaceHorario, text="Guardar", command=lambda : self.guardarHorario(opcionesLunes, opcionesMartes, opcionesMiercoles, opcionesJueves, opcionesViernes, opcionesSabado, opcionesDomingo))
-        btnGuardarHorario.place(x=1100, y=10)
+        btnGuardarHorario.place(x=1160, y=10)
 
 
     def subInterfaceReporteEconomico(self):
@@ -1326,7 +1328,32 @@ class TimeHackingLoko():
             viernes[i].set('')
             sabado[i].set('')
             domingo[i].set('')
+
+
+    def loadScheduleFromData(self, lunes, martes, miercoles, jueves, viernes, sabado, domingo):
+        self.limpiarHorario(lunes, martes, miercoles, jueves, viernes, sabado, domingo)
+        data = self.controladora.processDiaryActivitiesInWeek()
         
+
+        if data != {}:
+            try:
+                # Day by day
+                _d = self.controladora.tiempo.diasDeLaSemana
+                self._refreshDayInSchelude(lunes, data[_d[0]])
+                self._refreshDayInSchelude(martes, data[_d[1]])
+                self._refreshDayInSchelude(miercoles, data[_d[2]])
+                self._refreshDayInSchelude(jueves, data[_d[3]])
+                self._refreshDayInSchelude(viernes, data[_d[4]])
+                self._refreshDayInSchelude(sabado, data[_d[5]])
+                self._refreshDayInSchelude(domingo, data[_d[6]])
+            except:
+                pass
+
+    def _refreshDayInSchelude(self, cbxDayArr, data):
+        counter = 0
+        for i in data:
+            cbxDayArr[counter].set(data[i])
+            counter = counter + 1
 
     """GRAFICAS"""
     """GRAFICAS"""
