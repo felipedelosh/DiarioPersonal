@@ -85,7 +85,7 @@ class TimeHackingLoko():
     
     def pintarYConfigurar(self):
         self.pantalla.geometry("640x480")
-        self.pantalla.title("Hackeo del Tiempo By LOko")
+        self.pantalla.title("Agenda Personal")
         self.tela.place(x=0, y=0)
         self.tela.create_image(0,0,image=self.imgFondo, anchor=NW)
         self.btnDiario.place(x=30, y=30)
@@ -116,14 +116,22 @@ class TimeHackingLoko():
     """Se declaran las interfaces TopLevel"""
     def launchMenuDiary(self):
         t = Toplevel()
-        t.title("Diary Main MEnú...")
-        t.geometry("250x400")
-        canvas = Canvas(t, width=250, height=400)
+        t.title("Interface diario.")
+        t.geometry("400x400")
+        canvas = Canvas(t, width=400, height=400)
         canvas.place(x=0, y=0)
+        canvas.create_line(0, 130, 400, 130)
+        canvas.create_line(0, 250, 400, 250)
+        lblPersonalDiary = Label(canvas, text="Diario personal\n\n\nEscribe aqui las cosas que pasan \nen tu vida.")
+        lblPersonalDiary.place(x=200, y=30)
         btnPersonalDiary = Button(canvas, image=self.imgPersonalDiary, command=self.lanzarPantallaDiario)
         btnPersonalDiary.place(x=70, y=20)
+        lblDreams = Label(canvas, text="Diario de Sueños\n\n\nEscribe aqui lo que pasa cuando \nduermes?\nque es lo que sueñas.")
+        lblDreams.place(x=200, y=140)
         btnDreams = Button(canvas, image=self.imgDreamDiary, command=self.launchInterfaceDreams)
         btnDreams.place(x=70, y=140)
+        lblPeople = Label(canvas, text="Amigos\n\n\nEscribe aquí sobre la gente que te \nrodea.")
+        lblPeople.place(x=200, y=260)
         btnPeople = Button(canvas, image=self.imgPeople, command=self.launchInterfacePeople)
         btnPeople.place(x=70, y=260)
 

@@ -180,7 +180,7 @@ class Controladora:
         En la carpeta RECURSOS/img/bg hay fotos.gif
         con id [0-9] se retorna por randon
         """
-        id = str(random.randint(0, 25))
+        id = str(random.randint(0, 31))
         return self.rutaDelProyecto+"\\RECURSOS\\img\\bg\\"+id+".gif"
 
     def guardarPaginaDiario(self, palabraMagica, texto):
