@@ -779,38 +779,34 @@ class TimeHackingLoko():
 
     def subInterfacebalaceDeCajas(self):
         """
-        Existen 2 tipos de cajas:
-        ->Caja mayor: Contiene los ahorros y solo se gasta en caso de emergencia
-        ->Caja menor es el monto que se puede gastar cada dia.
-
-        Ambas cajas estan contenidas en DATA/ECONOMIA/CAJAS/cajaMayor.txt y cajaMenor.txt
-
-        Aqui se puede guardar manualmente el monto de ambas cajas 
-        ademas de decirme cuanto dinero me puedo gastar en 1 dia deacuerdo a los ingresos.
+        The user insert a information about money in bank or money in bag
+        * Graphics
         """
         interfaceCaja = Toplevel()
-        interfaceCaja.geometry("500x500")
-        lienzo = Canvas(interfaceCaja, height=300, width=480, bg="snow")
+        _h = 640
+        _w = 480
+        interfaceCaja.geometry(str(_h)+"x"+str(_w))
+        lienzo = Canvas(interfaceCaja, height=300, width=610, bg="purple")
         lienzo.place(x=10, y=120)
-        # Se pintan las graficas
         self.graficaEstadoDeCajas(lienzo)
-        # Se ponen los labels
+        lblIntroduction = Label(interfaceCaja, text="Ingrese la información economica correspondiente:")
+        lblIntroduction.place(x=100, y=10)
         lblEstadoCajaMayor = Label(interfaceCaja, text="Estado Caja Mayor: $")
         lblEstadoCajaMayor.place(x=20, y=50)
-        txtEstadoCajaMayor = Entry(interfaceCaja, width=40)
+        txtEstadoCajaMayor = Entry(interfaceCaja, width=68)
         k = self.controladora.cargarEstadoCajaMayor() # Se retorna la informacion de la caja mayor
         txtEstadoCajaMayor.insert(0, k)
         txtEstadoCajaMayor.place(x=140, y=52)
         btnGuardarEstadoCajaMayor = Button(interfaceCaja, text="Actualizar", command=lambda : self.guardarMontoCajaMayor(txtEstadoCajaMayor.get(), lienzo))
-        btnGuardarEstadoCajaMayor.place(x=400, y=48)
+        btnGuardarEstadoCajaMayor.place(x=560, y=48)
         lblEstadoCajaMenor = Label(interfaceCaja, text="Estado Caja Menor: $")
         lblEstadoCajaMenor.place(x=20, y=80)
-        txtEstadoCajaMenor = Entry(interfaceCaja, width=40)
+        txtEstadoCajaMenor = Entry(interfaceCaja, width=68)
         k = self.controladora.cargarEstadoCajaMenor() # Se retorna la informacion de la caja mayor
         txtEstadoCajaMenor.insert(0, k)
         txtEstadoCajaMenor.place(x=140, y=82)
         btnGuardarEstadoCajaMenor = Button(interfaceCaja, text="Actualizar", command=lambda : self.guardarMontoCajaMenor(txtEstadoCajaMenor.get(), lienzo))
-        btnGuardarEstadoCajaMenor.place(x=400, y=78)
+        btnGuardarEstadoCajaMenor.place(x=560, y=78)
 
 
 
@@ -820,7 +816,7 @@ class TimeHackingLoko():
         d = abs(30 - d) # Que tan lejos estoy a fin de mes
         dineroQuePuedesGastarHoy = round((int(k) / d), 2)
         lblDineroQuePuedesGastarHoy = Label(interfaceCaja, text="Hoy puedes gastar > $ "+str(dineroQuePuedesGastarHoy))
-        lblDineroQuePuedesGastarHoy.place(x=100, y=460)
+        lblDineroQuePuedesGastarHoy.place(x=200, y=440)
 
     def subInterfacePerfil(self):
         interfacePerfil = Toplevel()
@@ -1544,67 +1540,14 @@ class TimeHackingLoko():
 
     def graficaEstadoDeCajas(self, tela):
         """
-        1 -> Se pide la informacion de la caja menor.
-        2 -> Se divide la tela entre el numero de datos
-        3 -> Se grafican los puntos en azul
-        4 -> Se pide la informacion de la caja mayor
-        5 -> Se divide la tela entre el numero de datos
-        6 -> Se grafican los puntos en verde
+        Graph Box States: read data and show.
         """
         tela.delete("estadocajas")
-        # Se toman la informacion de largo y ancho del tablero
-        h = int(tela['height'])
-        w = int(tela['width'])
 
-        # Se pide la informacion a graficar de la caja menor
-        info = self.controladora.cargarRecordEstadoCajaMenor()
-        # Si hay informacion de la caja menor grafiquela
-        if len(info) > 0:
-            # Se busca el valor mayor
-            maxY = 0
-            for i in info:
-                if i > maxY:
-                    maxY = i
-
-            # Se grafican 3 labes cero, montoMedio, MaximoMonto
-            tela.create_text(20, h-10, fill="blue", text="$0.0", tags="estadocajas")
-            tela.create_text(20, h/2, fill="blue", text="$"+str(maxY/2), tags="estadocajas")
-            tela.create_text(20, 20, fill="blue", text="$"+str(maxY), tags="estadocajas")
-
-
-            # Distancia de los puntos
-            d = w / len(info)
-
-            # Se procede a graficar los puntos
-            for i in range(0, len(info)-1):
-                x0 = d*i
-                y0 = h * (1-(info[i]/maxY))
-                x1 = d*(i+1)
-                y1 = h * (1-(info[i+1]/maxY))
-                tela.create_line(x0, y0, x1, y1, fill="blue", tags="estadocajas")
-
-
-        # Se pide la informacion a graficar >> Caja Mayor
-        info = self.controladora.cargarRecordEstadoCajaMayor()
-        if len(info) > 0:
-            # Se busca el valor mayor
-            maxY = 0
-            for i in info:
-                if i > maxY:
-                    maxY = i
-
-            # Se grafican 3 labes cero, montoMedio, MaximoMonto
-            tela.create_text(w*0.9, h-10, fill="green", text="$0.0", tags="estadocajas")
-            tela.create_text(w*0.9, h/2, fill="green", text="$"+str(maxY/2), tags="estadocajas")
-            tela.create_text(w*0.9, 20, fill="green", text="$"+str(maxY), tags="estadocajas")
-
-            # Se procede a graficar los puntos
-            for i in range(0, len(info)-1):
-                x0 = d*i
-                y0 = h * (1-(info[i]/maxY))
-                x1 = d*(i+1)
-                y1 = h * (1-(info[i+1]/maxY))
-                tela.create_line(x0, y0, x1, y1, fill="green", tags="estadocajas")
+        dataLitleBox = self.controladora.cargarRecordEstadoCajaMenor()
+        dataBigBox = self.controladora.cargarRecordEstadoCajaMayor()
+        if len(dataLitleBox) > 0 or len(dataBigBox) > 0:
+            self.controladora.graphicsController.graphEconomyBoxStates(tela, dataLitleBox, dataBigBox)
 
 
     def graficarTiempoDeVida(self, tela, añoNacimiento):

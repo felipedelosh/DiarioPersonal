@@ -67,3 +67,62 @@ class GraphicsController:
             tela.create_rectangle(x0, y0, x1, y1, fill="blue")
 
             counter = counter + 1
+
+
+    def graphEconomyBoxStates(self, canvas, dataLitleBox, dataBigBox):
+        """
+        Enter a tkinter canvas and [#, #, #]
+        """
+        h = int(canvas['height'])
+        w = int(canvas['width'])
+        data = dataLitleBox
+
+        if len(data) > 0:
+            # get the top value of data
+            maxY = 0
+            for i in data:
+                if i > maxY:
+                    maxY = i
+
+            canvas.create_text(w*0.04, h*0.95, fill="blue", text="$0.0", tags="estadocajas")
+            canvas.create_text(w*0.04, h*0.48, fill="blue", text="$"+str(maxY/2), tags="estadocajas")
+            canvas.create_text(w*0.04, h*0.05, fill="blue", text="$"+str(maxY), tags="estadocajas")
+
+
+            _dxPivot = w / len(data)
+            _ink = w*0.04
+            # Graph the points x,y 
+            for i in range(0, len(data)-1):
+                x0 = _dxPivot*i + _ink
+                y0 = h * (1-(data[i]/maxY)) 
+                x1 = _dxPivot*(i+1) + _ink
+                y1 = h * (1-(data[i+1]/maxY))
+                canvas.create_line(x0, y0, x1, y1, fill="blue", tags="estadocajas")
+
+        
+        data = dataBigBox
+        if len(data) > 0:  
+            # get the top value of data
+            maxY = 0
+            for i in data:
+                if i > maxY:
+                    maxY = i
+
+
+            # Se grafican 3 labes cero, montoMedio, MaximoMonto
+            canvas.create_text(w*0.9, h*0.95, fill="green", text="$0.0", tags="estadocajas")
+            canvas.create_text(w*0.9, h*0.48, fill="green", text="$"+str(maxY/2), tags="estadocajas")
+            canvas.create_text(w*0.9, h*0.05, fill="green", text="$"+str(maxY), tags="estadocajas")
+
+
+
+            # Se procede a graficar los puntos
+            _dxPivot = w / len(data)
+            _ink = w*0.04
+            for i in range(0, len(data)-1):
+                x0 = _dxPivot*i + _ink
+                y0 = h * (1-(data[i]/maxY))
+                x1 = _dxPivot*(i+1) + _ink
+                y1 = h * (1-(data[i+1]/maxY))
+                canvas.create_line(x0, y0, x1, y1, fill="green", tags="estadocajas")
+    
