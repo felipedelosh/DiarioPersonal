@@ -225,15 +225,23 @@ class TimeHackingLoko():
     def launchEconomyMenu(self):
         t = Toplevel()
         t.title("Menú Economia...")
-        t.geometry("400x500")
-        canvas = Canvas(t, height=500, width=400)
+        t.geometry("500x400")
+        canvas = Canvas(t, height=400, width=500)
         canvas.place(x=0, y=0)
+        canvas.create_line(0, 130, 500, 130)
+        canvas.create_line(0, 250, 500, 250)    
+        lblTAccount = Label(canvas, text="Cuetas T\n\nIngresa aqui tus gastos personales en:\nIngresos: el dinero entrante\nEgresos: el dinero saliente")
+        lblTAccount.place(x=220, y=20)
         btnTAccount = Button(canvas, image=self.imgTAccount, command=self.lanzarInterfaceEconomia)
-        btnTAccount.place(x=140, y=20)
+        btnTAccount.place(x=60, y=20)
+        lblEconomyReport = Label(canvas, text="Graficas\n\nOtra manera de ver los gastos.")
+        lblEconomyReport.place(x=240, y=140)
         btnEconomyReport = Button(canvas, image=self.imgEconomyReport, command=self.subInterfaceReporteEconomico)
-        btnEconomyReport.place(x=140, y=140)
+        btnEconomyReport.place(x=60, y=140)
+        lblBox = Label(canvas, text="Ahorros:\n\nCaja menor:\nCuanto dinero tienes en los bolsillos?\nCaja mayor:\nCuanto dinero tienes Ahorrado?")
+        lblBox.place(x=220, y=260)
         btnBox = Button(canvas, image=self.imgBox, command=self.subInterfacebalaceDeCajas)
-        btnBox.place(x=140, y=260)
+        btnBox.place(x=60, y=260)
         
 
             
