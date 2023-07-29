@@ -1,0 +1,24 @@
+6am:dormir
+7am:dormir
+8am:dormir
+9am:dormir
+10am:trabajar
+11am:trabajar
+12am:que haceres domesticos
+1pm:alimentación
+2pm:video juegos
+3pm:video juegos
+4pm:video juegos
+5pm:FAPTIME
+6pm:trabajar
+7pm:video juegos
+8pm:video juegos
+9pm:video juegos
+10pm:video juegos
+11pm:internet
+12pm:dormir
+1am:dormir
+2am:dormir
+3am:dormir
+4am:dormir
+5am:dormir

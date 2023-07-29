@@ -11,6 +11,8 @@ class Controller:
         self._counterOutputDataFeelings = 0
         self._outputDAtaEconomy = {}
         self._counterOutputDataEconomy = 0
+        self._outputDataTimeDistribution = {}
+        self._counterOutputDataTimeDistribution = 0
         self.consoleText = ""
         self._loadStatus = False
         self.dataSQL = ""
@@ -183,9 +185,47 @@ class Controller:
                         self._counterOutputDataEconomy = self._counterOutputDataEconomy + 1
 
 
+                if t_day_time_distribution:
+                    if "t_day_time_distribution" in i:
+                        data = str(i).split("INSERT INTO t_day_time_distribution (timeStamp, hour, activity) VALUES ")[1]
+                        data = data.split(",")
+
+                        _date = data[0]
+                        _date = _date.replace('(', '')
+                        _date = _date.replace('\'', '')
+                        _date = _date.split(":")
+                        _hour = data[1]
+                        _activity = data[2]
+                        _activity = _activity.replace(")", "")
+                        _activity = _activity.replace(";", "")
+                        _activity = _activity.replace("\'", "")
+
+                        YYYY = _date[0]
+                        MM = _date[1]
+                        MM = self._getNumberOfMonthByFullNameMonth(MM)
+                        DD = _date[2]
+
+                        HH = _hour.replace("\'", "")
+
+                        # Name of file YYYY MM DD
+                        fileName = f"{YYYY} {MM} {DD}.txt"
+
+                        # Need Create Year in info?
+                        if YYYY not in self._outputDataTimeDistribution.keys():
+                            self._outputDataTimeDistribution[YYYY] = {}
+
+                        if fileName not in self._outputDataTimeDistribution[YYYY].keys():
+                            self._outputDataTimeDistribution[YYYY][fileName] = ""
+
+                        # Save Activity
+                        save = self._outputDataTimeDistribution[YYYY][fileName]
+                        save = save + str(HH).strip() + ":" + str(_activity).strip() + "\n"
+                        self._outputDataTimeDistribution[YYYY][fileName] = save
+                        self._counterOutputDataTimeDistribution = self._counterOutputDataTimeDistribution + 1
 
 
-        
+
+                    
         # Save LOGS
         if t_personal_page_diary:
             path = self.path + "\\OUTPUT\\DIARIO\\"
@@ -198,7 +238,10 @@ class Controller:
             self.saveFiles(path ,self._outputDataFeelings)
             self.consoleText = self.consoleText + "Total info encontrada Sentimientos = " + str(self._counterOutputDataFeelings) + "\n"
             
-            
+        if t_day_time_distribution:
+            path = self.path + "\\OUTPUT\\TIEMPODIARIO\\"
+            self.saveFiles(path, self._outputDataTimeDistribution)
+            self.consoleText = self.consoleText + "Total info encontrada Distribución de tiempo = " + str(self._counterOutputDataTimeDistribution) + "\n"
 
         if t_economy_t_account:
             path = self.path + "\\OUTPUT\\ECONOMIA\\"
