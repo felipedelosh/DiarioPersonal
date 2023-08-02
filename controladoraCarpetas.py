@@ -323,6 +323,21 @@ class ControladoraCarpetas(object):
 
         except:
             return ['dormir', 'trabajar', 'deporte']
+        
+    def loadIndexOfActivity(self, activity):
+        """
+        Enter a activity:str and return the index # of this activity
+        """
+        allActivities = self.cargarActividades()
+        counter = 0
+        for i in allActivities:
+            if i == activity:
+                return counter
+
+            counter = counter + 1
+
+        return None
+
 
     def crearCarpetaEnDeciociones(self, txt):
         if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\DECICIONES\\"+str(txt)): # No existe la carpera creelas

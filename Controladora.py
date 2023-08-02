@@ -544,6 +544,27 @@ class Controladora:
         # Todos esos sentimientos se los mando a la procesadora de datos
         dataSentimientos = self.controladoraProcesamientoDeDatos.procesarDatosSentimientos(self.controladoraCarpetas.cargarEstadosEmocionanes(),sentimientos)
         return dataSentimientos
+    
+
+    def loadTodayTimeInversion(self):
+        """
+        get date today and return {hour:activity, ...hour:activity}
+        """
+        _data = {}
+        YYYY = self.tiempo.año()
+        MM = self.tiempo.mes()
+        DD = self.tiempo.diaNumero()
+
+        _fileName = self.rutaDelProyecto + f"\\DATA\\DISTRIBUCIONTIEMPO\\TIEMPODIARIO\\{YYYY}\\{YYYY} {MM} {DD}.txt"
+        _temp = self.controladoraCarpetas.getTextInFile(_fileName)
+
+        for i in _temp.split("\n"):
+            if str(i).strip() != "":
+                d = str(i).split(":")
+                _data[d[0]] = d[1]
+
+        return _data
+    
 
     def guardarDistribucionTiempoDiario(self, reporte):
         """
@@ -1094,6 +1115,16 @@ class Controladora:
             return f.read()
         except:
             return "dormir\nalimentacion\nNada"
+        
+        
+    def loadIndexOfActivity(self, activity):
+        """
+        Return the index of activity x
+        """
+        index = None
+        index = self.controladoraCarpetas.loadIndexOfActivity(activity)
+        return index
+
 
     def cargarPorcentajesDeActividades(self, año):
         """

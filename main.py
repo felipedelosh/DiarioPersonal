@@ -614,6 +614,9 @@ class TimeHackingLoko():
         lblActividad = Label(interfaceTiempoDia, text="Actividad: ")
         lblActividad.place(x=100, y=20)
 
+        #Exists previus data ?
+        _data = self.controladora.loadTodayTimeInversion()
+
         # Se ponen todas las horas empezando desde las 6 de la ma+ana
         formato12h = 6
         controlAMPM = 0 # Controla si se asigna AM o PM
@@ -624,7 +627,6 @@ class TimeHackingLoko():
         strActividades = [] # Aqui se guardan los string var que van a gardar las actividades
 
         for i in range(0, 24):
-            
             if formato12h == 13:
                 formato12h = 1
 
@@ -639,7 +641,8 @@ class TimeHackingLoko():
                 AMPM = "pm"
 
             # Se poenen las horas
-            lblHr.append(Label(interfaceTiempoDia, text=str(formato12h)+AMPM))
+            lblTimeX = str(formato12h)+AMPM
+            lblHr.append(Label(interfaceTiempoDia, text=lblTimeX))
             lblHr[i].place(x=20, y=60+(25*i))
             # Aqui se almacena esta actividad
             strActividades.append(StringVar())
@@ -647,11 +650,17 @@ class TimeHackingLoko():
             actividades.append(ttk.Combobox(interfaceTiempoDia, state='readonly', textvariable=strActividades[i], values=actividadesPosibles))
             actividades[i].place(x=100, y=60+(25*i))
 
+            # Get values?
+            if _data != {}:
+                _currentElement = self.controladora.loadIndexOfActivity(_data[lblTimeX])
+                actividades[i].current(_currentElement)
+
             formato12h = formato12h + 1
 
         # Se crea el boton para guardar
         btnGuardar = Button(interfaceTiempoDia, text="GUARDAR", command = lambda : self.guardarInversionTiempoDiaria(lblHr, strActividades))
         btnGuardar.place(x=180, y=20)
+
 
     def subInterfaceGastoDeVida(self):
         nacimientoUsuario = 1991
