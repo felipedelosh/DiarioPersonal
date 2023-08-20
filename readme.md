@@ -27,8 +27,16 @@ Nota 02: se advierte que el codigo está hecho por un niño que apenas estaba ap
 - `Funcionalidad 5`: Alarmas.<br>
 
 
+## :hammer_and_wrench:Tecnologías.
 
-
+- :snake: Python
+- Tkinter
+- OS
+- math
+- winsound
+- random
+- time
+- datetime
 
 ## Autor
 
