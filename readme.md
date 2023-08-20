@@ -38,6 +38,10 @@ Nota 02: se advierte que el codigo está hecho por un niño que apenas estaba ap
 - time
 - datetime
 
+## :warning:Advertencia
+
+- Este proyecto fue escrito en su tiempo y no funciona otros sistemas operativos.
+
 ## Autor
 
 | [<img src="https://avatars.githubusercontent.com/u/38327255?v=4" width=115><br><sub>Andrés Felipe Hernánez</sub>](https://github.com/camilafernanda)|
