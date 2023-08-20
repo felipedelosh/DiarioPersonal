@@ -27,6 +27,10 @@ Nota 02: se advierte que el codigo está hecho por un niño que apenas estaba ap
 - `Funcionalidad 5`: Alarmas.<br>
 
 
+## :play_or_pause_button:Ejecutar el proyecto
+
+Este proyecto esta totalmente escrito en python, no descargue ninguna libreria. para ejecutarlo basta con hacer doble click sobre el archivo main.py y esperar a que el programa cargue.
+
 ## :hammer_and_wrench:Tecnologías.
 
 - :snake: Python
@@ -40,7 +44,7 @@ Nota 02: se advierte que el codigo está hecho por un niño que apenas estaba ap
 
 ## :warning:Advertencia
 
-- Este proyecto fue escrito en su tiempo y no funciona otros sistemas operativos.
+- Este proyecto fue escrito en windows y no funciona otros sistemas operativos. debido al modulo "winsound".
 
 ## Autor
 
