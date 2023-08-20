@@ -11,5 +11,9 @@ Nota 02: se advierte que el codigo está hecho por un niño que apenas estaba ap
 
 ## :hammer:Funcionalidades del proyecto
 
-- `Funcionalidad 1`: descripción de la funcionalidad 1- `Funcionalidad 2`: descripción de la funcionalidad 2- `Funcionalidad 2a`: descripción de la funcionalidade 2a relacionada con la funcionalidad 2- `Funcionalidad 3`: descripción de la funcionalidad 3
+- `Funcionalidad 1`: descripción de la funcionalidad 1-<br>
+ `Funcionalidad 2`: descripción de la funcionalidad 2-<br>
+  `Funcionalidad 2a`: descripción de la funcionalidade 2a
+   relacionada con la funcionalidad 2-<br>
+    `Funcionalidad 3`: descripción de la funcionalidad 3<br>
 
