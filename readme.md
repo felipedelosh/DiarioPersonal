@@ -12,8 +12,8 @@ Nota 02: se advierte que el codigo está hecho por un niño que apenas estaba ap
 ## :hammer:Funcionalidades del proyecto
 
 - `Funcionalidad 1`: Guardar/Cargar paginas de diario.<br>
- `Funcionalidad 2`: Guardar/Cargar movimientos económicos(ingresos/egresos)<br>
-  `Funcionalidad 2a`: Graficar movimientos económicos<br>
-    `Funcionalidad 3`: Asistente CHATBOT<br>
-        `Funcionalidad 4`: Guardar estados emocionales.<br>
+- `Funcionalidad 2`: Guardar/Cargar movimientos económicos(ingresos/egresos)<br>
+- `Funcionalidad 2a`: Graficar movimientos económicos<br>
+- `Funcionalidad 3`: Asistente CHATBOT<br>
+- `Funcionalidad 4`: Guardar estados emocionales.<br>
 
