@@ -1,5 +1,5 @@
 <h1 align="center"> FelipedelosH </h1>
-### Diario personal de Andrés felipe Hernández
+## Diario personal de Andrés felipe Hernández
 
 ![Banner](docs/banner.png)
 :construction: Proyecto en construcción :construction:
@@ -23,4 +23,13 @@ Nota 02: se advierte que el codigo está hecho por un niño que apenas estaba ap
 - `Funcionalidad 4b`: Guardar actividades realizadas durante el día (Como inviertes tu tiempo).<br>
 - `Funcionalidad 4c`: Vista de horario semanal.<br>
 - `Funcionalidad 4d`: Registo de consumo de sustancias Psicoactivas.<br>
+- `Funcionalidad 5`: Alarmas.<br>
 
+
+
+
+
+## Autor
+
+| [<img src="https://avatars.githubusercontent.com/u/38327255?v=4" width=115><br><sub>Andrés Felipe Hernánez</sub>](https://github.com/camilafernanda)|
+| :---: |
