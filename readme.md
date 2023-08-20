@@ -1,6 +1,6 @@
 <h1 align="center"> FelipedelosH </h1>
-## Diario personal de Andrés felipe Hernández
-
+<br>
+<h4>Diario personal de Andrés felipe Hernández</h4>
 ![Banner](docs/banner.png)
 :construction: Proyecto en construcción :construction:
 <br><br>
