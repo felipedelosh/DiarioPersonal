@@ -1,0 +1,24 @@
+6am:programar
+7am:programar
+8am:programar
+9am:programar
+10am:programar
+11am:programar
+12am:dormir
+1pm:alimentación
+2pm:dormir
+3pm:dormir
+4pm:dormir
+5pm:dormir
+6pm:redes sociales
+7pm:alimentación
+8pm:programar
+9pm:redes sociales
+10pm:redes sociales
+11pm:FAPTIME
+12pm:FAPTIME
+1am:video juegos
+2am:video juegos
+3am:video juegos
+4am:video juegos
+5am:video juegos

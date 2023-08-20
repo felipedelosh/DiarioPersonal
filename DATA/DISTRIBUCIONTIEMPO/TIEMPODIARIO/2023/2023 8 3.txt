@@ -1,0 +1,24 @@
+6am:dormir
+7am:internet
+8am:buscar trabajo
+9am:buscar trabajo
+10am:buscar trabajo
+11am:dormir
+12am:dormir
+1pm:alimentación
+2pm:internet
+3pm:redes sociales
+4pm:vida social
+5pm:vida social
+6pm:vida social
+7pm:alimentación
+8pm:dormir
+9pm:dormir
+10pm:dormir
+11pm:dormir
+12pm:dormir
+1am:video juegos
+2am:video juegos
+3am:dormir
+4am:dormir
+5am:dormir
