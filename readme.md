@@ -23,7 +23,8 @@ Nota 02: se advierte que el codigo está hecho por un niño que apenas estaba ap
 - `Funcionalidad 4a`: Graficar estados emocionales a traves del tiempo.<br>
 - `Funcionalidad 4b`: Guardar actividades realizadas durante el día (Como inviertes tu tiempo).<br>
 - `Funcionalidad 4c`: Vista de horario semanal.<br>
-- `Funcionalidad 4d`: Registo de consumo de sustancias Psicoactivas.<br>
+- `Funcionalidad 4d`: Vista de horario semanal (Ley de los grandes números - Bernoulli).<br>
+- `Funcionalidad 4e`: Registo de consumo de sustancias Psicoactivas.<br>
 - `Funcionalidad 5`: Alarmas.<br>
 
 
