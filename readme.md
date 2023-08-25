@@ -18,13 +18,38 @@ Nota 02: se advierte que el codigo está hecho por un niño que apenas estaba ap
 - `Funcionalidad 1c`: Guardar/Cargar relaciones interpersonales.<br>
 - `Funcionalidad 2`: Guardar/Cargar movimientos económicos(ingresos/egresos).<br>
 - `Funcionalidad 2a`: Graficar movimientos económicos.<br>
+
+![Cash](docs/inputOutputCash.png)
+
 - `Funcionalidad 3`: Asistente CHATBOT.<br>
+
+![FEMPUTADORA](docs/femputadora.png)
+
 - `Funcionalidad 4`: Guardar estados emocionales.<br>
-- `Funcionalidad 4a`: Graficar estados emocionales a traves del tiempo.<br>
+
+![Emotions](docs/emotions.png)
+
+- `Funcionalidad 4a`: Graficar conteo de estados emocionales.<br>
+
+![Emotions Counter](docs/countEmotions.png)
+
+
 - `Funcionalidad 4b`: Guardar actividades realizadas durante el día (Como inviertes tu tiempo).<br>
+
+![Time Distribution 24](docs/timeDistribution24.png)
+
 - `Funcionalidad 4c`: Vista de horario semanal.<br>
+
 - `Funcionalidad 4d`: Vista de horario semanal (Ley de los grandes números - Bernoulli).<br>
-- `Funcionalidad 4e`: Registo de consumo de sustancias Psicoactivas.<br>
+
+
+![Ley débil de los Grandes Numeros](docs/timeDistributionL.png)
+
+- `Funcionalidad 4e`: Inversión de tiempo anual.<br>
+
+![Time Distribution YYYY](docs/timeDistributionYYYY.png)
+
+- `Funcionalidad 4f`: Registo de consumo de sustancias Psicoactivas.<br>
 - `Funcionalidad 5`: Alarmas.<br>
 
 
