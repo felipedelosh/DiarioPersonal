@@ -16,7 +16,6 @@ from controladoraCarpetas import *
 from controladoraProcesamientoDeDatos import *
 from GraphicsController import *
 from tkMagicColorByLoko import *
-from ArbolDeDeciciones import *
 from AudioMixer import *
 import random
 
@@ -32,7 +31,6 @@ class Controladora:
         self.estadoDeLasCarpetas = self.crearCarpetasDelSistema()
         self.coloresParaGraficos = MagicColor() # Color
         self.coloresParaGraficoCircular = [] # Color que le va a corresponder al grafico circular
-        self.arbolDeDeDecicion = Arbol() # Es un arbol temporal que guarda las deciciones
         self.arbolDeDecicionListo = False # Me dice si se cargo o creo el arbol
         self.questionsChatbot = self.loadQuestions()
         self.femputadora = Femputadora(self.questionsChatbot)
@@ -706,60 +704,6 @@ class Controladora:
 
         return valuesComboBox
 
-
-    def crearCarpetaArbolDeDeciciones(self, txt):
-        # Se reinicia el arbol
-        self.arbolDeDeDecicion = Arbol()
-        self.arbolDeDeDecicion.nickName = txt
-        return self.controladoraCarpetas.crearCarpetaEnDeciociones(txt)
-
-    def agregarNodoAlArbolDeDecion(self, info):
-        # la info es un vector[IDpadre, id, titulo, info]
-        """
-        1 -> los ID son de tipo numerico
-        2 -> agregar al arbol
-        """
-
-        try:
-            idPadre = int(info[0])
-            idNodo = int(info[1])
-            d = Decicion(idPadre, idNodo, info[2], info[3])
-            self.arbolDeDeDecicion.addDato(d)
-            
-            return self.guardarNodoEnHDD(d)
-        except:
-            return False
-
-    def guardarNodoEnHDD(self, decicion):
-        """
-        Una Decion[idPadre, Id, Titulo, Info]
-        va a ser guardada en su carpeta correspondiente (Arbol.nickName)
-        como id.txt
-        con formato
-        <IDPadre>ID</IDpadre>
-        <ID>ID</ID>
-        <HIJOS>ID,ID,ID</HIJOS>
-        <TITULO>TituloDeMierda</TITULO>
-        <EVENTO>EventoDeMierda</EVENTO>
-        """
-        idPadre = "<IDPadre>"+str(decicion.idPadre)+"</IDpadre>\n"
-        idNodo = "<ID>" + str(decicion.id) + "</ID>\n"
-        hijos = "<HIJOS>" + "</HIJOS>\n"
-        titulo = "<TITULO>" +str(decicion.titulo)+ "</TITULO>\n"
-        evento = "<EVENTO>\n"+str(decicion.quePaso)+"</EVENTO>"
-
-        data = idPadre + idNodo + hijos + titulo + evento
-
-        # Se guarda en HDD 
-        try:
-            ruta = self.rutaDelProyecto + "\\DATA\\DECICIONES\\" + str(self.arbolDeDeDecicion.nickName)  + "\\" + str(decicion.id) + ".txt"
-            f = open(ruta, "w")
-            f.write(data)
-            f.close()
-            return True
-        except:
-            return False
-        
 
     def arbolDeDecicionEstaListo(self):
         """

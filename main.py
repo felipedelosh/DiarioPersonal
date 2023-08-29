@@ -441,9 +441,47 @@ class TimeHackingLoko():
     def launchInterfaceWork(self):
         t = Toplevel()
         t.title("WORK")
-        t.geometry("400x500")
-        canvas = Canvas(t, height=500, width=400)
-        canvas.place(x=0, y=0)        
+        t.geometry("400x600")
+        canvas = Canvas(t, height=600, width=400)
+        canvas.place(x=0, y=0)  
+        lblWelcomeWorkInterface = Label(canvas, text="Bienvenido a la interfaz trabajo... Inicia o Carga Un Proyecto.")
+        lblWelcomeWorkInterface.place(x=20, y=20)
+        btnNewWork = Button(canvas, text="Nuevo Trabajo", command=lambda: self._btnCreateNewWorkPresed(canvas))
+        btnNewWork.place(x=100, y=60)
+        btnLoadWork = Button(canvas, text="Cargar Trabajo")
+        btnLoadWork.place(x=200, y=60)
+        canvas.create_line(40, 90, 360, 90)
+
+
+    def _btnCreateNewWorkPresed(self, canvas):
+        lblNameNewWork = Label(canvas, text="Nombre: ")
+        lblNameNewWork.place(x=20, y=100)
+        txtNameNewWork = Entry(canvas, width=46)
+        txtNameNewWork.place(x=80, y=100)
+        lblProductOwner = Label(canvas, text="Responsable: ")
+        lblProductOwner.place(x=20, y=130)
+        txtProductOwner = Entry(canvas, width=42)
+        txtProductOwner.place(x=102, y=130)
+        lblDescription = Label(canvas, text="Descripción:")
+        lblDescription.place(x=140, y=160)
+        txtDescription = Text(canvas, height=8, width=42)
+        txtDescription.place(x=20, y=180)
+        lblTools = Label(canvas, text="Herramientas:")
+        lblTools.place(x=140, y=320)
+        txtTools = Text(canvas, height=4, width=42)
+        txtTools.place(x=20, y=340)
+        lblDeliveryEND = Label(canvas, text="Fecha de entrega:")
+        lblDeliveryEND.place(x=20, y=420)
+        txtDeliveryEND = Entry(canvas, width=40)
+        txtDeliveryEND.place(x=118, y=420)
+        lblCostPeerHour = Label(canvas, text="Costo Por Hora:")
+        lblCostPeerHour.place(x=20, y=450)
+        txtCostPeerHour = Entry(canvas, width=40)
+        txtCostPeerHour.place(x=118, y=450)
+        btnSaveWork = Button(canvas, text="Guardar Trabajo")
+        btnSaveWork.place(x=140, y=500)
+
+
 
 
     def launchInterfaceFeeling(self):
