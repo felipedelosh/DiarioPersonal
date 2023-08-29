@@ -42,7 +42,7 @@ class TimeHackingLoko():
         self.imgSaveTimeDistribution = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/saveTimeDistribution.gif')
         self.imgViewTimeDistribution = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/timeDistribution.gif')
         self.imgSchedule = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/schedule.gif')
-        self.imgBtnDecicionesDeMierda = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/decicionesDeMierda.gif')
+        self.imgBtnWork = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/work.gif')
         self.imgTAccount = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/taccount.gif')
         self.imgEconomyReport = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/economyReport.gif')
         self.imgBox = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/box.gif')
@@ -56,11 +56,10 @@ class TimeHackingLoko():
         self.btnAgenda = Button(self.tela, image=self.imgBtnAgenda, command=self.launchCalendary)
         self.btnNotas = Button(self.tela, image=self.imgBtnNotas, command=self.lanzarInterfaceNotas)
         self.btnEconomia = Button(self.tela, image=self.imgBtnEconimia, command=self.launchEconomyMenu)
-        #self.btnResultadoAnual = Button(self.tela, image=self.imgBtnResultadoAnual, command=self.lanzarInterfaceResultadoAnual)
         self.btnFemputadora = Button(self.tela, image=self.imgFemputadora, command=self.launchFemputadoraInterface)
         print("Femputadora Say Hello :3")
         self.btnRegistroEmociones = Button(self.tela, image=self.imgBtnRegistoEmociones, command=self.launchInterfaceFeeling)
-        self.btnDedcicionesDeMierda = Button(self.tela, image=self.imgBtnDecicionesDeMierda, command=self.lanzarInterfaceDecicionesDeMierda)
+        self.btnWork = Button(self.tela, image=self.imgBtnWork, command=self.launchInterfaceWork)
         self.btnConfiguracion = Button(self.tela, image=self.imgBtnConfiguracion, command=self.lanzarInterfaceConfiguracion)
         self.btnAyuda = Button(self.tela, image=self.imgBtnAyuda, command=self.lanzarInterfaceAyuda)
         """Vars"""
@@ -95,7 +94,7 @@ class TimeHackingLoko():
         #self.btnResultadoAnual.place(x=250, y=180)
         self.btnFemputadora.place(x=250, y=180)
         self.btnRegistroEmociones.place(x=460, y=180)
-        self.btnDedcicionesDeMierda.place(x=30, y=330)
+        self.btnWork.place(x=30, y=330)
         self.btnConfiguracion.place(x=250, y=330)
         self.btnAyuda.place(x=460, y=330)
         self.pantalla.mainloop()
@@ -416,7 +415,6 @@ class TimeHackingLoko():
         txtUserEntry.bind('<Key>', lambda event : self._enterTXTinFemputadora(event, txtUserEntry, txtMachineOutput))
 
 
-
     def lanzarInterfaceResultadoAnual(self):
         interfaceResultadoAnual = Toplevel()
         interfaceResultadoAnual.title("Rendicion de cuentas By Loko")
@@ -440,31 +438,13 @@ class TimeHackingLoko():
         btnPilaresDeLaFelicidad = Button(interfaceResultadoAnual, text="pilares de la felicidad", command=self.subInterfacePilaresDeLaFelicidad)
         btnPilaresDeLaFelicidad.place(x=20, y=340)
 
+    def launchInterfaceWork(self):
+        t = Toplevel()
+        t.title("WORK")
+        t.geometry("400x500")
+        canvas = Canvas(t, height=500, width=400)
+        canvas.place(x=0, y=0)        
 
-
-    def lanzarInterfaceDecicionesDeMierda(self):
-        interfaceDecicionesDeMierda = Toplevel()
-        interfaceDecicionesDeMierda.title("Deciciones De Mierda")
-        interfaceDecicionesDeMierda.geometry("1280x720")
-        tela = Canvas(interfaceDecicionesDeMierda, width=1280, height=720, bg='snow')
-        tela.place(x=0, y=0)
-        lblDecicion = Label(tela, text="Arbol: ")
-        lblDecicion.place(x=20, y=20)
-        txtDecicion= Entry(tela, width=50)
-        txtDecicion.place(x=100, y=20)
-        btnCrear = Button(tela, text="Crear", command= lambda : self.crearCarpetaDeDeciciones(txtDecicion.get()))
-        btnCrear.place(x=440, y=18)
-        btnCargar = Button(tela, text="Cargar")
-        btnCargar.place(x=500, y=18)
-        btnDecicion = Button(tela, text="Agregar Estado", command=self.lanzarInterfaceDecicionesDeMierdaAgregarEstado)
-        btnDecicion.place(x=700, y=18)
-
-        """
-        Se genera el tablero en donde se van a pintar las deciciones
-        """
-        for i in range(0, 10):
-            tela.create_line(0,120+(i*60),1280,120+(i*60), fill='blue')
-            tela.create_line(100+(i*120), 120, 100+(i*120), 660, fill='blue')
 
     def launchInterfaceFeeling(self):
         t = Toplevel()
@@ -496,34 +476,6 @@ class TimeHackingLoko():
         comboBoxSentimientos.place(x=180, y=50)
         btnGuardarSentimiento = Button(interfaceSentimientos, text="Guardar", command=self.guardarSentimiento)
         btnGuardarSentimiento.place(x=400, y=50)
-
-    #Ojo: esto esta mal ubicado... declararlo en el futuro como subinterface
-    def lanzarInterfaceDecicionesDeMierdaAgregarEstado(self):
-        if self.controladora.arbolDeDecicionEstaListo():
-            interfaceAgregarEstado = Toplevel()
-            interfaceAgregarEstado.title("Agregar decicion de mierda")
-            interfaceAgregarEstado.geometry("500x500")
-            lblIDPadre = Label(interfaceAgregarEstado, text="ID Padre: ")
-            lblIDPadre.place(x=20, y=20)
-            txtIDPadre = Entry(interfaceAgregarEstado)
-            txtIDPadre.place(x=100, y=20)
-            lblID = Label(interfaceAgregarEstado, text="ID nodo: ")
-            lblID.place(x=20, y=60)
-            txtID = Entry(interfaceAgregarEstado)
-            txtID.place(x=100, y=60)
-            lblTitulo = Label(interfaceAgregarEstado, text="Titulo: ")
-            lblTitulo.place(x=20, y=120)
-            txtTitulo = Entry(interfaceAgregarEstado)
-            txtTitulo.place(x=100, y=120)
-            lblDescripcionEvento = Label(interfaceAgregarEstado, text="Descripcion del evento: ")
-            lblDescripcionEvento.place(x=20, y=160)
-            txtDescripcionEvento = Text(interfaceAgregarEstado, height = 16, width = 58)
-            txtDescripcionEvento.place(x=20, y=180)
-            btnGuardar = Button(interfaceAgregarEstado, text="Guardar", command=lambda:self.guardarEstadoEnCarpetaDeDeciciones([txtIDPadre.get(), txtID.get(), txtTitulo.get(), txtDescripcionEvento.get("1.0", END)]))
-            btnGuardar.place(x=230, y=460)
-
-        else:
-            self.ventanaEnmergenteDeAlerta("Error", "Primero crea o carga un arbol")
 
     def lanzarInterfaceConfiguracion(self):
         interfaceConfiguracion = Toplevel()

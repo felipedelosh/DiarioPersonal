@@ -92,6 +92,9 @@ class ControladoraCarpetas(object):
         if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\DRUGS\\"+str(self.tiempo.año())): # No existe la carpera creelas
             os.mkdir(self.rutaDelProyecto+"\\DATA\\DRUGS\\"+str(self.tiempo.año()))
 
+        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\WORK"): # i don't exists: create it.
+            os.mkdir(self.rutaDelProyecto+"\\DATA\\WORK")
+
     def listarTodosLosArchivosdeCarpeta(self, ruta, extension):
         """
         Retorna el nombre de todos los archivos.extension de una carpeta
