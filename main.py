@@ -478,10 +478,37 @@ class TimeHackingLoko():
         lblCostPeerHour.place(x=20, y=450)
         txtCostPeerHour = Entry(canvas, width=40)
         txtCostPeerHour.place(x=118, y=450)
-        btnSaveWork = Button(canvas, text="Guardar Trabajo")
+        btnSaveWork = Button(canvas, text="Guardar Trabajo", command=lambda : self._saveWork({"nameOfWork": txtNameNewWork.get(), "nameOfProductOwner": txtProductOwner.get()}))
         btnSaveWork.place(x=140, y=500)
 
 
+    def _saveWork(self, args):
+        """
+        Enter a {}
+        keys:
+        titleOfWork
+        """
+        err = ""
+        _title = args['nameOfWork']
+        _productOwner = args['nameOfProductOwner']
+
+        if not self.validatesTxt(_title):
+            err = "Error en el titulo del proyecto.\n"
+
+        if not self.validatesTxt(_productOwner):
+            err = err + "Error en el responsable del producto\n"
+        
+
+
+    
+        if err == "":
+            if self.controladora.saveWork(args):
+                self.ventanaEnmergenteDeAlerta("Exito", f"la tarea: {_title} almacenada con exito")
+            else:
+                self.ventanaEnmergenteDeAlerta("Error", "No es posible guardar la tarea")
+        else:
+            self.ventanaEnmergenteDeAlerta("Errores", err)
+            
 
 
     def launchInterfaceFeeling(self):

@@ -911,6 +911,22 @@ class Controladora:
         Retorna el # dia en que estamos
         """
         return self.tiempo.diaNumero()
+
+    """WORK"""
+    """WORK"""
+    """WORK"""
+    def saveWork(self, args):
+        """
+        Enter valid args and create folder and files
+        """
+        print(args)
+
+        return True
+
+
+    """WORK"""
+    """WORK"""
+    """WORK"""
     
     def getYearsToAPPUse(self):
         """

@@ -1,0 +1,24 @@
+6am:dormir
+7am:dormir
+8am:dormir
+9am:dormir
+10am:televisión
+11am:televisión
+12am:mascota
+1pm:alimentación
+2pm:vida social
+3pm:bicicleta
+4pm:vida social
+5pm:vida social
+6pm:bicicleta
+7pm:alimentación
+8pm:caminar
+9pm:video juegos
+10pm:vida social
+11pm:video juegos
+12pm:video juegos
+1am:redes sociales
+2am:dormir
+3am:dormir
+4am:dormir
+5am:dormir

@@ -1,0 +1,24 @@
+6am:dormir
+7am:dormir
+8am:construir
+9am:dormir
+10am:redes sociales
+11am:programar
+12am:familia
+1pm:familia
+2pm:televisión
+3pm:programar
+4pm:caminar
+5pm:familia
+6pm:vida social
+7pm:vida social
+8pm:televisión
+9pm:estudiar
+10pm:programar
+11pm:video juegos
+12pm:dormir
+1am:dormir
+2am:dormir
+3am:dormir
+4am:dormir
+5am:dormir

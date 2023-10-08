@@ -8,5 +8,5 @@
         "problemas"
     ],
     "single_response" : true,
-    "required_words" : []
+    "required_words" : ["problemas", "dinero", "trabajo"]
 }
