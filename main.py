@@ -448,12 +448,45 @@ class TimeHackingLoko():
         lblWelcomeWorkInterface.place(x=20, y=20)
         btnNewWork = Button(canvas, text="Nuevo Trabajo", command=lambda: self._btnCreateNewWorkPresed(canvas))
         btnNewWork.place(x=100, y=60)
-        btnLoadWork = Button(canvas, text="Cargar Trabajo")
+        btnLoadWork = Button(canvas, text="Cargar Trabajo", command=lambda: self._btnLoadWorkPresed(canvas))
         btnLoadWork.place(x=200, y=60)
         canvas.create_line(40, 90, 360, 90)
 
+    def _deleteAllObjectsInInterfaceWork(self, canvas):
+        for child in canvas.winfo_children():
+            child.destroy()
+
+    def _btnLoadWorkPresed(self, canvas):
+        self._deleteAllObjectsInInterfaceWork(canvas)
+        lblWelcomeWorkInterface = Label(canvas, text="Bienvenido a la interfaz trabajo... Inicia o Carga Un Proyecto.")
+        lblWelcomeWorkInterface.place(x=20, y=20)
+        btnNewWork = Button(canvas, text="Nuevo Trabajo", command=lambda: self._btnCreateNewWorkPresed(canvas))
+        btnNewWork.place(x=100, y=60)
+        btnLoadWork = Button(canvas, text="Cargar Trabajo", command=lambda: self._btnLoadWorkPresed(canvas))
+        btnLoadWork.place(x=200, y=60)
+        lblNameNewWork = Label(canvas, text="Nombre: ")
+        lblNameNewWork.place(x=20, y=100)
+        txtNameNewWork = Entry(canvas, width=40)
+        txtNameNewWork.place(x=80, y=100)
+        btnAllWork = Button(canvas, text="?", command=self._getAllWorksNames)
+        btnAllWork.place(x=340, y=100)
+        btnLoadSpecifyWork = Button(canvas, text="LOAD WORK")
+        btnLoadSpecifyWork.place(x=160, y=130)
+
+
+    def _getAllWorksNames(self):
+        data = self.controladora.getAllWorksNames()
+        self.ventanaEnmergenteDeAlerta("Listado de todos los trabajos", data)
+
 
     def _btnCreateNewWorkPresed(self, canvas):
+        self._deleteAllObjectsInInterfaceWork(canvas)
+        lblWelcomeWorkInterface = Label(canvas, text="Bienvenido a la interfaz trabajo... Inicia o Carga Un Proyecto.")
+        lblWelcomeWorkInterface.place(x=20, y=20)
+        btnNewWork = Button(canvas, text="Nuevo Trabajo", command=lambda: self._btnCreateNewWorkPresed(canvas))
+        btnNewWork.place(x=100, y=60)
+        btnLoadWork = Button(canvas, text="Cargar Trabajo", command=lambda: self._btnLoadWorkPresed(canvas))
+        btnLoadWork.place(x=200, y=60)
         lblNameNewWork = Label(canvas, text="Nombre: ")
         lblNameNewWork.place(x=20, y=100)
         txtNameNewWork = Entry(canvas, width=46)
@@ -501,7 +534,6 @@ class TimeHackingLoko():
         _tools = args['tools']
         _deliveryEND = args['deliveryEND']
         _costPeerHour = args['costPeerHour']
-
 
         if not self.validatesTxt(_title):
             err = "Error en el titulo del proyecto.\n"

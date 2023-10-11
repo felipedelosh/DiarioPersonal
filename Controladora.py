@@ -920,6 +920,12 @@ class Controladora:
         Enter valid args and create folder and files
         """
         return self.controladoraCarpetas.saveWork(args)
+    
+    def getAllWorksNames(self):
+        """
+        Return all folder names in work folder.
+        """
+        return self.controladoraCarpetas.listALLFolderInPath(self.rutaDelProyecto+"\\DATA\\WORK")
 
 
     """WORK"""

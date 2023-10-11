@@ -91,6 +91,7 @@ class ControladoraCarpetas(object):
         if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\WORK"): # i don't exists: create it.
             os.mkdir(self.rutaDelProyecto+"\\DATA\\WORK")
 
+
     def listarTodosLosArchivosdeCarpeta(self, ruta, extension):
         """
         Retorna el nombre de todos los archivos.extension de una carpeta
@@ -107,6 +108,7 @@ class ControladoraCarpetas(object):
 
         return nombreArchivos
     
+
     def listALLFolderInPath(self, path):
         """
         Enter a x/y/z and return ['Folder1',... 'FolderN']
@@ -422,7 +424,7 @@ class ControladoraCarpetas(object):
         except:
             return False
         
-        
+
 
     def getTextInFile(self, path):
         """
