@@ -475,8 +475,11 @@ class TimeHackingLoko():
 
 
     def _getAllWorksNames(self):
+        output = ""
         data = self.controladora.getAllWorksNames()
-        self.ventanaEnmergenteDeAlerta("Listado de todos los trabajos", data)
+        for i in data:
+            output = output + i + "\n"
+        self.ventanaEnmergenteDeAlerta("Listado de todos los trabajos", output)
 
 
     def _btnCreateNewWorkPresed(self, canvas):
