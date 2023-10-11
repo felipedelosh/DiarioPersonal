@@ -395,6 +395,33 @@ class ControladoraCarpetas(object):
         except:
             return False
         
+    def saveWork(self, args):
+        try:
+            _PATH = self.rutaDelProyecto+"\\DATA\\WORK\\"
+
+            # Create foldername Exists?
+            _nameFoler = str(args['nameOfWork']).lower()
+
+            if not os.path.isdir(_PATH+_nameFoler):
+                os.mkdir(_PATH+_nameFoler)
+
+            with open(_PATH+_nameFoler+"\\PO.txt", 'w', encoding="UTF-8") as f:
+                f.write(args['nameOfProductOwner'])
+
+            _bool_description = self.appendTextInFile(_PATH+_nameFoler+"\\description.txt",args['description'])
+            _bool_tools = self.appendTextInFile(_PATH+_nameFoler+"\\tools.txt",args['tools'])
+            
+
+            with open(_PATH+_nameFoler+"\\deliveryEND.txt", 'w', encoding="UTF-8") as f:
+                f.write(args['deliveryEND'])
+
+            with open(_PATH+_nameFoler+"\\costPeerHour.txt", 'w', encoding="UTF-8") as f:
+                f.write(args['costPeerHour'])
+
+            return _bool_description and _bool_tools
+        except:
+            return False
+        
         
 
     def getTextInFile(self, path):
@@ -409,4 +436,33 @@ class ControladoraCarpetas(object):
         except:
             pass
 
-        return data  
+        return data
+
+
+    def appendTextInFile(self, path, data):
+        """
+        Enter a path and append the text if exits or create ig not exists
+        """
+        try:
+
+            _original_data = ""
+
+            try:
+                with open(path, 'r', encoding="UTF-8") as f:
+                    _original_data = f.read()
+            except:
+                pass
+
+            _save_data = ""
+            if not _original_data == "":
+                _save_data = _original_data + "\n" + data
+            else:
+                _save_data = data
+
+
+            with open(path, 'w', encoding="UTF-8") as f:
+                f.write(_save_data)
+
+            return True
+        except:
+            return False

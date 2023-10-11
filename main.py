@@ -478,7 +478,13 @@ class TimeHackingLoko():
         lblCostPeerHour.place(x=20, y=450)
         txtCostPeerHour = Entry(canvas, width=40)
         txtCostPeerHour.place(x=118, y=450)
-        btnSaveWork = Button(canvas, text="Guardar Trabajo", command=lambda : self._saveWork({"nameOfWork": txtNameNewWork.get(), "nameOfProductOwner": txtProductOwner.get()}))
+        btnSaveWork = Button(canvas, text="Guardar Trabajo", command=lambda : self._saveWork({"nameOfWork": txtNameNewWork.get(),
+                                                                                               "nameOfProductOwner": txtProductOwner.get(),
+                                                                                               "description": txtDescription.get("1.0", END),
+                                                                                               "tools":txtTools.get("1.0", END),
+                                                                                               "deliveryEND":txtDeliveryEND.get(),
+                                                                                               "costPeerHour":txtCostPeerHour.get()})
+                            )
         btnSaveWork.place(x=140, y=500)
 
 
@@ -491,16 +497,31 @@ class TimeHackingLoko():
         err = ""
         _title = args['nameOfWork']
         _productOwner = args['nameOfProductOwner']
+        _description = args['description']
+        _tools = args['tools']
+        _deliveryEND = args['deliveryEND']
+        _costPeerHour = args['costPeerHour']
+
 
         if not self.validatesTxt(_title):
             err = "Error en el titulo del proyecto.\n"
 
         if not self.validatesTxt(_productOwner):
             err = err + "Error en el responsable del producto\n"
+
+        if not self.validatesTxt(_description):
+            err = err + "Error en la descripción del producto\n"
+
+        if not self.validatesTxt(_tools):
+            err = err + "Error en las herramientas del producto\n"
+
+        if not self.validatesTxt(_deliveryEND):
+            err = err + "Error el el tiempo de finalización del producto\n"
+
+        if not self.validatesTxt(_costPeerHour):
+            err = err + "Error en el costro por hora producto\n"
         
-
-
-    
+        
         if err == "":
             if self.controladora.saveWork(args):
                 self.ventanaEnmergenteDeAlerta("Exito", f"la tarea: {_title} almacenada con exito")
