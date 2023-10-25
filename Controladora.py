@@ -921,6 +921,12 @@ class Controladora:
         """
         return self.controladoraCarpetas.saveWork(args)
     
+    def getWorkX(self, nameOfWork):
+        """
+        Load all files in DATA/WORK/*
+        """
+        return True
+    
     def getAllWorksNames(self):
         """
         Return all folder names in work folder.

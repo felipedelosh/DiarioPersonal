@@ -475,11 +475,19 @@ class TimeHackingLoko():
 
 
     def _getAllWorksNames(self):
+        """
+        Load all names in work folder
+        """
         output = ""
         data = self.controladora.getAllWorksNames()
         for i in data:
             output = output + i + "\n"
         self.ventanaEnmergenteDeAlerta("Listado de todos los trabajos", output)
+
+    def loadWork(self, nameOfWork):
+        data = self.controladora.getWorkX(nameOfWork)
+
+        # Paint and ap
 
 
     def _btnCreateNewWorkPresed(self, canvas):
