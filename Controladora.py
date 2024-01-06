@@ -36,6 +36,7 @@ class Controladora:
         self.femputadora = Femputadora(self.questionsChatbot)
         self.triggers = self._updateTriggers() # Always Refresh When the program is RUN
         self.femputadora_triggers = Femputadora(self.triggers)
+        self.codenamePopularDrug = ""
         """
         Se procede a saludar al usuario
         """
@@ -164,6 +165,7 @@ class Controladora:
             dic_count = self.controladoraProcesamientoDeDatos._shorterDic(dic_count)
 
             if dic_count[0][0]  + '.gif'  in _files_img_drugs:
+                self.codenamePopularDrug = dic_count[0][0]
                 return self.retornarRutaDelProyecto() + f"/RECURSOS/img/btns/drugs/{dic_count[0][0]}.gif"
             else:
                 return self.retornarRutaDelProyecto()+'/RECURSOS/img/weed.gif'
@@ -172,6 +174,19 @@ class Controladora:
             pass
 
         return self.retornarRutaDelProyecto()+'/RECURSOS/img/weed.gif'
+    
+    def getDescriptionOfPopularDrug(self):
+        try:
+            _data = f"{self.codenamePopularDrug}"
+
+            if self.codenamePopularDrug != "":
+                _path = f"RECURSOS\\drugs\\{self.codenamePopularDrug}.txt"
+                _data = self.controladoraCarpetas.getTextInFile(_path)
+                return _data
+
+            return "The Drug Description 404 :("
+        except:
+            return "ERROR 508 :X"
 
     def retornarRutaImagenDeFondo(self):
         """
@@ -925,7 +940,7 @@ class Controladora:
         """
         Load all files in DATA/WORK/*
         """
-        return True
+        return self.controladoraCarpetas.loadSpecifyWork(nameOfWork)
     
     def getAllWorksNames(self):
         """
@@ -933,6 +948,11 @@ class Controladora:
         """
         return self.controladoraCarpetas.listALLFolderInPath(self.rutaDelProyecto+"\\DATA\\WORK")
 
+    def saveIncOfWork(self, concept, hours):
+        """
+        
+        """
+        return False
 
     """WORK"""
     """WORK"""
@@ -1619,7 +1639,7 @@ class Controladora:
                     _d = self.controladoraProcesamientoDeDatos._shorterDic(_d)
                     _temp = ""
                     for j in _d: 
-                        _temp = _temp + "Para: " + str(j[0]) + " un total de:" + str(j[1]) + "\n"
+                        _temp = _temp + "Para: " + str(j[0]) + " un total de: " + str(j[1]) + " Horas.\n"
                     data = data + "\nPara el Año: " + str(i) + "\n" + _temp + "\n"
                     _count_years = _count_years + 1
             except:

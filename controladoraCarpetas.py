@@ -425,6 +425,31 @@ class ControladoraCarpetas(object):
             return False
         
 
+    def loadSpecifyWork(self, folderName):
+        """
+        Read DATA/WORK/* and return all information in dic
+        """
+        try:
+            path = self.rutaDelProyecto+"\\DATA\\WORK\\"+folderName
+
+            if not os.path.isdir(path):
+                return False
+            
+            _projectName = folderName
+
+            _productOwner = ""
+            with open(path+"\\PO.txt", "r", encoding="UTF-8") as f:
+                _productOwner = f.read()
+
+            
+            
+            return {
+                "project_name" : _projectName,
+                "product_owner" : _productOwner
+            }
+        except:
+            return False
+
 
     def getTextInFile(self, path):
         """

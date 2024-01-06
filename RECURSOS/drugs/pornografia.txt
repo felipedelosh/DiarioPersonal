@@ -1,0 +1,4 @@
+1 -> Destruye tu cerebro.
+2 -> Te quita las ganas de vivir.
+3 -> No te deja socializar.
+4 -> Estás cansado todo el tiempo.

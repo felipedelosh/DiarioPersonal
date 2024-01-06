@@ -453,6 +453,7 @@ class TimeHackingLoko():
         canvas.create_line(40, 90, 360, 90)
 
     def _deleteAllObjectsInInterfaceWork(self, canvas):
+        canvas.delete("workInfo")
         for child in canvas.winfo_children():
             child.destroy()
 
@@ -470,7 +471,7 @@ class TimeHackingLoko():
         txtNameNewWork.place(x=80, y=100)
         btnAllWork = Button(canvas, text="?", command=self._getAllWorksNames)
         btnAllWork.place(x=340, y=100)
-        btnLoadSpecifyWork = Button(canvas, text="LOAD WORK")
+        btnLoadSpecifyWork = Button(canvas, text="LOAD WORK", command=lambda:self.loadWork(txtNameNewWork.get(), canvas))
         btnLoadSpecifyWork.place(x=160, y=130)
 
 
@@ -484,11 +485,41 @@ class TimeHackingLoko():
             output = output + i + "\n"
         self.ventanaEnmergenteDeAlerta("Listado de todos los trabajos", output)
 
-    def loadWork(self, nameOfWork):
+    def loadWork(self, nameOfWork, canvas):
         data = self.controladora.getWorkX(nameOfWork)
+        _w = float(canvas['width'])
+        _h = float(canvas['height'])
 
-        # Paint and ap
-
+        if not data:
+            _text=f"NOT FOUND DATA: \n{nameOfWork}"
+            canvas.create_text(_w/2, _h/2, text=_text, tags="workInfo")
+        else:
+            canvas.delete("workInfo")
+            _textProjectBanner = f"Project: {data['project_name']} - Product Owner: {data['product_owner']}"
+            canvas.create_text(_w*0.2, _h/3.5, text=_textProjectBanner, anchor=NW, tags="workInfo")
+            canvas.create_text(_w*0.05, _h/2.8, text="Concepto de avance de trabajo: ", anchor=NW, tags="workInfo")
+            textNewWorkPlus = Text(canvas, height=8, width=42)
+            textNewWorkPlus.place(x=_w*0.05, y=_h/2.5)
+            canvas.create_text(_w*0.05, _h*0.65, text="Total Nuevas Horas Trabajadas: ", anchor=NW, tags="workInfo")
+            txtNewHoursWork = Entry(canvas, width=3)
+            txtNewHoursWork.place(x=_w*0.48, y=_h*0.65)
+            btnSaveNewHoursWork = Button(canvas, text="GUARDAR AVANCE", command=lambda: self._saveIncOfWork(textNewWorkPlus.get("1.0", END), txtNewHoursWork.get()))
+            btnSaveNewHoursWork.place(x=_w*0.6, y=_h*0.65)
+            
+    def _saveIncOfWork(self, concept, hours):
+        """
+        Save a new hours work to the project
+        """
+        if self.validatesTxt(concept) and self.validatesTxt(hours) and self.validatesINT(hours):
+            if int(hours) > 0:
+                if self.controladora.saveIncOfWork(concept, hours):
+                    self.ventanaEnmergenteDeAlerta("GUARDADO", "Se actualizo la información del trabajo.")
+                else:
+                    self.ventanaEnmergenteDeAlerta("Error :(", "Yo no pude guardar esa mieda.")
+            else:
+                self.ventanaEnmergenteDeAlerta("Error", f"Pedazo de estupido... ingresaste:\n{hours}\nEn las Horas.")
+        else:
+            self.ventanaEnmergenteDeAlerta("Error", f"Error ingresando los datos:\n {concept}\n{hours}")
 
     def _btnCreateNewWorkPresed(self, canvas):
         self._deleteAllObjectsInInterfaceWork(canvas)
@@ -994,6 +1025,8 @@ class TimeHackingLoko():
         lbl_warning.place(x=20, y=20)
         canvas.create_image(20,50,image=self.imgPopularDrug, anchor=NW)
         canvas.create_line(10, 180, 630, 180)
+        lbl_descriptionPopularDrug = Label(canvas, text=f"{self.controladora.getDescriptionOfPopularDrug()}")
+        lbl_descriptionPopularDrug.place(x=150, y=50)
         cbx_drugs = ttk.Combobox(canvas, state='readonly', textvariable=self._comboBoxDRUGS)
         cbx_drugs.place(x=250, y=200)
         cbx_options = self.controladora.getAllDrugs()
@@ -1908,6 +1941,16 @@ class TimeHackingLoko():
         Enter a str and return is valid
         """
         return txt.strip() != "" and "\"" not in txt
+
+    def validatesINT(self, number):
+        """
+        If number enter return ok
+        """
+        try:
+            _d = int(number)
+            return True
+        except:
+            return False
     
     def clearTextArea(self, txtArea):
         """
