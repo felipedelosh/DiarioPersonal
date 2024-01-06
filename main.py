@@ -505,6 +505,25 @@ class TimeHackingLoko():
             txtNewHoursWork.place(x=_w*0.48, y=_h*0.65)
             btnSaveNewHoursWork = Button(canvas, text="GUARDAR AVANCE", command=lambda: self._saveIncOfWork(textNewWorkPlus.get("1.0", END), txtNewHoursWork.get(), data['project_name']))
             btnSaveNewHoursWork.place(x=_w*0.6, y=_h*0.65)
+            # Load previous works?
+            _previousWorkeds = self.controladora.getALlIncOfWork(data['project_name'])
+            if _previousWorkeds != {}:
+                canvas.create_line(_w*0.15, _h*0.7, _w*0.8, _h*0.7)
+                _costPeerHour = float(_previousWorkeds['costPeerHour'])
+                _costTotalProject = 0
+                _totalHours = 0
+                _hoursWorked = []
+                for i in _previousWorkeds['hours'].split("\n"):
+                    if str(i).strip() != "":
+                        _hours = float(i)
+                        _totalHours = _totalHours + _hours
+                        _costTotalProject = _costTotalProject + (_costPeerHour * _hours)
+                        _hoursWorked.append(_hours)
+
+                canvas.create_text(_w*0.05, _h*0.75, text=f"Costo total del proyecto: ${_costTotalProject}", anchor=NW, tags="workInfo")
+                canvas.create_text(_w*0.05, _h*0.8, text=f"Total Horas invertidas: {_totalHours} h", anchor=NW, tags="workInfo")
+                canvas.create_text(_w*0.05, _h*0.85, text=f"Costo por hora: ${_previousWorkeds['costPeerHour']}", anchor=NW, tags="workInfo")
+                
             
     def _saveIncOfWork(self, concept, hours, projectName):
         """

@@ -953,6 +953,25 @@ class Controladora:
         Save hours and concept in folder
         """
         return self.controladoraCarpetas.saveIncOfWork(concept, hours, projectName)
+    
+    def getALlIncOfWork(self, projectName):
+        """
+        Read folder DATA\WORK\projectName and return:
+        costPeerHour.txt
+        hours.txt
+        """
+        _path = f"{self.rutaDelProyecto}\\DATA\\WORK\\{projectName}"
+        _data = {}
+
+        _cph = self.controladoraCarpetas.getTextInFile(f"{_path}\\costPeerHour.txt")
+        if _cph != "":
+            _data['costPeerHour'] = _cph
+
+        _h = self.controladoraCarpetas.getTextInFile(f"{_path}\\hours.txt")
+        if _h != "":
+            _data['hours'] = _h
+
+        return _data
 
     """WORK"""
     """WORK"""
