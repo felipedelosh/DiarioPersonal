@@ -451,6 +451,44 @@ class ControladoraCarpetas(object):
             return False
 
 
+    def saveIncOfWork(self, concept, hours, projectName):
+        try:
+            _path = f"{self.rutaDelProyecto}\\DATA\\WORK\\{projectName}"
+
+            # Save the concept of work
+            conceptWork = ""
+            try:
+                with open(_path+"\\concept.txt", 'r', encoding="UTF-8") as f:
+                    conceptWork = f.read()
+            except:
+                pass
+
+            # Save the concept
+            with open(_path+"\\concept.txt", 'w', encoding="UTF-8") as f:
+                if conceptWork != "":
+                    f.write(f"{conceptWork}\n{concept}")
+                else:
+                    f.write(f"{concept}")            
+
+            # Load previuos hours worked
+            dataHours = ""
+            try:
+                with open(_path+"\\hours.txt", 'r', encoding="UTF-8") as f:
+                    dataHours = f.read()
+            except:
+                pass
+
+            # Save this hours
+            with open(_path+"\\hours.txt", 'w', encoding="UTF-8") as f:
+                if dataHours != "":
+                    f.write(f"{dataHours}\n{hours}")
+                else:
+                    f.write(f"{hours}")
+            
+            return True
+        except:
+            return False
+
     def getTextInFile(self, path):
         """
         Enter a path to open file and return text

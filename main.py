@@ -503,16 +503,16 @@ class TimeHackingLoko():
             canvas.create_text(_w*0.05, _h*0.65, text="Total Nuevas Horas Trabajadas: ", anchor=NW, tags="workInfo")
             txtNewHoursWork = Entry(canvas, width=3)
             txtNewHoursWork.place(x=_w*0.48, y=_h*0.65)
-            btnSaveNewHoursWork = Button(canvas, text="GUARDAR AVANCE", command=lambda: self._saveIncOfWork(textNewWorkPlus.get("1.0", END), txtNewHoursWork.get()))
+            btnSaveNewHoursWork = Button(canvas, text="GUARDAR AVANCE", command=lambda: self._saveIncOfWork(textNewWorkPlus.get("1.0", END), txtNewHoursWork.get(), data['project_name']))
             btnSaveNewHoursWork.place(x=_w*0.6, y=_h*0.65)
             
-    def _saveIncOfWork(self, concept, hours):
+    def _saveIncOfWork(self, concept, hours, projectName):
         """
         Save a new hours work to the project
         """
         if self.validatesTxt(concept) and self.validatesTxt(hours) and self.validatesINT(hours):
             if int(hours) > 0:
-                if self.controladora.saveIncOfWork(concept, hours):
+                if self.controladora.saveIncOfWork(concept, hours, projectName):
                     self.ventanaEnmergenteDeAlerta("GUARDADO", "Se actualizo la información del trabajo.")
                 else:
                     self.ventanaEnmergenteDeAlerta("Error :(", "Yo no pude guardar esa mieda.")
@@ -594,7 +594,9 @@ class TimeHackingLoko():
 
         if not self.validatesTxt(_costPeerHour):
             err = err + "Error en el costro por hora producto\n"
-        
+
+        if not self.validatesINT(_costPeerHour):
+            err = err + "Error el costo por hora del producto... No es un numero\n"
         
         if err == "":
             if self.controladora.saveWork(args):

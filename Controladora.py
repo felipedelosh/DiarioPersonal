@@ -948,11 +948,11 @@ class Controladora:
         """
         return self.controladoraCarpetas.listALLFolderInPath(self.rutaDelProyecto+"\\DATA\\WORK")
 
-    def saveIncOfWork(self, concept, hours):
+    def saveIncOfWork(self, concept, hours, projectName):
         """
-        
+        Save hours and concept in folder
         """
-        return False
+        return self.controladoraCarpetas.saveIncOfWork(concept, hours, projectName)
 
     """WORK"""
     """WORK"""
