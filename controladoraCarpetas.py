@@ -420,6 +420,9 @@ class ControladoraCarpetas(object):
             with open(_PATH+_nameFoler+"\\costPeerHour.txt", 'w', encoding="UTF-8") as f:
                 f.write(args['costPeerHour'])
 
+            with open(_PATH+_nameFoler+"\\status.txt", 'w', encoding="UTF-8") as f:
+                f.write("open")
+
             return _bool_description and _bool_tools
         except:
             return False
@@ -441,11 +444,14 @@ class ControladoraCarpetas(object):
             with open(path+"\\PO.txt", "r", encoding="UTF-8") as f:
                 _productOwner = f.read()
 
-            
+            _status = ""
+            with open(path+"\\status.txt", "r", encoding="UTF-8") as f:
+                _status = f.read()         
             
             return {
                 "project_name" : _projectName,
-                "product_owner" : _productOwner
+                "product_owner" : _productOwner,
+                "status":_status
             }
         except:
             return False
