@@ -13,6 +13,7 @@ FAPTIME
 familia
 fiesta
 higiene personal
+hospital
 internet
 ocio
 leer

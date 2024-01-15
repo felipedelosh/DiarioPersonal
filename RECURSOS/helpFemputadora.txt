@@ -1,0 +1,8 @@
+Soy un chat programdado por FelipedelosH
+Intenta preguntarme estas cosas:
+
+* Saludarme.
+* Puedo contarte sobre tus sueños.
+* Puedo decirte como inviertes tu tiempo.
+* Puedo decirte como te sientes.
+* ...

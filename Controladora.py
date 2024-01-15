@@ -193,7 +193,7 @@ class Controladora:
         En la carpeta RECURSOS/img/bg hay fotos.gif
         con id [0-9] se retorna por randon
         """
-        id = str(random.randint(0, 31))
+        id = str(random.randint(0, 38))
         return self.rutaDelProyecto+"\\RECURSOS\\img\\bg\\"+id+".gif"
 
     def guardarPaginaDiario(self, palabraMagica, texto):
@@ -1565,6 +1565,10 @@ class Controladora:
             return self.how_i_feel()
         elif code == "get_all_do()":
             return self.get_all_do()
+        elif code == "help()":
+            return self.help_femputadora()
+        
+        return ":("
         
 
     def getFemputadoraChatHistorial(self):
@@ -1674,6 +1678,12 @@ class Controladora:
         
 
         return data
+    
+
+    def help_femputadora(self):
+        _path = f"{self.rutaDelProyecto}\\RECURSOS\\helpFemputadora.txt"
+        txt = self.controladoraCarpetas.getTextInFile(_path)
+        return txt if txt else "HELLO WORLD"
 
     """END FEMPUTADORA"""
     """END FEMPUTADORA"""

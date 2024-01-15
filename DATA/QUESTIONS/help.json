@@ -1,0 +1,16 @@
+{
+    "function" : "help()",
+    "list_of_words" : [
+        "ayuda",
+        "servir",
+        "femputadora",
+        "sirveme",
+        "para",
+        "claves",
+        "comandos",
+        "keywords",
+        "passwords"
+    ],
+    "single_response" : true,
+    "required_words" : []
+}
