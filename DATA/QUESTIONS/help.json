@@ -3,13 +3,18 @@
     "list_of_words" : [
         "ayuda",
         "servir",
+        "sirves",
         "femputadora",
+        "funcionamiento",
+        "funcionas",
+        "funcionar",
         "sirveme",
         "para",
         "claves",
         "comandos",
         "keywords",
-        "passwords"
+        "passwords",
+        "como"
     ],
     "single_response" : true,
     "required_words" : []
