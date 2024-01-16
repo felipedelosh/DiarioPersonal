@@ -306,9 +306,15 @@ class TimeHackingLoko():
         lblQualification = Label(canvas, text="Calificación de la experiencia:")
         lblQualification.place(x=10, y=350)
         _scale = Scale(canvas, from_=0, length=360, to=100, orient=HORIZONTAL)
+        _scale.bind("<B1-Motion>", lambda event :self._showEmojiInUserSocialSperienceSlider(event, _scale, lblQualification))
         _scale.place(x=10, y=370)
         btnSave = Button(canvas, text="GUARDAR", command=lambda : self.savePeopleDescription(txtNamePerson.get(), txtAlias.get(), txtDescription.get("1.0", END), _scale.get()))
         btnSave.place(x=160, y=460)
+
+    def _showEmojiInUserSocialSperienceSlider(self, event, scale, lbl):
+        _feel = scale.get()
+        _feel = self.controladora._getEmojiPeopleEmotionalValue(_feel)
+        lbl['text'] = f"Calificación de la experiencia: {_feel}"
 
     def _showAllPeopleNames(self):
         data = self.controladora.controladoraCarpetas.listOfAllPeople()

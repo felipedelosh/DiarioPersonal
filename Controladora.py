@@ -403,7 +403,13 @@ class Controladora:
             return True
         else:
             return False
+        
 
+    def _getEmojiPeopleEmotionalValue(self, emotionalValue):
+        """
+        Get value in string [0,100] and return emoji
+        """
+        return self.controladoraProcesamientoDeDatos._rtnEmotional(emotionalValue)
 
     def guardarNota(self, palabraMagica, texto):
         """
