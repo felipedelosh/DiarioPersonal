@@ -12,7 +12,13 @@ Por ejemplo: si tu le dices
 
 """
 # -⁻- coding: UTF-8 -*-
-import winsound
+_status = False
+try:
+    import winsound
+    _status = True
+except:
+    pass
+
 import sys
 
 class AudioMixer:
@@ -20,4 +26,5 @@ class AudioMixer:
         self.line = "" # Aqui se pone el sonido ejemplo : DirPath+recuros/audio/hola mundo
 
     def playSound(self):
-        winsound.PlaySound(self.line+".wav", winsound.SND_FILENAME)
+        if _status:
+            winsound.PlaySound(self.line+".wav", winsound.SND_FILENAME)

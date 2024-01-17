@@ -1,0 +1,6 @@
+Hola,
+Este es mi primer mensaje escrito desde kali - linux
+
+
+Tue Jan 16 21:35:18 2024
+

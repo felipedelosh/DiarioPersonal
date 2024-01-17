@@ -6,6 +6,7 @@ User tikinter Draw Canvas
 
 """
 from tkinter import *
+import random
 
 class GraphicsController:
     
@@ -125,4 +126,55 @@ class GraphicsController:
                 x1 = _dxPivot*(i+1) + _ink
                 y1 = h * (1-(data[i+1]/maxY))
                 canvas.create_line(x0, y0, x1, y1, fill="green", tags="estadocajas")
+    
+
+    def getBackgroundImage(self, projectPath):
+        """
+        Read Folder RECURSOS/img/bg return photoimage
+        """
+        _simbolikSep = self.getSimbolikPathSeparator(projectPath)
+
+        id = str(random.randint(0, 38))
+        _pathIMG = f"{projectPath}{_simbolikSep}RECURSOS{_simbolikSep}img{_simbolikSep}bg{_simbolikSep}{id}.gif"
+
+        return PhotoImage(file=_pathIMG)
+    
+
+    def returnIMGRnBtnRousourceX(self, projectPath, resource):
+        """
+        Read Folder RECURSOS/img/bnts return photoimage
+        """
+        _simbolikSep = self.getSimbolikPathSeparator(projectPath)
+
+        id = str(random.randint(0, 9))
+        _pathIMG = f"{projectPath}{_simbolikSep}RECURSOS{_simbolikSep}img{_simbolikSep}btns{_simbolikSep}{resource}{_simbolikSep}{resource}"+id+".gif"
+
+        return PhotoImage(file=_pathIMG)
+    
+
+    def getIMGPeople(self, projectPath, qty_people):
+        """
+        Get IMG of folder RECURSOS/img/btns/people
+        """
+        _simbolikSep = self.getSimbolikPathSeparator(projectPath)
+
+        if not 0 <= qty_people < 10:
+            qty_people = 0
+            
+        _pathIMG = f"{projectPath}{_simbolikSep}RECURSOS{_simbolikSep}img{_simbolikSep}btns{_simbolikSep}people{_simbolikSep}people{qty_people}.gif"
+
+        return PhotoImage(file=_pathIMG)
+    
+
+    def getSimbolikPathSeparator(self, projectPath):
+        """
+        In Some SO usages / or \ to separates folder PATH
+        """
+        _simbolikSep = "\\"
+
+        if _simbolikSep not in projectPath:
+            _simbolikSep = "/"
+
+        
+        return _simbolikSep
     

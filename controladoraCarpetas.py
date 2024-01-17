@@ -209,7 +209,9 @@ class ControladoraCarpetas(object):
         """
         people = []
 
-        path = self.rutaDelProyecto + "\\DATA\\PEOPLE"
+        _sep = self.getSimbolikPathSeparator()
+
+        path = f"{self.rutaDelProyecto}{_sep}DATA{_sep}PEOPLE"
         for i in scandir(path):
             try:
                 if i.is_dir():
@@ -537,3 +539,15 @@ class ControladoraCarpetas(object):
             return True
         except:
             return False
+
+
+    def getSimbolikPathSeparator(self):
+        """
+        In Some SO usages / or \ to separates folder PATH
+        """
+        _simbolikSep = "\\"
+
+        if _simbolikSep not in self.rutaDelProyecto:
+            _simbolikSep = "/"
+
+        return _simbolikSep

@@ -80,8 +80,7 @@ class Controladora:
         Read a img in folder: RECURSOS\img\btns\ <Resource> \ <ResourceFile> + rnd + .gif 
         And you rtrn rnd img
         """
-        id = str(random.randint(0, 9))
-        return self.rutaDelProyecto+f"\\RECURSOS\\img\\btns\\{resource}\\{resource}"+id+".gif"
+        return self.graphicsController.returnIMGRnBtnRousourceX(self.rutaDelProyecto, resource)
     
     
     def returnIMGBtnPeople(self):
@@ -89,19 +88,8 @@ class Controladora:
         Read all quantity of pleople you conect...
         retrun a representative image
         """
-        try:
-            qty_people = len(self.controladoraCarpetas.listOfAllPeople())
-
-            if qty_people == 0:
-                return self.rutaDelProyecto+"\\RECURSOS\\img\\btns\\people\\people0.gif"
-            
-            if qty_people < 10:
-                return self.rutaDelProyecto+f"\\RECURSOS\\img\\btns\\people\\people{qty_people}.gif"
-
-            return self.returnIMGRnBtnRousourceX("people")
-        except:
-            print("Error En People...")
-            return self.returnIMGRnBtnRousourceX("people")
+        qty_people = len(self.controladoraCarpetas.listOfAllPeople())
+        return self.graphicsController.getIMGPeople(self.rutaDelProyecto,qty_people)
 
     def retrunIMGBtnFeelings(self):
         """
@@ -110,7 +98,9 @@ class Controladora:
         if the feeling dont exits retrun random feeling
         """
         try:
-            path = self.rutaDelProyecto + "\\RECURSOS\\img\\btns\\feelings\\real"
+            _sep = self.controladoraCarpetas.getSimbolikPathSeparator()
+
+            path = f"{self.rutaDelProyecto}{_sep}RECURSOS{_sep}img{_sep}btns{_sep}feelings{_sep}real" 
             _files_img_emotions = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(path, '.gif')
             
             #get current year
@@ -123,7 +113,7 @@ class Controladora:
             elif  len(data_feelings) == 1:
                 data = self.controladoraProcesamientoDeDatos._shorterDic(data_feelings)
                 if data[0][0] + ".gif" in _files_img_emotions:
-                    return path + "\\" + data[0][0] + ".gif"
+                    return f"{path}{_sep}{data[0][0]}.gif"
                 else:
                     return self.returnIMGRnBtnRousourceX("feelings")
             elif len(data_feelings) > 1:
@@ -131,7 +121,7 @@ class Controladora:
                 data = self.controladoraProcesamientoDeDatos._shorterDic(data_feelings) # [(a, #), ... (z, #)]
 
                 if data[0][0] + ".gif" in _files_img_emotions:
-                    return path + "\\" + data[0][0] + ".gif"
+                    return f"{path}{_sep}{data[0][0]}.gif"
                 else:
                     return self.returnIMGRnBtnRousourceX("feelings")
             else:
@@ -193,22 +183,25 @@ class Controladora:
         En la carpeta RECURSOS/img/bg hay fotos.gif
         con id [0-9] se retorna por randon
         """
-        id = str(random.randint(0, 38))
-        return self.rutaDelProyecto+"\\RECURSOS\\img\\bg\\"+id+".gif"
+        return self.graphicsController.getBackgroundImage(self.rutaDelProyecto)
 
     def guardarPaginaDiario(self, palabraMagica, texto):
         try:
             """Se genera la ruta del disco duro donde va a estar el archivo"""
-            rutaDiario = self.rutaDelProyecto + "\\DATA\\DIARIO\\" + str(self.tiempo.año())
-            archivo = rutaDiario+"\\"+self.tiempo.estampaDeTiempo() + " - " + palabraMagica + ".txt"
+            _sep = self.controladoraCarpetas.getSimbolikPathSeparator()
+            rutaDiario = f"{self.rutaDelProyecto}{_sep}DATA{_sep}DIARIO{_sep}{self.tiempo.año()}"
+            archivo = f"{rutaDiario}{_sep}{self.tiempo.estampaDeTiempo()} - {palabraMagica}.txt"
             if(len(palabraMagica.strip()) > 0):
+                # Write a page diary
                 texto = texto + "\n\n" + self.tiempo.hora() + "\n\n"
                 f = open(archivo, "a", encoding="UTF-8")
                 f.write(texto)
                 f.close()
+
+                # Save user usages Diary
                 self.saveUseWrite("diary")
+
                 # Femputadora analize a words
-                
                 try:
                     # Erase a timestamps
                     txt = str(texto).split("\n")
@@ -226,7 +219,7 @@ class Controladora:
                     self.execute_trigger_event(action)
                 except:
                     pass
-                #print(f"femputadora: {self.femputadora_triggers.getResponse(sms)}")
+
                 return True
             else:
                 return False
@@ -235,15 +228,12 @@ class Controladora:
             return False
 
     def cargarpaginaDeDiario(self, palabraMagica):
-        try:
-            rutaDiario = self.rutaDelProyecto + "\\DATA\\DIARIO\\" + str(self.tiempo.año())
-            archivo = rutaDiario+"\\"+self.tiempo.estampaDeTiempo() + " - " + palabraMagica + ".txt"
+        _sep = self.controladoraCarpetas.getSimbolikPathSeparator()
 
-            f = open(archivo, "r", encoding="UTF-8")
-            return f.read()
-            
-        except:
-            return None
+        rutaDiario = f"{self.rutaDelProyecto}{_sep}DATA{_sep}DIARIO{_sep}{self.tiempo.año()}"
+        archivo = f"{rutaDiario}{_sep}{self.tiempo.estampaDeTiempo()} - {palabraMagica}.txt" 
+
+        return self.controladoraCarpetas.getTextInFile(archivo)
 
     def loadDiaryPageBypath(self, path):
         """
