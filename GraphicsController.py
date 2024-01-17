@@ -165,6 +165,12 @@ class GraphicsController:
 
         return PhotoImage(file=_pathIMG)
     
+    def getPhotoImageFromRouteX(self, routeIMGX):
+         """
+         Enter a path and return photoimage
+         """
+         return PhotoImage(file=routeIMGX)
+    
 
     def getSimbolikPathSeparator(self, projectPath):
         """

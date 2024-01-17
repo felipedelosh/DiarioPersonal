@@ -108,23 +108,13 @@ class Controladora:
 
             # Read the most feeling in year
             data_feelings = self.procesarDatosSentimientos(YYYY)
-            if len(data_feelings) == 0 or data_feelings == {}:
+            if len(data_feelings) == 0 or not data_feelings:
                 return self.returnIMGRnBtnRousourceX("feelings")
-            elif  len(data_feelings) == 1:
-                data = self.controladoraProcesamientoDeDatos._shorterDic(data_feelings)
-                if data[0][0] + ".gif" in _files_img_emotions:
-                    return f"{path}{_sep}{data[0][0]}.gif"
-                else:
-                    return self.returnIMGRnBtnRousourceX("feelings")
-            elif len(data_feelings) > 1:
-                # Order feels
-                data = self.controladoraProcesamientoDeDatos._shorterDic(data_feelings) # [(a, #), ... (z, #)]
-
-                if data[0][0] + ".gif" in _files_img_emotions:
-                    return f"{path}{_sep}{data[0][0]}.gif"
-                else:
-                    return self.returnIMGRnBtnRousourceX("feelings")
             else:
+                data = self.controladoraProcesamientoDeDatos._shorterDic(data_feelings) # [(a, #), ... (z, #)]
+                
+                if data[0][0] + ".gif" in _files_img_emotions:
+                    return self.graphicsController.getPhotoImageFromRouteX(f"{path}{_sep}{data[0][0]}.gif")
                 return self.returnIMGRnBtnRousourceX("feelings")
         except:
             return self.returnIMGRnBtnRousourceX("feelings")
