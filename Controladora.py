@@ -160,7 +160,7 @@ class Controladora:
             _data = f"{self.codenamePopularDrug}"
 
             if self.codenamePopularDrug != "":
-                _path = f"RECURSOS\\drugs\\{self.codenamePopularDrug}.txt"
+                _path = f"{self.rutaDelProyecto}\\RECURSOS\\drugs\\{self.codenamePopularDrug}.txt"
                 _data = self.controladoraCarpetas.getTextInFile(_path)
                 return _data
 
