@@ -1628,7 +1628,10 @@ class Controladora:
 
         for i in _data:
             if i != YYYY:
-                sms = sms + f"Lo que más sentiste en {str(i)}:\nes {str(_data[i])}\n\n"
+                _sumaryFeels = ""
+                for _feel in _data[i]:
+                    _sumaryFeels = _sumaryFeels + _feel + "\n"
+                sms = sms + f"Lo que más sentiste en {str(i)}:\nes {str(_sumaryFeels)}\n"
 
         return sms
  

@@ -89,7 +89,6 @@ class TimeHackingLoko():
         self.btnAgenda.place(x=250, y=30)
         self.btnNotas.place(x=460, y=30)
         self.btnEconomia.place(x=30, y=180)
-        #self.btnResultadoAnual.place(x=250, y=180)
         self.btnFemputadora.place(x=250, y=180)
         self.btnRegistroEmociones.place(x=460, y=180)
         self.btnWork.place(x=30, y=330)
