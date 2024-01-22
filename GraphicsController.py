@@ -183,4 +183,4 @@ class GraphicsController:
 
         
         return _simbolikSep
-    
+ 

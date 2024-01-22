@@ -17,6 +17,8 @@ import math
 
 class TimeHackingLoko():
     def __init__(self):
+        self._withResolution = 640
+        self._heigthResolution = 480
         print("Init ProGram :)")
         self.controladora = Controladora()
         print("Load Controler")
@@ -49,17 +51,16 @@ class TimeHackingLoko():
         self.imageIcoPersona = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/ico/persona.png')
         self.imgDRUGS = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/weed.gif')
         self.imgPopularDrug = PhotoImage(file=self.controladora.returnIMGBtnDRUGS())
+        self.imgDrugsGraphicReporter = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/graphicsDrugs.gif')
+        self.imgGraphicsTimeLife = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/graphicsTimeLife.gif')
+        self.imgProfile = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/profile.gif')
         """Imagenes de la pantalla principal"""
-        self.btnDiario = Button(self.tela, image=self.imgBtnDiario, command=self.launchMenuDiary)
-        self.btnAgenda = Button(self.tela, image=self.imgBtnAgenda, command=self.launchCalendary)
-        self.btnNotas = Button(self.tela, image=self.imgBtnNotas, command=self.lanzarInterfaceNotas)
-        self.btnEconomia = Button(self.tela, image=self.imgBtnEconimia, command=self.launchEconomyMenu)
+        self.btnDiary = Button(self.tela, image=self.imgBtnDiario, command=self.launchMenuDiary)
+        self.btnCalendary = Button(self.tela, image=self.imgBtnAgenda, command=self.launchMenuDiaryCalendary)
+        self.btnEconomy = Button(self.tela, image=self.imgBtnEconimia, command=self.launchEconomyMenu)
+        self.btnGraphics = Button(self.tela, image=self.imgBtnResultadoAnual, command=self.launchInterfaceGraphics)
         self.btnFemputadora = Button(self.tela, image=self.imgFemputadora, command=self.launchFemputadoraInterface)
-        print("Femputadora Say Hello :3")
-        self.btnRegistroEmociones = Button(self.tela, image=self.imgBtnRegistoEmociones, command=self.launchInterfaceFeeling)
-        self.btnWork = Button(self.tela, image=self.imgBtnWork, command=self.launchInterfaceWork)
-        self.btnConfiguracion = Button(self.tela, image=self.imgBtnConfiguracion, command=self.lanzarInterfaceConfiguracion)
-        self.btnAyuda = Button(self.tela, image=self.imgBtnAyuda, command=self.lanzarInterfaceAyuda)
+        self.btnConfiguration = Button(self.tela, image=self.imgBtnConfiguracion, command=self.launchInterfaceConfig)
         """Vars"""
         """vars to read a diary"""
         self.allInfoDiaryPages = [] # Save title, text to diary pages... It´s only to read.
@@ -81,19 +82,17 @@ class TimeHackingLoko():
 
     
     def pintarYConfigurar(self):
-        self.pantalla.geometry("640x480")
+        self.pantalla.geometry(f"{self._withResolution}x{self._heigthResolution}")
         self.pantalla.title("Agenda Personal")
+        self.pantalla.resizable(False, False)
         self.tela.place(x=0, y=0)
         self.tela.create_image(0,0,image=self.imgFondo, anchor=NW)
-        self.btnDiario.place(x=30, y=30)
-        self.btnAgenda.place(x=250, y=30)
-        self.btnNotas.place(x=460, y=30)
-        self.btnEconomia.place(x=30, y=180)
-        self.btnFemputadora.place(x=250, y=180)
-        self.btnRegistroEmociones.place(x=460, y=180)
-        self.btnWork.place(x=30, y=330)
-        self.btnConfiguracion.place(x=250, y=330)
-        self.btnAyuda.place(x=460, y=330)
+        self.btnDiary.place(x=self._withResolution*0.1, y=self._heigthResolution*0.2)
+        self.btnCalendary.place(x=self._withResolution*0.4, y=self._heigthResolution*0.2)
+        self.btnEconomy.place(x=self._withResolution*0.7, y=self._heigthResolution*0.2)
+        self.btnGraphics.place(x=self._withResolution*0.1, y=self._heigthResolution*0.6)
+        self.btnFemputadora.place(x=self._withResolution*0.4, y=self._heigthResolution*0.6)
+        self.btnConfiguration.place(x=self._withResolution*0.7, y=self._heigthResolution*0.6)
         self.pantalla.mainloop()
 
     def ventanaEnmergenteDeAlerta(self, titulo, mensaje):
@@ -113,23 +112,63 @@ class TimeHackingLoko():
     def launchMenuDiary(self):
         t = Toplevel()
         t.title("Interface diario.")
-        t.geometry("400x400")
-        canvas = Canvas(t, width=400, height=400)
+        _w = 800 
+        _h = 400
+        t.geometry(f"{_w}x{_h}")
+        canvas = Canvas(t, width=_w, height=_h)
         canvas.place(x=0, y=0)
-        canvas.create_line(0, 130, 400, 130)
-        canvas.create_line(0, 250, 400, 250)
+        canvas.create_line(0, _h*0.32, _w, _h*0.32)
         lblPersonalDiary = Label(canvas, text="Diario personal\n\n\nEscribe aqui las cosas que pasan \nen tu vida.")
         lblPersonalDiary.place(x=200, y=30)
         btnPersonalDiary = Button(canvas, image=self.imgPersonalDiary, command=self.lanzarPantallaDiario)
-        btnPersonalDiary.place(x=70, y=20)
+        btnPersonalDiary.place(x=_w * 0.0875, y=_h * 0.05)
+        canvas.create_line(0, _h*0.62, _w, _h*0.62)
         lblDreams = Label(canvas, text="Diario de Sueños\n\n\nEscribe aqui lo que pasa cuando \nduermes?\nque es lo que sueñas.")
         lblDreams.place(x=200, y=140)
         btnDreams = Button(canvas, image=self.imgDreamDiary, command=self.launchInterfaceDreams)
-        btnDreams.place(x=70, y=140)
+        btnDreams.place(x=_w * 0.0875, y=_h * 0.35)
         lblPeople = Label(canvas, text="Amigos\n\n\nEscribe aquí sobre la gente que te \nrodea.")
         lblPeople.place(x=200, y=260)
         btnPeople = Button(canvas, image=self.imgPeople, command=self.launchInterfacePeople)
-        btnPeople.place(x=70, y=260)
+        btnPeople.place(x=_w * 0.0875, y=_h * 0.65)
+        canvas.create_line(_w/2, 0, _w/2, _h)
+        lblNotes = Label(canvas, text="Notas\n\n\nEscribe aqui tus notas.")
+        lblNotes.place(x=_w * 0.7, y=_h * 0.05)
+        btnNotes = Button(canvas, image=self.imgBtnNotas, command=self.lanzarInterfaceNotas)
+        btnNotes.place(x=_w * 0.55, y=_h * 0.05)
+        lblNotes = Label(canvas, text="Registro de sentimientos\n\n\nGuarda como te sentiste hoy.")
+        lblNotes.place(x=_w * 0.7, y=_h * 0.35)
+        btnSaveFeeling =  Button(canvas, image=self.imgSaveFeeling, command=self.lanzarPantallaRegistroSentimientos)
+        btnSaveFeeling.place(x=_w * 0.55, y=_h * 0.35)
+        lblDrugs = Label(canvas, text="Consumo de drogas:\n\n\nRegistra tu consumo de psicoactivos.")
+        lblDrugs.place(x=_w * 0.7, y=_h * 0.65)
+        btnDRUGS = Button(canvas, image=self.imgDRUGS, command=self.subInterfaceDRUGS)
+        btnDRUGS.place(x=_w * 0.55, y=_h * 0.65)
+
+
+    def launchMenuDiaryCalendary(self):
+        t = Toplevel()
+        t.title("Interface Calendario.")
+        _w = 400 
+        _h = 400
+        t.geometry(f"{_w}x{_h}")
+        canvas = Canvas(t, width=_w, height=_h)
+        canvas.place(x=0, y=0)
+        lblCalendary = Label(canvas, text="Calendario\n\n\nAqui tienes un resumen filtrado por fechas.")
+        lblCalendary.place(x=_w * 0.4, y=_h * 0.075)
+        btnCalendary = Button(canvas, image=self.imgBtnAgenda, command=self.launchCalendary)
+        btnCalendary.place(x=_w * 0.08, y=_h * 0.05)
+        canvas.create_line(0, _h*0.32, _w, _h*0.32)
+        lbl24hCounter = Label(canvas, text="Registro de 24h\n\n\nGuarda aquí lo que hisiste el día de hoy.")
+        lbl24hCounter.place(x=_w * 0.4, y=_h * 0.35)
+        btn24hCounter = Button(canvas, image=self.imgSaveTimeDistribution, command=self.subInterfaceInversionTiempoDiario)
+        btn24hCounter.place(x=_w * 0.08, y=_h * 0.35)
+        canvas.create_line(0, _h*0.62, _w, _h*0.62)
+        lblSchedule = Label(canvas, text="Horario Semanal\n\n\nCrea aquí un horario semanal para las 24h.\nPredecir L mode que haras a cierta hora.")
+        lblSchedule.place(x=_w * 0.4, y=_h * 0.65)
+        btnSchedule = Button(canvas, image=self.imgSchedule, command=self.subInterfaceHorario)
+        btnSchedule.place(x=_w * 0.08, y=_h * 0.65)
+
 
     def launchCalendary(self):
         t = Toplevel()
@@ -230,17 +269,65 @@ class TimeHackingLoko():
         lblTAccount.place(x=220, y=20)
         btnTAccount = Button(canvas, image=self.imgTAccount, command=self.lanzarInterfaceEconomia)
         btnTAccount.place(x=60, y=20)
-        lblEconomyReport = Label(canvas, text="Graficas\n\nOtra manera de ver los gastos.")
-        lblEconomyReport.place(x=240, y=140)
-        btnEconomyReport = Button(canvas, image=self.imgEconomyReport, command=self.subInterfaceReporteEconomico)
+        lblWork = Label(canvas, text="Trabajo\n\nAdministra tiempo y costo.")
+        lblWork.place(x=240, y=140)
+        btnEconomyReport = Button(canvas, image=self.imgBtnWork, command=self.launchInterfaceWork)
         btnEconomyReport.place(x=60, y=140)
         lblBox = Label(canvas, text="Ahorros:\n\nCaja menor:\nCuanto dinero tienes en los bolsillos?\nCaja mayor:\nCuanto dinero tienes Ahorrado?")
         lblBox.place(x=220, y=260)
         btnBox = Button(canvas, image=self.imgBox, command=self.subInterfacebalaceDeCajas)
         btnBox.place(x=60, y=260)
-        
 
-            
+        
+    def launchInterfaceGraphics(self):
+        _w = 400
+        _h = 600
+        t = Toplevel()
+        t.title("Graficas")
+        t.geometry(f"{_w}x{_h}")
+        canvas = Canvas(t, width=_w, height=_h)
+        canvas.place(x=0, y=0)
+        btnTAccountsGrphics = Button(canvas, image=self.imgEconomyReport, command=self.subInterfaceReporteEconomico)
+        btnTAccountsGrphics.place(x=_w*0.1, y=_h*0.01)
+        lblEconomyReport = Label(canvas, text="Cuentas T\n\nOtra manera de ver los ingresos/egresos.")
+        lblEconomyReport.place(x=_w*0.4, y=_h*0.01)
+        canvas.create_line(0, _h*0.19, _w, _h*0.19)
+        btnFeelsGraphics = Button(canvas, image=self.imgFeelingReport, command=self.subInterfaceReporteDeSentimientos)
+        btnFeelsGraphics.place(x=_w*0.1, y=_h*0.20)
+        lblFeelsGraphics = Label(canvas, text="Sentimientos\n\nVer grafíca Sentimientos vs Conteo.")
+        lblFeelsGraphics.place(x=_w*0.4, y=_h*0.21)
+        canvas.create_line(0, _h*0.39, _w, _h*0.39)
+        btnDrugsGraphics = Button(canvas, image=self.imgDrugsGraphicReporter)
+        btnDrugsGraphics.place(x=_w*0.1, y=_h*0.40)
+        lblDrugsGraphics = Label(canvas, text="Drogas\n\nVer grafíca Drogas vs Conteo.")
+        lblDrugsGraphics.place(x=_w*0.4, y=_h*0.40)
+        canvas.create_line(0, _h*0.59, _w, _h*0.59)
+        btnGraphicsTimeDistribution = Button(canvas, image=self.imgViewTimeDistribution, command=self.subInterfacePilaresDeLaFelicidad)
+        btnGraphicsTimeDistribution.place(x=_w*0.1, y=_h*0.60)
+        lblGraphicsTimeDistribution = Label(canvas, text="Tiempo de vida\n\nVer como distribuyes tu tiempo.")
+        lblGraphicsTimeDistribution.place(x=_w*0.4, y=_h*0.60)
+        canvas.create_line(0, _h*0.78, _w, _h*0.78)
+        btnGraphicTimeLife = Button(canvas, image=self.imgGraphicsTimeLife)
+        btnGraphicTimeLife.place(x=_w*0.1, y=_h*0.8)
+        lblGraphicTimeLife = Label(canvas, text="Linea del tiempo\n\nVer tu vida a lo largo de los años.")
+        lblGraphicTimeLife.place(x=_w*0.4, y=_h*0.8)
+
+    def launchInterfaceConfig(self):
+        _w = 400
+        _h = 400
+        t = Toplevel()
+        t.title("Config")
+        t.geometry(f"{_w}x{_h}")
+        canvas = Canvas(t, width=_w, height=_h)
+        canvas.place(x=0, y=0)
+        btnProfile = Button(canvas, image=self.imgProfile, command=self.subInterfacePerfil)
+        btnProfile.place(x=_w*0.1, y=_h*0.02)
+        lblProfile = Label(canvas, text="Perfil\n\nRellena tu infomación personal")
+        lblProfile.place(x=_w*0.4, y=_h*0.02)
+        btnHelp = Button(canvas, image=self.imgBtnAyuda, command=self.lanzarInterfaceAyuda)
+        btnHelp.place(x=_w*0.1, y=_h*0.40)
+        lblHelp = Label(canvas, text="Ayuda\n\nManual del Usuario.")
+        lblHelp.place(x=_w*0.4, y=_h*0.42)
 
     def lanzarPantallaDiario(self):
         interfaceDiario = Toplevel()

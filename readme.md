@@ -70,7 +70,7 @@ Este proyecto esta totalmente escrito en python, no descargue ninguna libreria. 
 
 ## :warning:Advertencia
 
-- Este proyecto fue escrito en windows y no funciona otros sistemas operativos. debido al modulo "winsound".
+- Este proyecto fue escrito en windows y no se han habilitado todas las funciones para linux.
 
 ## Autor
 

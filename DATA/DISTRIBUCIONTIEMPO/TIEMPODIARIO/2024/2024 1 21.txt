@@ -1,0 +1,24 @@
+6am:dormir
+7am:dormir
+8am:dormir
+9am:higiene personal
+10am:enseñar
+11am:enseñar
+12am:vida social
+1pm:alimentación
+2pm:que haceres domesticos
+3pm:que haceres domesticos
+4pm:video juegos
+5pm:dormir
+6pm:caminar
+7pm:alimentación
+8pm:estudiar
+9pm:estudiar
+10pm:programar
+11pm:programar
+12pm:dormir
+1am:dormir
+2am:dormir
+3am:dormir
+4am:dormir
+5am:dormir
