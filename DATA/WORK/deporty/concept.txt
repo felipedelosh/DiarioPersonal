@@ -1,0 +1,4 @@
+Se estudió sobre:
+Node.Js
+Publicar npm
+GIT

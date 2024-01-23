@@ -1168,6 +1168,8 @@ class TimeHackingLoko():
         lbl_feel.place(x=20, y=330)
         txt_feel = Text(canvas, width=75, height=3)
         txt_feel.place(x=20, y=360)
+        btnVieGraphics = Button(canvas, text="Graficas", command=self.lauchInterfaceDrugsGraphics)
+        btnVieGraphics.place(x=20, y=440)
         btnSAVE = Button(canvas, text="Guardar", command=lambda : self._saveDrug(txt_detonate ,txt_feel))
         btnSAVE.place(x=560, y=440)
 
