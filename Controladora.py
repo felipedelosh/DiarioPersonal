@@ -545,6 +545,14 @@ class Controladora:
         return dataSentimientos
     
 
+    def processDataDrugs(self, YYYY):
+        """
+        DATA\DRUGS\YYYY
+        Group data and show
+        """
+        return self.controladoraProcesamientoDeDatos.proccesDrugsDataByYYYY(YYYY)
+    
+
     def loadTodayTimeInversion(self):
         """
         get date today and return {hour:activity, ...hour:activity}
@@ -637,10 +645,8 @@ class Controladora:
         data = _temp
         return data
     
-
-    
-    def vizualizeFeelingsData(self, data):
-        self.graphicsController.showFeelingsYearGraphic(data)
+    def vizualizeHistogramData(self, data, title):
+        self.graphicsController.showHistogramGraphic(data, title)
 
 
     def retornarColores(self, cantidad):

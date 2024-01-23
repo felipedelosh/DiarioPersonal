@@ -1,0 +1,4 @@
+Es una solución para eventos deportivos de tipo Futbol... vamos a administrar:
++ Server (Node.js)
++ Frontend (Angular)
++ App (FLUTTER)

@@ -13,6 +13,7 @@ Procesamiento de datos en json
 # -⁻- coding: UTF-8 -*-
 import json
 import os # TO get path project, read folders
+from os import scandir
 from StringProcessor import *
 
 
@@ -43,6 +44,17 @@ class ControladoraProcesamientoDeDatos(object):
                 self.registroActividades = json.load(file)
         except:
             pass
+
+    def getAllFilesNamesxTypeInFolderPath(self, path, fileExtension):
+        filesNames = []
+        for i in scandir(path):
+            try:
+                if fileExtension in i.name:   
+                    filesNames.append(i.name)    
+            except:
+                pass
+
+        return filesNames
 
     def registrarLogroDeMiVida(self, año, logro):
         """Se hace un backup por si hay mas eventos ese a+o"""
@@ -120,6 +132,28 @@ class ControladoraProcesamientoDeDatos(object):
         # Dont return 0 information.
         return self._cleanZeroFeelings()
     
+
+    def proccesDrugsDataByYYYY(self, YYYY):
+        """
+        GET ALL DATA in DATA\DRUGS\YYYY
+        group {"DRUG": COUNTER, ..."DRUG": COUNTER}
+        """
+        _outputData = {}
+        _path = f"{self.rutaDelProyecto}\\DATA\\DRUGS\\{YYYY}"
+
+        # get ALL Files names
+        filesNames = self.getAllFilesNamesxTypeInFolderPath(_path, ".txt")
+
+        # Group data
+        for i in filesNames:
+            _id = str(i).split("-")[0]
+            _id = _id.lstrip().rstrip()
+            if _id not in _outputData.keys():
+                _outputData[_id] = 0
+            _outputData[_id] = _outputData[_id] + 1
+            
+        return _outputData
+        
     def _cleanZeroFeelings(self):
         temp = {}
         for i in self.dataSentimientos:

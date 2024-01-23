@@ -10,15 +10,13 @@ import random
 
 class GraphicsController:
     
-
-    def showFeelingsYearGraphic(self, data):
+    def showHistogramGraphic(self, data, title):
         """
-        Enter a processor of DATA\SENTIMIENTOS
-        {"feeling":frecuency, "feeling":frecuency, "feeling":frecuency ...}
+        {"data":frecuency, "data":frecuency, "data":frecuency ...}
         and draw
         """
         pantalla = Toplevel()
-        pantalla.title("Histograma sentimientos ")
+        pantalla.title(title)
         pantalla.geometry("800x600")
         tela = Canvas(pantalla, width=800, height=600, bg="snow")
         tela.place(x=0, y=0)

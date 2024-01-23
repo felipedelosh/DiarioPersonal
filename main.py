@@ -19,14 +19,14 @@ class TimeHackingLoko():
     def __init__(self):
         self._withResolution = 640
         self._heigthResolution = 480
-        print("Init ProGram :)")
+        print("Init ProGram 0:3")
         self.controladora = Controladora()
-        print("Load Controler")
+        print("Load Controler 1:3")
         self.pantalla = Tk() # Esta es la pantalla principal. 
         self.tela = Canvas(self.pantalla, width=640, height=480) # Aqui se van a pintar los elementos en pantalla
         """Se invocan las imagenes"""
         self.imgFondo = self.controladora.retornarRutaImagenDeFondo()
-        print("Load Images...")
+        print("Load Images... 2:3")
         self.imgBtnDiario = self.controladora.returnIMGRnBtnRousourceX("diary")
         self.imgPersonalDiary = self.controladora.returnIMGRnBtnRousourceX("diary")
         self.imgDreamDiary = self.controladora.returnIMGRnBtnRousourceX("dreams")
@@ -77,7 +77,7 @@ class TimeHackingLoko():
         self._comboBoxMonth = StringVar() # Save a month to wacth in calendar
         self._dayToCalendaryFilter = 0 # To filter in calendary
         self._comboBoxDRUGS = StringVar()
-        print("All Vars CharGED :o")
+        print("All Vars CharGED 3:3")
         self.pintarYConfigurar() # se muestra la pantalla
 
     
@@ -297,14 +297,14 @@ class TimeHackingLoko():
         lblFeelsGraphics = Label(canvas, text="Sentimientos\n\nVer grafíca Sentimientos vs Conteo.")
         lblFeelsGraphics.place(x=_w*0.4, y=_h*0.21)
         canvas.create_line(0, _h*0.39, _w, _h*0.39)
-        btnDrugsGraphics = Button(canvas, image=self.imgDrugsGraphicReporter)
+        btnDrugsGraphics = Button(canvas, image=self.imgDrugsGraphicReporter, command=self.lauchInterfaceDrugsGraphics)
         btnDrugsGraphics.place(x=_w*0.1, y=_h*0.40)
         lblDrugsGraphics = Label(canvas, text="Drogas\n\nVer grafíca Drogas vs Conteo.")
         lblDrugsGraphics.place(x=_w*0.4, y=_h*0.40)
         canvas.create_line(0, _h*0.59, _w, _h*0.59)
         btnGraphicsTimeDistribution = Button(canvas, image=self.imgViewTimeDistribution, command=self.subInterfacePilaresDeLaFelicidad)
         btnGraphicsTimeDistribution.place(x=_w*0.1, y=_h*0.60)
-        lblGraphicsTimeDistribution = Label(canvas, text="Tiempo de vida\n\nVer como distribuyes tu tiempo.")
+        lblGraphicsTimeDistribution = Label(canvas, text="Inversión de tiempo 24H\n\nVer como distribuyes tu tiempo.")
         lblGraphicsTimeDistribution.place(x=_w*0.4, y=_h*0.60)
         canvas.create_line(0, _h*0.78, _w, _h*0.78)
         btnGraphicTimeLife = Button(canvas, image=self.imgGraphicsTimeLife)
@@ -829,6 +829,19 @@ class TimeHackingLoko():
         btnGraficasentimientos = Button(interfaceReporteSentimientos, text="Graficar", command=self.graficarAñoSentimiento)
         btnGraficasentimientos.place(x=140, y=160)
 
+
+    def lauchInterfaceDrugsGraphics(self):
+        self.comboBoxAño.set("")
+        t = Toplevel()
+        t.title("Reporte de Drogas")
+        t.geometry("300x200")
+        lblElijeAño = Label(t, text="Elije el año y grafica: ")
+        lblElijeAño.place(x=20, y=20)
+        comboBoxYYYY = ttk.Combobox(t, state='readonly', textvariable=self.comboBoxAño)
+        comboBoxYYYY['values'] = self.controladora.controladoraCarpetas.getAllYearsOfDrugs()
+        comboBoxYYYY.place(x=20 , y=80)
+        btnPaintDrugsHistogram = Button(t, text="Graficar", command=self.showDrugsGraphics)
+        btnPaintDrugsHistogram.place(x=140, y=160)
 
     def subInterfaceInversionTiempoDiario(self):
         interfaceTiempoDia = Toplevel()
@@ -1607,14 +1620,23 @@ class TimeHackingLoko():
     """GRAFICAS"""
     """GRAFICAS"""
     def graficarAñoSentimiento(self):
-        if self.comboBoxAño.get() != "":
-            dataSentimientos = self.controladora.procesarDatosSentimientos(self.comboBoxAño.get())
-            self.mostrarGraficaSentimientos(dataSentimientos)
+        YYYY = self.comboBoxAño.get() 
+        if YYYY != "":
+            dataSentimientos = self.controladora.procesarDatosSentimientos(YYYY)
+            self.mostrarGraficaSentimientos(dataSentimientos, f"Sentimientos {YYYY}")
         else:
             self.ventanaEnmergenteDeAlerta('Error', 'Pedazo de bestia ingresa el año')
 
-    def mostrarGraficaSentimientos(self, dataSentimientos):
-        self.controladora.vizualizeFeelingsData(dataSentimientos)
+    def mostrarGraficaSentimientos(self, dataSentimientos, title):
+        self.controladora.vizualizeHistogramData(dataSentimientos, title)
+
+    def showDrugsGraphics(self):
+        YYYY = self.comboBoxAño.get() 
+        if YYYY != "":
+            dataDrugs = self.controladora.processDataDrugs(YYYY)
+            self.controladora.vizualizeHistogramData(dataDrugs, f"DRUGS {YYYY}")
+        else:
+            self.ventanaEnmergenteDeAlerta('Error', 'Metele el puto año.')
 
 
     def graficaCircularDelHorario(self, tela, lunes, martes, miercoles, jueves, viernes, sabado, domingo):

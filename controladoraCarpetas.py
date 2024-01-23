@@ -269,6 +269,20 @@ class ControladoraCarpetas(object):
 
         return años
 
+    def getAllYearsOfDrugs(self):
+        """
+        Return [YYYY, YYYY, YYYY] in DATA\DRUGS
+        """
+        YYYY = []
+        for i in scandir(f"{self.rutaDelProyecto}\\DATA\\DRUGS"):
+            try:
+                if i.is_dir() and int(i.name) > 0:   
+                    YYYY.append(i.name)    
+            except:
+                pass
+
+        return YYYY
+
     def listarAñosDeRegistroSentimientos(self):
         """
         Retorna ['año', 'año', 'año' ...]
