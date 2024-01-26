@@ -19,14 +19,14 @@ class TimeHackingLoko():
     def __init__(self):
         self._withResolution = 640
         self._heigthResolution = 480
-        print("Init ProGram 0:3")
+        print("Init ProGram: step 1 of 3")
         self.controladora = Controladora()
-        print("Load Controler 1:3")
+        print("Load Controler: step 2 of 3")
         self.pantalla = Tk() # Esta es la pantalla principal. 
         self.tela = Canvas(self.pantalla, width=640, height=480) # Aqui se van a pintar los elementos en pantalla
         """Se invocan las imagenes"""
         self.imgFondo = self.controladora.retornarRutaImagenDeFondo()
-        print("Load Images... 2:3")
+        print("Load Images: step 3 of 3")
         self.imgBtnDiario = self.controladora.returnIMGRnBtnRousourceX("diary")
         self.imgPersonalDiary = self.controladora.returnIMGRnBtnRousourceX("diary")
         self.imgDreamDiary = self.controladora.returnIMGRnBtnRousourceX("dreams")
@@ -36,7 +36,7 @@ class TimeHackingLoko():
         self.imgBtnEconimia = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/contabilidad.gif')
         self.imgBtnResultadoAnual = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/resultadoAnual.gif')
         self.imgFemputadora = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/femputadora.gif')
-        self.imgBtnRegistoEmociones = self.controladora.retrunIMGBtnFeelings()
+        #self.imgBtnRegistoEmociones = self.controladora.retrunIMGBtnFeelings()
         self.imgSaveFeeling = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/saveFeeling.gif')
         self.imgFeelingReport = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/feelingReport.gif')
         self.imgSaveTimeDistribution = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/saveTimeDistribution.gif')
@@ -77,7 +77,7 @@ class TimeHackingLoko():
         self._comboBoxMonth = StringVar() # Save a month to wacth in calendar
         self._dayToCalendaryFilter = 0 # To filter in calendary
         self._comboBoxDRUGS = StringVar()
-        print("All Vars CharGED 3:3")
+        print("All CHARGED")
         self.pintarYConfigurar() # se muestra la pantalla
 
     

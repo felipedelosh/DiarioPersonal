@@ -2,3 +2,6 @@ Se estudió sobre:
 Node.Js
 Publicar npm
 GIT
+
+programación de pruebas unitarias
+capacitación de pipelines
