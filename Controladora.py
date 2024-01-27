@@ -707,7 +707,11 @@ class Controladora:
         añosDisponbibles = self.controladoraCarpetas.listarAñosDeEconomia()
         # Se retornan los meses disponibles.
         mesesDisponibles = self.tiempo.meses[0:self.tiempo.mes()]
+
         valuesComboBox = valuesComboBox + añosDisponbibles + mesesDisponibles
+
+        if valuesComboBox:
+            valuesComboBox = ["ALL"] + valuesComboBox
 
         return valuesComboBox
 
@@ -719,53 +723,49 @@ class Controladora:
         return self.arbolDeDecicionListo
 
 
-    def retornarInformacionEconomica(self, tipo):
+    def retornarInformacionEconomica(self, _filter):
         """
-        Cuando se solicite informacion sobre un año, 
-        o un mes en especifico se retornara los conceptos de 
-        ingresos o egresos de ese periodo.
+        GET information in DATA\ECONOMIA
+        _filter = ALL | YYYY | MM
         """
-        tipoDeVista = None
-        
-        try: # Si es un año
-            tipoDeVista = int(tipo)
-            # Se retorna toda la informacion del año
+        isYYYY = False
+        try:
+            isYYYY = int(_filter) > 0
+        except:
+            pass
 
-            ruta = self.rutaDelProyecto + "\\DATA\\ECONOMIA\\" + str(tipo) # Obtengo la ruta
-            arch = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(ruta, ".xlsx") # Obtengo el nombre de todos los archivos
-
-
-            data = [] # Aqui se empaqueta toda la informacion para procesarla
-
+        _path = ""
+        _filesPath = [] # [_path]
+        data = [] # Save economic info []
+        if isYYYY: 
+            _path = f"{self.rutaDelProyecto}\\DATA\\ECONOMIA\\{_filter}"
+            arch = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(_path, ".xlsx")
 
             for i in arch:
-                rutaTemp = ruta + "\\" + i
-                
-                f = open(rutaTemp, encoding="UTF-8")
-                data.append(f.read())
-                f.close()
+                _filesPath.append(f"{_path}\\{i}")
 
-            # La informacion va a ser procesada
-            return self.controladoraProcesamientoDeDatos.procesarReporteEconomigo(data)
+        elif _filter == "ALL":
+            _path = f"{self.rutaDelProyecto}\\DATA\\ECONOMIA\\"
 
+            _allYYYY = self.controladoraCarpetas.listarAñosDeEconomia()
 
-        except: # Si es un mes
-            
-            # Se recupera la informacion del año actual
-            ruta = self.rutaDelProyecto + "\\DATA\\ECONOMIA\\" + str(self.tiempo.año()) # Obtengo la ruta
-            arch = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(ruta, ".xlsx") # Obtengo el nombre de todos los archivos
-            data = [] # Aqui se empaqueta toda la informacion para procesarla
-            # Solo empaquetos los archivos que contengan informacion de ese mes
+            for i in _allYYYY:
+                arch = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(f"{_path}\\{i}", ".xlsx")
+                for j in arch:
+                    _filesPath.append(f"{_path}\\{i}\\{j}")
+        else:
+            _path = f"{self.rutaDelProyecto}\\DATA\\ECONOMIA\\{self.tiempo.año()}"
+            arch = self.controladoraCarpetas.listarTodosLosArchivosdeCarpeta(_path, ".xlsx")
+
             for i in arch:
-                if tipo in i:
-                    rutaTemp = ruta + "\\" + i
-                
-                    f = open(rutaTemp, encoding="UTF-8")
-                    data.append(f.read())
-                    f.close()
+                if _filter in i: #ONLY MM
+                    _filesPath.append(f"{_path}\\{i}")
 
-            # La informacion va a ser procesada
-            return self.controladoraProcesamientoDeDatos.procesarReporteEconomigo(data)
+        if _filesPath:
+            for i in _filesPath:
+                data.append(self.controladoraCarpetas.getTextInFile(i))
+
+        return self.controladoraProcesamientoDeDatos.procesarReporteEconomigo(data)
 
     def guardarEstadoCajaMayor(self, monto):
         """

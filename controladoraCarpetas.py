@@ -296,8 +296,11 @@ class ControladoraCarpetas(object):
         return años
 
     def listarAñosDeEconomia(self):
+        """
+        return [YYYY, ...YYYY]
+        GET ALL YYYY folder names in \\DATA\\ECONOMIA
+        """
         años = []
-
 
         for i in scandir(self.rutaDelProyecto+"\\DATA\\ECONOMIA"):
             if i.is_dir() and i.name != "CAJA":   

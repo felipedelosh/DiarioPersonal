@@ -256,17 +256,10 @@ class ControladoraProcesamientoDeDatos(object):
 
     def procesarReporteEconomigo(self, data):
         """
-
         Se procesa los datos y se hace el reporte asi
-
         los datos son un vector de informacion de tipo [a;0;0\nb;0;0]
-
         reporte = {Entradas:+, Salidas:-}
-
-
-        
         """
-
         reporte = {}
 
         for i in data:
@@ -293,8 +286,6 @@ class ControladoraProcesamientoDeDatos(object):
                         except:
                             pass
 
-
-
                     else:
                         reporte[key[0]] = 0 # Se pone la etiqueta
 
@@ -306,7 +297,6 @@ class ControladoraProcesamientoDeDatos(object):
                                 reporte[key[0]] = -int(key[2])
                         except:
                             pass
-
 
         return reporte
     
@@ -608,8 +598,6 @@ class ControladoraProcesamientoDeDatos(object):
             pass
 
 
-            
-
     def _shorterDic(self, dic):
         """
         Enter a Dic {key:str, value:int}
@@ -620,8 +608,6 @@ class ControladoraProcesamientoDeDatos(object):
         # Copy all data in vect of tuples
         for i in dic:
             all_data.append((i, dic[i]))
-
-
 
         # Bubble Short
         n = len(all_data)
