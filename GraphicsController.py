@@ -140,7 +140,7 @@ class GraphicsController:
         }
         }
         """
-        if data:
+        if data["YYYY"] and data["DATA"] and data["METADATA"]:
             _timeLIB = Tiempo()
             _h = 480
             _w = 800
@@ -161,6 +161,11 @@ class GraphicsController:
             _totalDays = 365 * len(data["YYYY"])
 
             canvas.create_line(_x0, _y0, _x0, _y0+_totalAixisY) # Y Aixis
+
+            if data["METADATA"]["maxin"] > 0:
+                canvas.create_text(_x0*0.5, _y0*1.05, fill="green",text=f"${round(data['METADATA']['maxin'],2)}")
+                canvas.create_text(_x0*0.5, (_y0+_totalAixisY)/2, fill="green",text=f"${round(data['METADATA']['maxin']/2,2)}")
+
             canvas.create_line(_x0, _y0+_totalAixisY, _x0+_totalAixisXInYYYY, _y0+_totalAixisY) # X Aixis
 
             # Create separator lines in X Aixis
@@ -182,17 +187,27 @@ class GraphicsController:
             for i in range(0, _totalDays):
                 try:
                     _keyDate = f"{_datePivotYYYY}-{_datePivotMM}-{_datePivotDD}"
-                    # IF DATA START TO PAINT
                     if _keyDate in data["DATA"].keys():
+                        # PAINT MONEY IN
                         _pivotY = data["DATA"][_keyDate]["in"]/data["METADATA"]["maxin"]
                         if _pivotY > 0.05:
-                            x0 = _deltaXDAY * _dayCounter
+                            x0 = _deltaXDAY * _dayCounter - 3
                             y0 = (_h * (_pivotY))
                             y0 = (_totalAixisY + _y0) - y0
-                            x1 = _deltaXDAY * (_dayCounter + 1)
+                            x1 = _deltaXDAY * (_dayCounter + 1) + 3
                             y1 = y0 * 1.02
-                            print(f"DATO:{data['DATA'][_keyDate]['in']}")
-                            canvas.create_oval(x0, y0, x1, y1)
+                            canvas.create_oval(x0, y0, x1, y1, fill="green")
+
+                        # PAINT MONEY OUT
+                        #_pivotY = data["DATA"][_keyDate]["out"]/data["METADATA"]["maxout"]
+                        #if _pivotY > 0.3:
+                        #    x0 = _deltaXDAY * _dayCounter - 3
+                        #    y0 = (_h * (_pivotY))
+                        #    y0 = (_totalAixisY + _y0) - y0
+                        #    x1 = _deltaXDAY * (_dayCounter + 1) + 3
+                        #    y1 = y0 * 1.02
+                        #    canvas.create_oval(x0, y0, x1, y1, fill="red")
+
                 except:
                     pass
 
