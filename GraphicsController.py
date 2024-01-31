@@ -165,6 +165,7 @@ class GraphicsController:
             if data["METADATA"]["maxin"] > 0:
                 canvas.create_text(_x0*0.5, _y0*1.05, fill="green",text=f"${round(data['METADATA']['maxin'],2)}")
                 canvas.create_text(_x0*0.5, (_y0+_totalAixisY)/2, fill="green",text=f"${round(data['METADATA']['maxin']/2,2)}")
+                canvas.create_text(_x0*0.5, (_y0+_totalAixisY)*0.8, fill="green",text=f"${round(data['METADATA']['maxin']*0.4,2)}")
 
             canvas.create_line(_x0, _y0+_totalAixisY, _x0+_totalAixisXInYYYY, _y0+_totalAixisY) # X Aixis
 
@@ -207,6 +208,9 @@ class GraphicsController:
                         #    x1 = _deltaXDAY * (_dayCounter + 1) + 3
                         #    y1 = y0 * 1.02
                         #    canvas.create_oval(x0, y0, x1, y1, fill="red")
+                            
+                        # Paint sleep hours
+                        # Paint life hours
 
                 except:
                     pass

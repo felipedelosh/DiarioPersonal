@@ -295,7 +295,7 @@ class ControladoraProcesamientoDeDatos(object):
                                 moneyIn = moneyIn + int(_info[1])
                                 moneyOut = moneyOut + int(_info[2])
                     except:
-                        pass
+                        continue
                 
                 # Save day
                 id = i.split(".")[0] 
@@ -310,6 +310,45 @@ class ControladoraProcesamientoDeDatos(object):
             pass
 
         data["METADATA"] = {"maxin":maxIN,"maxout":maxOUT}
+        return data
+
+    def getFormatedTimeDistributionReportByYear(self, YYYY):
+        """
+        return d = {"DATA":{"YYYY-MM-DD":{"sleep": hrs, "life": hrs}}, "METADATA":{}}
+        """
+        data = {"DATA":{}, "METADATA":{}}
+
+        try:
+            _path = f"{self.rutaDelProyecto}\\DATA\\DISTRIBUCIONTIEMPO\\TIEMPODIARIO\\{YYYY}"
+            _filesNames = self.getAllFilesNamesxTypeInFolderPath(_path, ".txt")
+
+            for i in _filesNames:
+                txt = self.getTextInFile(f"{_path}\\{i}")
+
+                if txt != "":
+                    try:
+                        _totalHoursDay = 0
+                        _hoursSleep = 0
+                        for j in txt.split("\n"):
+                            if str(j).strip() != "":
+                                _info = j.split(":")[1]
+                                if _info == "dormir":
+                                    _hoursSleep = _hoursSleep + 1
+                                _totalHoursDay = _totalHoursDay + 1
+
+                    except:
+                        continue
+
+                    
+                id = str(i).split(".")[0]
+                id = id.split(" ")
+                id = f"{id[0]}-{id[1]}-{id[2]}"
+
+                data["DATA"][id] = {"sleep":_hoursSleep, "life":_totalHoursDay-_hoursSleep}
+
+        except:
+            pass
+
         return data
 
     def procesarReporteEconomigo(self, data):

@@ -672,6 +672,21 @@ class Controladora:
             data["METADATA"]["maxin"] = _maxIN
             data["METADATA"]["maxout"] = _maxOUT
 
+        # Get time distribution 24h data
+        _YYYY = self.controladoraCarpetas.listarAñosRegistradosDistribucionDeTiempo()
+        if _YYYY:
+            _YYYY = sorted(_YYYY)
+            for i in _YYYY:
+                if i not in data["YYYY"]:
+                    data["YYYY"].append(i)
+
+                _tempDic = self.controladoraProcesamientoDeDatos.getFormatedTimeDistributionReportByYear(i)
+                for x in _tempDic["DATA"]:
+                    if x in data["DATA"]:
+                        data["DATA"][x].update(_tempDic["DATA"][x])
+                    else:
+                        data["DATA"][x] = _tempDic["DATA"][x]
+                        
         self.graphicsController.drawTimeLife(data)
 
 
