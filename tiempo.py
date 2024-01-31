@@ -189,3 +189,30 @@ class Tiempo:
             pass
 
         return day
+    
+
+    def getNextDay(self, YYYY, MM, DD):
+        """
+        ENTER A DATE: int(YYYY), int(MM), int(DD)
+        return the next day [int(YYYY), int(MM), int(DD)]
+        NOTE: MM = [1-12]
+        """
+        _d = [0,0,0]
+
+        try:
+            YYYY = int(YYYY)
+            MM = int(MM)
+            DD = int(DD)
+
+            if DD < self.duracionMeses[MM-1]:
+                _d = [YYYY, MM, DD + 1]
+            else:
+                if DD == self.duracionMeses[MM-1] and MM != 12:
+                    _d = [YYYY, MM+1, 1]
+                else:
+                    _d = [YYYY+1, 1, 1]
+        except:
+            pass
+
+        return _d
+        

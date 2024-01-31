@@ -55,6 +55,21 @@ class ControladoraProcesamientoDeDatos(object):
                 pass
 
         return filesNames
+    
+
+    def getTextInFile(self, path):
+        """
+        Enter a path to open file and return text
+        """
+        data = ""
+
+        try:
+            with open(path, encoding="UTF-8") as f:
+                data = f.read()
+        except:
+            pass
+
+        return data
 
     def registrarLogroDeMiVida(self, año, logro):
         """Se hace un backup por si hay mas eventos ese a+o"""
@@ -253,6 +268,49 @@ class ControladoraProcesamientoDeDatos(object):
                 pass
 
         return self.dataHorarioSemanal
+    
+    def getFormatedEconomyReportByYear(self, YYYY):
+        """
+        return d = {"DATA":{"YYYY-MM-DD":{"IN": $, "OUT":$}}, "METADATA":{"maxin":$, maxout:$}}
+        """
+        data = {}
+        data["DATA"] = {}
+        maxIN = 0
+        maxOUT = 0
+
+        try:
+            _path = f"{self.rutaDelProyecto}\\DATA\\ECONOMIA\\{YYYY}"
+            _filesNames = self.getAllFilesNamesxTypeInFolderPath(_path, ".xlsx")
+
+            for i in _filesNames:
+                txt = self.getTextInFile(f"{_path}\\{i}") # Get Economic Data
+
+                if txt != "": # Group Data By Day
+                    try:
+                        moneyIn = 0
+                        moneyOut = 0
+                        for j in txt.split("\n"):
+                            if str(j).strip() != "":
+                                _info = j.split(";")
+                                moneyIn = moneyIn + int(_info[1])
+                                moneyOut = moneyOut + int(_info[2])
+                    except:
+                        pass
+                
+                # Save day
+                id = i.split(".")[0] 
+                id = id.split(" ")
+                id = f"{YYYY}-{self.tiempo.getMonthNumberByMonthName(id[0])}-{id[1]}"
+                if maxIN < moneyIn:
+                    maxIN = moneyIn
+                if maxOUT < moneyOut:
+                    maxOUT = moneyOut
+                data["DATA"][id] = {"in":moneyIn, "out":moneyOut}
+        except:
+            pass
+
+        data["METADATA"] = {"maxin":maxIN,"maxout":maxOUT}
+        return data
 
     def procesarReporteEconomigo(self, data):
         """

@@ -649,6 +649,32 @@ class Controladora:
         self.graphicsController.showHistogramGraphic(data, title)
 
 
+    def drawTimeLife(self):
+        """
+        data["YYYY"] = [all years registred]
+        """
+        data = {"YYYY":[], "DATA":{}, "METADATA":{}}
+        _maxIN = 0
+        _maxOUT = 0
+
+        # Get economy data
+        _YYYY = self.controladoraCarpetas.listarAñosDeEconomia()
+        if _YYYY:
+            data["YYYY"] = sorted(_YYYY)
+            for i in data["YYYY"]:
+                _tempDic = self.controladoraProcesamientoDeDatos.getFormatedEconomyReportByYear(i)
+                data["DATA"].update(_tempDic["DATA"])
+                if _tempDic["METADATA"]["maxin"] > _maxIN:
+                    _maxIN = _tempDic["METADATA"]["maxin"]
+                if _tempDic["METADATA"]["maxout"] >_maxOUT:
+                    _maxOUT = _tempDic["METADATA"]["maxout"]
+
+            data["METADATA"]["maxin"] = _maxIN
+            data["METADATA"]["maxout"] = _maxOUT
+
+        self.graphicsController.drawTimeLife(data)
+
+
     def retornarColores(self, cantidad):
         """
         deacuerdo a la cantidad retorna un vector [color, color, color, ....]
@@ -1727,17 +1753,12 @@ class Controladora:
                 self.porn_alert()
         #END if the user have porn alert
 
-
-
-
-
         # -------------------
         # -------------------
         # -------------------
         # Save a Trigger use
         if trigger_execute:
             self.saveUseWrite("trigger."+code)
-
 
 
     def _execute_trigger_event_validate_time(self, triggers_time, code):

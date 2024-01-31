@@ -143,9 +143,6 @@ class ControladoraCarpetas(object):
         return data
 
 
-
-
-
     def listOfAllYearWriteInDiary(self):
         """
         return all years to the user write the diary pages in string

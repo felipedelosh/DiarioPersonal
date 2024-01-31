@@ -6,6 +6,7 @@ User tikinter Draw Canvas
 
 """
 from tkinter import *
+from tiempo import *
 import random
 
 class GraphicsController:
@@ -124,8 +125,85 @@ class GraphicsController:
                 x1 = _dxPivot*(i+1) + _ink
                 y1 = h * (1-(data[i+1]/maxY))
                 canvas.create_line(x0, y0, x1, y1, fill="green", tags="estadocajas")
-    
 
+
+    def drawTimeLife(self, data):
+        """
+        data = {
+        YYYY >> All years registred
+        METADATA >> {
+            maxIN:0
+            maxOUT:0
+        }
+        DATA >> {
+            "ARGS":to paint
+        }
+        }
+        """
+        if data:
+            _timeLIB = Tiempo()
+            _h = 480
+            _w = 800
+            t = Toplevel()
+            t.title("TIME LIFE")
+            t.geometry(f"{_w}x{_h}")
+            canvas = Canvas(t, height=_h, width=_w)
+            canvas.place(x=0, y=0)
+
+            _x0 = _w * 0.1
+            _totalAixisXInYYYY = _w * 0.8 # MAX X Aixis
+            _y0 = _h * 0.1
+            _totalAixisY = _h * 0.8 # MAX Y Aixis 
+
+            _deltaX = _totalAixisXInYYYY / len(data["YYYY"]) # Space of year in aixis x
+            _deltaXDAY = _deltaX / 365 # Space of one day in aixis x
+
+            _totalDays = 365 * len(data["YYYY"])
+
+            canvas.create_line(_x0, _y0, _x0, _y0+_totalAixisY) # Y Aixis
+            canvas.create_line(_x0, _y0+_totalAixisY, _x0+_totalAixisXInYYYY, _y0+_totalAixisY) # X Aixis
+
+            # Create separator lines in X Aixis
+            counter = 1
+            for i in data["YYYY"]:
+                x0 = _x0 + (_deltaX * counter)
+                y0 = (_y0+_totalAixisY) * 0.99
+                x1 = x0
+                y1 = (_y0+_totalAixisY) * 1.01
+                canvas.create_line(x0, y0, x1, y1)
+                canvas.create_text(x0, y0*1.05, text=f"{i}")
+                counter = counter + 1
+
+            # Paint data
+            _datePivotYYYY = int(data["YYYY"][0])
+            _datePivotMM = 1
+            _datePivotDD = 1 
+            _dayCounter = 0
+            for i in range(0, _totalDays):
+                try:
+                    _keyDate = f"{_datePivotYYYY}-{_datePivotMM}-{_datePivotDD}"
+                    # IF DATA START TO PAINT
+                    if _keyDate in data["DATA"].keys():
+                        _pivotY = data["DATA"][_keyDate]["in"]/data["METADATA"]["maxin"]
+                        if _pivotY > 0.05:
+                            x0 = _deltaXDAY * _dayCounter
+                            y0 = (_h * (_pivotY))
+                            y0 = (_totalAixisY + _y0) - y0
+                            x1 = _deltaXDAY * (_dayCounter + 1)
+                            y1 = y0 * 1.02
+                            print(f"DATO:{data['DATA'][_keyDate]['in']}")
+                            canvas.create_oval(x0, y0, x1, y1)
+                except:
+                    pass
+
+                _dayCounter = _dayCounter + 1
+
+                d = _timeLIB.getNextDay(_datePivotYYYY, _datePivotMM, _datePivotDD)
+                _datePivotYYYY = d[0]
+                _datePivotMM = d[1]
+                _datePivotDD = d[2]
+
+        
     def getBackgroundImage(self, projectPath):
         """
         Read Folder RECURSOS/img/bg return photoimage

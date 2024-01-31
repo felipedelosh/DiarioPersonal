@@ -307,7 +307,7 @@ class TimeHackingLoko():
         lblGraphicsTimeDistribution = Label(canvas, text="Inversión de tiempo 24H\n\nVer como distribuyes tu tiempo.")
         lblGraphicsTimeDistribution.place(x=_w*0.4, y=_h*0.60)
         canvas.create_line(0, _h*0.78, _w, _h*0.78)
-        btnGraphicTimeLife = Button(canvas, image=self.imgGraphicsTimeLife)
+        btnGraphicTimeLife = Button(canvas, image=self.imgGraphicsTimeLife, command=self.drawTimeLife)
         btnGraphicTimeLife.place(x=_w*0.1, y=_h*0.8)
         lblGraphicTimeLife = Label(canvas, text="Linea del tiempo\n\nVer tu vida a lo largo de los años.")
         lblGraphicTimeLife.place(x=_w*0.4, y=_h*0.8)
@@ -1910,6 +1910,9 @@ class TimeHackingLoko():
                 lienzo.create_line(xc, yc, xa, ya, width=4, fill="green", tags="inversionTiempo") # Barra verde
                 contador = contador + 1
                 
+
+    def drawTimeLife(self):
+        self.controladora.drawTimeLife()       
 
     """GRAFICAS"""
     """GRAFICAS"""
