@@ -51,6 +51,8 @@ Nota 02: se advierte que el codigo está hecho por un niño que apenas estaba ap
 
 - `Funcionalidad 4f`: Registo de consumo de sustancias Psicoactivas.<br>
 - `Funcionalidad 5`: Alarmas.<br>
+- `Funcionalidad 6`: Ver total de Datos a través del tiempo.<br>Tiempo de Sueño vs Tiempo de vida con ingreso monetario.<br>
+![Time Life](docs/timeLife.png)
 
 
 ## :play_or_pause_button:Ejecutar el proyecto
