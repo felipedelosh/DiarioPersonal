@@ -652,6 +652,7 @@ class Controladora:
     def drawTimeLife(self):
         """
         data["YYYY"] = [all years registred]
+        data["MERTADATA"] = [MAX, MIN, COUNT]
         """
         data = {"YYYY":[], "DATA":{}, "METADATA":{}}
         _maxIN = 0

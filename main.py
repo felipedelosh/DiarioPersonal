@@ -1913,7 +1913,6 @@ class TimeHackingLoko():
 
     def drawTimeLife(self):
         self.controladora.drawTimeLife()       
-
     """GRAFICAS"""
     """GRAFICAS"""
     """GRAFICAS"""

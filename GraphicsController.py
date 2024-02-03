@@ -186,10 +186,10 @@ class GraphicsController:
             _datePivotDD = 1 
             _dayCounter = 0
             for i in range(0, _totalDays):
+                _keyDate = f"{_datePivotYYYY}-{_datePivotMM}-{_datePivotDD}" # Update some lines below
+                # PAINT MONEY IN
                 try:
-                    _keyDate = f"{_datePivotYYYY}-{_datePivotMM}-{_datePivotDD}"
                     if _keyDate in data["DATA"].keys():
-                        # PAINT MONEY IN
                         _pivotY = data["DATA"][_keyDate]["in"]/data["METADATA"]["maxin"]
                         if _pivotY > 0.05:
                             x0 = _deltaXDAY * _dayCounter - 3
@@ -212,6 +212,20 @@ class GraphicsController:
                         # Paint sleep hours
                         # Paint life hours
 
+                except:
+                    pass
+                
+                # Paint Sleep VS LIfe
+                try:
+                    if _keyDate in data["DATA"].keys():
+                        #_percentTimeLife = 1 - data["DATA"][_keyDate]["sleep"] / 24
+                        _percentTimeSleep = 1 - data["DATA"][_keyDate]["life"] / 24 
+                        x0 = _x0 + (_dayCounter*_deltaXDAY)
+                        y0 = (_w - (_totalAixisY - (_y0*0.3))) 
+                        x1 = x0 + _deltaXDAY
+                        y1 = y0 - (_totalAixisY*_percentTimeSleep)
+                        canvas.create_rectangle(x0, y0, x1, y1, fill="black")
+                        #canvas.create_rectangle(x0, y1, x1, _y0, fill="yellow") # The borders some big
                 except:
                     pass
 
