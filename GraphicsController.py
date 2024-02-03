@@ -176,8 +176,9 @@ class GraphicsController:
                 y0 = (_y0+_totalAixisY) * 0.99
                 x1 = x0
                 y1 = (_y0+_totalAixisY) * 1.01
+                x2 = x0 - (_deltaX/2)
                 canvas.create_line(x0, y0, x1, y1)
-                canvas.create_text(x0, y0*1.05, text=f"{i}")
+                canvas.create_text(x2, y0*1.05, text=f"{i}")
                 counter = counter + 1
 
             # Paint data
