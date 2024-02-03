@@ -157,6 +157,7 @@ class GraphicsController:
 
             _deltaX = _totalAixisXInYYYY / len(data["YYYY"]) # Space of year in aixis x
             _deltaXDAY = _deltaX / 365 # Space of one day in aixis x
+            _delta24HAixisY = _totalAixisY / 24
 
             _totalDays = 365 * len(data["YYYY"])
 
@@ -180,6 +181,18 @@ class GraphicsController:
                 canvas.create_line(x0, y0, x1, y1)
                 canvas.create_text(x2, y0*1.05, text=f"{i}")
                 counter = counter + 1
+
+            # Create a Hours Aixis Y Separator
+            counter = 0
+            for _ in range(0, 24):
+                x0 = _x0
+                y0 = (_totalAixisY + _y0) - (_delta24HAixisY*counter)
+                x1 = _x0 * 1.15
+                y1 = y0
+                canvas.create_line(x0, y0, x1, y1)
+                canvas.create_text(x0*1.1, y0-8, text=f"{counter}")
+                counter = counter + 1
+
 
             # Paint data
             _datePivotYYYY = int(data["YYYY"][0])
