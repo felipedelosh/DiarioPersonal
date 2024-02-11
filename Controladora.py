@@ -1599,6 +1599,8 @@ class Controladora:
             return self.how_i_feel()
         elif code == "get_all_do()":
             return self.get_all_do()
+        elif code == "drugs_information()":
+            return self.drugs_information()
         elif code == "help()":
             return self.help_femputadora()
         
@@ -1712,10 +1714,36 @@ class Controladora:
         elif _count_years > 1:
             data = data + "\nEn " + str(_count_years) + " años."
         
-        
-
         return data
     
+    
+    def drugs_information(self):
+        _path = f"{self.rutaDelProyecto}\\DATA\\DRUGS\\"
+        YYYY = self.controladoraCarpetas.listOfAllYearsInDrugs()
+
+        data = "Sobre las Drogas:\n"
+
+        for i in YYYY:
+            try:
+                _d = self.controladoraProcesamientoDeDatos.getSumaryOfDrugs(f"{_path}{i}")
+                data = data + f"La Droga más consumida del {i} es: {_d['DRUGSQTY'][0][0]}\n"
+                data = data + "Los días de mayor consumo son: "
+                count = 0
+                _dayToDrus = ""
+                for j in _d['DRUGSDAYS']:
+                    if count == 3:
+                        break
+                    _dayToDrus = _dayToDrus + f"{j[0]},"
+                    count = count + 1
+                _dayToDrus = _dayToDrus[0:-1]
+                data = data + _dayToDrus + ".\n\n"
+                # ADD effects
+                
+            except:
+                pass
+
+        return data
+
 
     def help_femputadora(self):
         _path = f"{self.rutaDelProyecto}\\RECURSOS\\helpFemputadora.txt"

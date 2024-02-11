@@ -203,6 +203,54 @@ class ControladoraProcesamientoDeDatos(object):
     
     
 
+    def getSumaryOfDrugs(self, path):
+        """
+        Enter a path //DRUGS//YYYY return {}
+        data[DRUGSQTY] = {drug, qty}
+        data[DRUGSDAYS] = {monday: qty, th...}
+        data[REASON] = {keyword: qty, ...}
+        data[EFFECT] = {keyword: qty, ...}
+        """
+        data = {}
+        data["DRUGSQTY"] = {}
+        data["DRUGSDAYS"] = {}
+        data["REASON"] = {}
+        data["EFFECT"] = {}
+        data["METADATA"] = {}
+
+        _regs = self.folderControler.listarTodosLosArchivosdeCarpeta(path, ".txt")
+
+        try:
+            for i in _regs:
+                _fileTitle = str(i) # drug - YYYY MM DD.txt
+                # Count drug
+                _iDrug = _fileTitle.split("-")[0].strip()
+                if _iDrug not in data["DRUGSQTY"].keys():
+                    data["DRUGSQTY"][_iDrug] = 0
+                data["DRUGSQTY"][_iDrug] = data["DRUGSQTY"][_iDrug] + 1
+                # Count day
+                _iDrugDate = _fileTitle.split("-")[1]
+                _iDrugDate = _iDrugDate.replace(".txt", "").lstrip().rstrip()
+                _iDrugDate = _iDrugDate.split(" ")
+                _iDrugDate = self.tiempo.getNameOfDayByDate([int(_iDrugDate[0]),int(_iDrugDate[1]),int(_iDrugDate[2])])
+                if _iDrugDate not in data["DRUGSDAYS"].keys():
+                    data["DRUGSDAYS"][_iDrugDate] = 0
+                data["DRUGSDAYS"][_iDrugDate] = data["DRUGSDAYS"][_iDrugDate] + 1
+
+                # Count Drugs
+                _txt = self.folderControler.getTextInFile(f"{path}\\{i}")
+
+        except:
+            pass
+
+        # Order
+        data["DRUGSQTY"] = self._shorterDic(data["DRUGSQTY"])
+        data["DRUGSDAYS"] = self._shorterDic(data["DRUGSDAYS"])
+
+        data["METADATA"]["lenght"] = len(_regs)
+        return data
+
+
     def getSumaryYYYYAllActivities24HPerDayOfWeek(self, path):
         """
         Enter a PATH DATA\DISTRIBUCIONTIEMPO\YYYY 
@@ -241,11 +289,7 @@ class ControladoraProcesamientoDeDatos(object):
             except:
                 pass
 
-
-
         return data
-
-
 
 
     def procesarDatosSemanalHorario(self, todasLasActividades, informacion):

@@ -160,6 +160,21 @@ class ControladoraCarpetas(object):
 
         return years
     
+    def listOfAllYearsInDrugs(self):
+        """
+        Return all yers to the user register DRUGS
+        """
+        YYYY = []
+        _path = f"{self.rutaDelProyecto}\\DATA\\DRUGS"
+
+        for i in scandir(_path):
+            try:
+                if i.is_dir() and int(i.name) > 0:
+                    YYYY.append(i.name)
+            except:
+                pass
+
+        return YYYY
 
     def listOfAllYearWriteInDreams(self):
         """

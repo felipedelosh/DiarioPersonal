@@ -1,0 +1,18 @@
+{
+    "function" : "drugs_information()",
+    "list_of_words" : [
+        "drogas",
+        "piscoactivos",
+        "alucinogenos",
+        "grogarce",
+        "marihuana",
+        "fumar",
+        "vicio",
+        "vicios",
+        "como",
+        "cuales",
+        "que"
+    ],
+    "single_response" : true,
+    "required_words" : []
+}
