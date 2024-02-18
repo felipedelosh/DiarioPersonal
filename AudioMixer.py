@@ -19,8 +19,6 @@ try:
 except:
     pass
 
-import sys
-
 class AudioMixer:
     def __init__(self):
         self.line = "" # Aqui se pone el sonido ejemplo : DirPath+recuros/audio/hola mundo

@@ -35,4 +35,17 @@ class StringProcessor:
         Return if the word wanna be exclude becos is not rich language
         """
         return word in self.articles or word in self.prepositions or word in self.excludeWord
-    
+
+
+    def groupTextByWords(self, txt):
+        data = {}
+
+        for i in str(txt).split(" "):
+            _w = self.cleanWord(i)
+
+            if _w not in data.keys():
+                data[_w] = 0
+            data[_w] = data[_w] + 1
+
+
+        return data

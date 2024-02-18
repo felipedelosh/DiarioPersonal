@@ -1726,12 +1726,13 @@ class Controladora:
         for i in YYYY:
             try:
                 _d = self.controladoraProcesamientoDeDatos.getSumaryOfDrugs(f"{_path}{i}")
-                data = data + f"La Droga más consumida del {i} es: {_d['DRUGSQTY'][0][0]}\n"
+                data = data + f"En el año: \"{i}\" consumiste: {len(_d['DRUGSQTY'])} tipos de sustancias, la más consumida es: {_d['DRUGSQTY'][0][0]}\n"
                 data = data + "Los días de mayor consumo son: "
                 count = 0
                 _dayToDrus = ""
+                _daysToShow = random.randint(2, 5)
                 for j in _d['DRUGSDAYS']:
-                    if count == 3:
+                    if count == _daysToShow:
                         break
                     _dayToDrus = _dayToDrus + f"{j[0]},"
                     count = count + 1
@@ -1775,9 +1776,6 @@ class Controladora:
                 _data = self.controladoraCarpetas.getTextInFile(_file_d_path)
                 if _data != "":
                     triggers_time[i] = _data
-
-
-
 
         # -------------------
         # -------------------

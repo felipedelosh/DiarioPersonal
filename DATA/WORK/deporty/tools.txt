@@ -1,6 +1,5 @@
-angular
-nodejs
-javascript
-rxjx
-ngrx
-firebaseDB
+Firebase
+Visual Studio code
+npm
+node
+github

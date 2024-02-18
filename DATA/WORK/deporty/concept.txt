@@ -1,7 +1,13 @@
-Se estudió sobre:
-Node.Js
-Publicar npm
-GIT
+1 -> Configurar el server para verificar antes de incribir un equipo si un jugador se encuentra baneado.
 
-programación de pruebas unitarias
-capacitación de pipelines
+Configurar el frontend para enviar la petición HTTP con la inscripción de un equipo:
+
+Se agregarón 2 parametros.
+
+generar observables para consultar la información USERS,TEAMS.
+
+Buscar jugadores baneados
+
+Crear nuevo componente para renderizar Equipo, Estado de la inscripción.
+
+Organizations>Componente.

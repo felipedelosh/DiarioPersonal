@@ -1,0 +1,131 @@
+* todos los botones de los lectores tienen que tener el mismo tamaño.
+
+* Filtrar por rango de fechas en el calendario.
+
+* Graficas economia:
+ -> Grafico de barras por todos  los años. 2 Barras por año (Ingreso Vs Egreso) así para todos los años.
+ 
+-> LBL de ayuda en la pantalla princiapal. //ToolTip
+ 
+-> Poner tambien al final la hora del horario.
+ 
+-> Organizar super bonito la caja mayor y menor graficas.
+
+-> Ordenar todos los años de mayor a menor.
+
+-> Separar caja mayor y menor UPDATE Graphic
+
+-> carga Automatica del día de hoy en cuentas T
+
+-> Hacer que la pregunta (Femputadora): que deberia de hacer? que deberia hago con mi vida? 
+Diga el top de cosas que se hacen de todos los años.
+
+-> Femputadora : pregunta quien soy?
+-> Femputadora : pregunta sobre el consumo de drogas? Añadir cuantas drogas se consumienron en el año.
+
+-> En el string procesor crear un método que le entre un texto y entregue una lista {word:qty}
+
+
+-> Error en grafica de sentimiento... si divido cero... año sin sentimientos.
+
+-> Como estoy programdo: "DIAPOSITIVAS CON DIAGRAMAS MANUALES CODIGO CONEXIONES"
+
+-> Es posible guardar con Control + S
+
+-> Interface Horario semanal más bonita.
+
+-> Cuando se hace un resumen en el calendario incluir las drogas.
+
+-> Limpiar area de trabajo después de agregar un incremento y actualizar.
+
+Ventanas de tamaño fijo.
+
+interface trabajo:
+
+OJO: caracteres especiales en la descripción del trabajo
+
+2 -> Hacer los calculos para las nuevas horas.
+
+ - Facturador.
+
+
+	ID, CONCEPTO, VALOR
+            *********
+        Total: +
+		
+		
+Plantilla de cargar proyecto:
+
+Nombre + responsable.
+
+Agregar trabajo:
+
+Descripción Actividad
+Total horas invertidas
+
+Btn Guardar
+
+poder hacer scroll en las graficas de gastos
+
+grafico de todos los años... crecimiento.
+
+_____________________
+TOTAL PROYECTO: $
+INICIO PROYECTO: X
+FIN PROYECTO: Y
+
+
+Ahí se apunta las horas trabajadas en un proyecto: 
+
+# Crear proyecto (Nombre, Justificación, Persona que necesita el proyecto, Herramientas, Plazo de Entrega, Costo por hora.)
+
+-> Proyectos (Abierto, Cerrado). En caso de estar cerrado sale la factura.
+
+
+Ver 4.0:
+
+Django.
+La base de datos antigua será para alimentar SQLITE
+
+Pocas opciones de menú:
+
+	+ Imagén de fondo deacuerdo a cosas del diario.
+	+ Responsive Menú.
+	+ Cada btn va a tener su propia animación.
+	+ Texto de descripción en cada botón.
+
+Interface Diario:
+	-> Diario.
+	-> Sueños.
+	-> Amigos.
+	-> Notas.
+	-> Registrar Sentimiento.
+	-> Drugs
+	
+
+Interface Calendario:
+	-> Calendario.
+	-> Registrar día de hoy.
+	-> Horario.
+	
+Interface economia:
+	-> Cuentas T. 
+	-> Ahorros.
+	-> Trabajo.
+	
+Intercace Graficas:
+	-> Grafica Cuentas T.
+	-> Grafica sentimientos.
+	-> Grafica Drogas: Total Vs Drogas, Días de consumo.
+	-> Grafica Inversión de tiempo.
+	-> Graficar tiempo de vida.
+	
+
+Interface Femputadora:
+(Va a saltar de vez en cuando para interactuar con el usuario.)
+	-> Chatbot.
+
+
+Interface configuración:
+	-> Perfil
+	-> Ayuda
