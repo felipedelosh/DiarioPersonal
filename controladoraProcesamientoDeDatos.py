@@ -237,9 +237,34 @@ class ControladoraProcesamientoDeDatos(object):
                     data["DRUGSDAYS"][_iDrugDate] = 0
                 data["DRUGSDAYS"][_iDrugDate] = data["DRUGSDAYS"][_iDrugDate] + 1
 
-                # Count Drugs
+                #Detonators
                 _txt = self.folderControler.getTextInFile(f"{path}\\{i}")
+                # Ge reasons
+                _counter = 0
+                _tempRasons = {}
+                _tempEffecs = {}
+                for iterTXT in str(_txt).split("\n\n\n"):
+                    if iterTXT.strip() != "":
+                        if _counter == 0:
+                            if _iDrug not in _tempRasons.keys():
+                                _tempRasons[_iDrug] = ""
 
+                            _tempRasons[_iDrug] = _tempRasons[_iDrug] + " " + iterTXT
+                            
+
+                        if _counter == 1:
+                            if _iDrug not in _tempEffecs.keys():
+                                _tempEffecs[_iDrug] = ""
+
+                            _tempEffecs[_iDrug] = _tempEffecs[_iDrug] + " " + iterTXT
+
+                        if _counter >= 2:
+                            _counter = 0
+
+                        _counter = _counter + 1
+
+                self._getSumaryOfDrugsGetReasonsOrEffects("REASON", _tempRasons, data)
+                self._getSumaryOfDrugsGetReasonsOrEffects("EFFECT", _tempEffecs, data)
         except:
             pass
 
@@ -247,8 +272,33 @@ class ControladoraProcesamientoDeDatos(object):
         data["DRUGSQTY"] = self._shorterDic(data["DRUGSQTY"])
         data["DRUGSDAYS"] = self._shorterDic(data["DRUGSDAYS"])
 
+        _temp = {}
+        for i in data["REASON"]:
+            _temp[i] = self._shorterDic(data["REASON"][i])
+        data["REASON"] = _temp
+        _temp = {}
+        for i in data["EFFECT"]:
+            _temp[i] = self._shorterDic(data["EFFECT"][i])
+        data["EFFECT"] = _temp
         data["METADATA"]["lenght"] = len(_regs)
+
         return data
+    
+    def _getSumaryOfDrugsGetReasonsOrEffects(self, key, _temp, data):
+        """
+        Enter data["REASON"] or data["EFFECT"] and save _temp information
+        """
+        for _iterDrugTempRasons in _temp:
+            _dataGroupByWords = self.stringProcessor.groupTextByWords(_temp[_iterDrugTempRasons])
+            if _dataGroupByWords != {}:
+                if _iterDrugTempRasons not in data[key].keys():
+                    data[key][_iterDrugTempRasons] = {}
+
+                for _iterWorddataGroupByWords in _dataGroupByWords:
+                    if _iterWorddataGroupByWords not in data[key][_iterDrugTempRasons].keys():
+                        data[key][_iterDrugTempRasons][_iterWorddataGroupByWords] = _dataGroupByWords[_iterWorddataGroupByWords]
+                    else:
+                        data[key][_iterDrugTempRasons][_iterWorddataGroupByWords] = data[key][_iterDrugTempRasons][_iterWorddataGroupByWords] + _dataGroupByWords[_iterWorddataGroupByWords]
 
 
     def getSumaryYYYYAllActivities24HPerDayOfWeek(self, path):

@@ -1738,7 +1738,7 @@ class Controladora:
                     count = count + 1
                 _dayToDrus = _dayToDrus[0:-1]
                 data = data + _dayToDrus + ".\n\n"
-                # ADD effects
+
                 
             except:
                 pass
