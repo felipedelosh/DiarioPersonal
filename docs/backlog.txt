@@ -4,12 +4,13 @@
 
 * Graficas economia:
  -> Grafico de barras por todos  los años. 2 Barras por año (Ingreso Vs Egreso) así para todos los años.
+	Grafico x,y >> Crece hacia Y... dependiendo del monto max en Y
  
 -> LBL de ayuda en la pantalla princiapal. //ToolTip
  
 -> Poner tambien al final la hora del horario.
  
--> Organizar super bonito la caja mayor y menor graficas.
+-> Organizar super bonito la caja mayor y menor graficas.	
 
 -> Ordenar todos los años de mayor a menor.
 
@@ -42,7 +43,7 @@ Ventanas de tamaño fijo.
 
 interface trabajo:
 
-OJO: caracteres especiales en la descripción del trabajo
+OJO: caracteres especiales en la descripción del trabajo ?
 
 2 -> Hacer los calculos para las nuevas horas.
 
@@ -64,6 +65,10 @@ Descripción Actividad
 Total horas invertidas
 
 Btn Guardar
+
+-> Al guardar hacerlo en archivos individuales concep+date.txt , hours+date.txt
+
+-> Liquidar (Facturar todo y borrar anteriores, guardar como factura+fecha)
 
 poder hacer scroll en las graficas de gastos
 

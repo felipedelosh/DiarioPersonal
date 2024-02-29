@@ -57,7 +57,17 @@ class Tiempo:
         11 -> Diciembre
         cuantos dias tienen dicho mes
         """
+        if mes == 1:
+            return self._countDaysFEB()
+
         return self.duracionMeses[mes]
+    
+    def _countDaysFEB(self):
+        YYYY = self.tiempo.year
+        if YYYY % 4 == 0 and (YYYY % 100 != 0 or YYYY % 400 == 0):
+            return 29
+        else:
+            return 28
 
     def hora(self):
         """

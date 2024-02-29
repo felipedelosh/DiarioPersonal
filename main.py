@@ -33,27 +33,27 @@ class TimeHackingLoko():
         self.imgPeople = self.controladora.returnIMGBtnPeople()
         self.imgBtnAgenda = self.controladora.returnIMGRnBtnRousourceX("calendary")
         self.imgBtnNotas = self.controladora.returnIMGRnBtnRousourceX("notes")
-        self.imgBtnEconimia = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/contabilidad.gif')
-        self.imgBtnResultadoAnual = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/resultadoAnual.gif')
-        self.imgFemputadora = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/femputadora.gif')
+        self.imgBtnEconimia = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/contabilidad.gif')
+        self.imgBtnResultadoAnual = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/resultadoAnual.gif')
+        self.imgFemputadora = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/femputadora.gif')
         #self.imgBtnRegistoEmociones = self.controladora.retrunIMGBtnFeelings()
-        self.imgSaveFeeling = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/saveFeeling.gif')
-        self.imgFeelingReport = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/feelingReport.gif')
-        self.imgSaveTimeDistribution = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/saveTimeDistribution.gif')
-        self.imgViewTimeDistribution = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/timeDistribution.gif')
-        self.imgSchedule = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/schedule.gif')
-        self.imgBtnWork = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/work.gif')
-        self.imgTAccount = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/taccount.gif')
-        self.imgEconomyReport = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/economyReport.gif')
-        self.imgBox = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/box.gif')
-        self.imgBtnConfiguracion = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/configuracion.gif')
-        self.imgBtnAyuda = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/ayuda.gif')
-        self.imageIcoPersona = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/ico/persona.png')
-        self.imgDRUGS = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/weed.gif')
+        self.imgSaveFeeling = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/saveFeeling.gif')
+        self.imgFeelingReport = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/feelingReport.gif')
+        self.imgSaveTimeDistribution = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/saveTimeDistribution.gif')
+        self.imgViewTimeDistribution = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/timeDistribution.gif')
+        self.imgSchedule = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/schedule.gif')
+        self.imgBtnWork = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/work.gif')
+        self.imgTAccount = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/taccount.gif')
+        self.imgEconomyReport = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/economyReport.gif')
+        self.imgBox = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/box.gif')
+        self.imgBtnConfiguracion = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/configuracion.gif')
+        self.imgBtnAyuda = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/ayuda.gif')
+        self.imageIcoPersona = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/ico/persona.png')
+        self.imgDRUGS = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/weed.gif')
         self.imgPopularDrug = PhotoImage(file=self.controladora.returnIMGBtnDRUGS())
-        self.imgDrugsGraphicReporter = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/graphicsDrugs.gif')
-        self.imgGraphicsTimeLife = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/graphicsTimeLife.gif')
-        self.imgProfile = PhotoImage(file=self.controladora.retornarRutaDelProyecto()+'/RECURSOS/img/profile.gif')
+        self.imgDrugsGraphicReporter = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/graphicsDrugs.gif')
+        self.imgGraphicsTimeLife = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/graphicsTimeLife.gif')
+        self.imgProfile = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/profile.gif')
         """Imagenes de la pantalla principal"""
         self.btnDiary = Button(self.tela, image=self.imgBtnDiario, command=self.launchMenuDiary)
         self.btnCalendary = Button(self.tela, image=self.imgBtnAgenda, command=self.launchMenuDiaryCalendary)
@@ -594,7 +594,7 @@ class TimeHackingLoko():
             canvas.create_text(_w*0.05, _h*0.65, text="Total Nuevas Horas Trabajadas: ", anchor=NW, tags="workInfo")
             txtNewHoursWork = Entry(canvas, width=3)
             txtNewHoursWork.place(x=_w*0.48, y=_h*0.65)
-            btnSaveNewHoursWork = Button(canvas, text="GUARDAR AVANCE", command=lambda: self._saveIncOfWork(textNewWorkPlus.get("1.0", END), txtNewHoursWork.get(), data['project_name']))
+            btnSaveNewHoursWork = Button(canvas, text="GUARDAR AVANCE", command=lambda: self._saveIncOfWork(textNewWorkPlus, txtNewHoursWork, data['project_name']))
             btnSaveNewHoursWork.place(x=_w*0.6, y=_h*0.65)
             # Load previous works?
             _previousWorkeds = self.controladora.getALlIncOfWork(data['project_name'])
@@ -621,16 +621,20 @@ class TimeHackingLoko():
         """
         Save a new hours work to the project
         """
-        if self.validatesTxt(concept) and self.validatesTxt(hours) and self.validatesINT(hours):
-            if int(hours) > 0:
-                if self.controladora.saveIncOfWork(concept, hours, projectName):
+        _hours = hours.get()
+        _concept = concept.get("1.0", END)
+        if self.validatesTxt(_concept) and self.validatesTxt(_hours) and self.validatesINT(_hours):
+            if int(_hours) > 0:
+                if self.controladora.saveIncOfWork(_concept, _hours, projectName):
+                    #hours.delete("1.0", END)
+                    concept.delete("1.0", END)
                     self.ventanaEnmergenteDeAlerta("GUARDADO", "Se actualizo la información del trabajo.")
                 else:
                     self.ventanaEnmergenteDeAlerta("Error :(", "Yo no pude guardar esa mieda.")
             else:
-                self.ventanaEnmergenteDeAlerta("Error", f"Pedazo de estupido... ingresaste:\n{hours}\nEn las Horas.")
+                self.ventanaEnmergenteDeAlerta("Error", f"Pedazo de estupido... ingresaste:\n{_hours}\nEn las Horas.")
         else:
-            self.ventanaEnmergenteDeAlerta("Error", f"Error ingresando los datos:\n {concept}\n{hours}")
+            self.ventanaEnmergenteDeAlerta("Error", f"Error ingresando los datos:\n {_concept}\n{_hours}")
 
     def _btnCreateNewWorkPresed(self, canvas):
         self._deleteAllObjectsInInterfaceWork(canvas)

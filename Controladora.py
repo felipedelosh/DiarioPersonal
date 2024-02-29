@@ -71,7 +71,7 @@ class Controladora:
             return False
 
 
-    def retornarRutaDelProyecto(self):
+    def projPATH(self):
         return self.rutaDelProyecto
     
     
@@ -146,14 +146,14 @@ class Controladora:
 
             if dic_count[0][0]  + '.gif'  in _files_img_drugs:
                 self.codenamePopularDrug = dic_count[0][0]
-                return self.retornarRutaDelProyecto() + f"/RECURSOS/img/btns/drugs/{dic_count[0][0]}.gif"
+                return self.projPATH() + f"/RECURSOS/img/btns/drugs/{dic_count[0][0]}.gif"
             else:
-                return self.retornarRutaDelProyecto()+'/RECURSOS/img/weed.gif'
+                return self.projPATH()+'/RECURSOS/img/weed.gif'
 
         except:
             pass
 
-        return self.retornarRutaDelProyecto()+'/RECURSOS/img/weed.gif'
+        return self.projPATH()+'/RECURSOS/img/weed.gif'
     
     def getDescriptionOfPopularDrug(self):
         try:
