@@ -1612,7 +1612,12 @@ class Controladora:
     
 
     def femputadora_unknow(self):
-        responses = ['Podrias Repetir?', 'No estoy seguro', 'No tengo esa información', 'no se de lo que hablas']
+        if self.femputadora._counter_unkow_questions < 10:
+            responses = ['Podrias Repetir?', 'No estoy seguro', 'No tengo esa información', 'no se de lo que hablas']
+
+        else:
+            responses = ['Yo no le entiendo ni chimba.', 'Que pasa bobo mrk .l..', 'Perro hijueputa yo que voy a saber', 'Que mierda pues...']
+
         return responses[random.randint(0, len(responses)-1)]
 
 

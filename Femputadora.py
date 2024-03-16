@@ -18,6 +18,7 @@ class Femputadora:
     def __init__(self, questions) -> None:
         self.questions = questions
         self.conversation = ""
+        self._counter_unkow_questions = 0
 
 
     def clearText(self, user_input):
@@ -54,6 +55,7 @@ class Femputadora:
         best_match = max(highest_prob, key=highest_prob.get)
 
         if highest_prob[best_match] < 1:
+            self._counter_unkow_questions = self._counter_unkow_questions + 1
             return "unknow()"
         else:
             return best_match
