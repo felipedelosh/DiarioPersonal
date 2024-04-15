@@ -1,0 +1,24 @@
+6am:redes sociales
+7am:hospital
+8am:hospital
+9am:alimentación
+10am:programar
+11am:hospital
+12am:caminar
+1pm:alimentación
+2pm:dormir
+3pm:programar
+4pm:bicicleta
+5pm:bicicleta
+6pm:trabajar
+7pm:alimentación
+8pm:FAPTIME
+9pm:trabajar
+10pm:estudiar
+11pm:estudiar
+12pm:televisión
+1am:dormir
+2am:dormir
+3am:dormir
+4am:dormir
+5am:dormir
