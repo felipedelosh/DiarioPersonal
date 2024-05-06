@@ -7,7 +7,11 @@
 	Grafico x,y >> Crece hacia Y... dependiendo del monto max en Y
  
 -> LBL de ayuda en la pantalla princiapal. //ToolTip
+
+-> Poner una lupa en cuentas T OjO: en la pantalla secundaria economia, en el mismo bloque de cuentas T.
  
+-> Eliminar un dia de cuentas T
+
 -> Poner tambien al final la hora del horario.
  
 -> Organizar super bonito la caja mayor y menor graficas.	
