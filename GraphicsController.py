@@ -155,6 +155,8 @@ class GraphicsController:
             _y0 = _h * 0.1
             _totalAixisY = _h * 0.8 # MAX Y Aixis 
 
+            print("Total YYYY:",len(data["YYYY"]))
+            print(data["YYYY"])
             _deltaX = _totalAixisXInYYYY / len(data["YYYY"]) # Space of year in aixis x
             _deltaXDAY = _deltaX / 365 # Space of one day in aixis x
             _delta24HAixisY = _totalAixisY / 24
@@ -193,7 +195,6 @@ class GraphicsController:
                 canvas.create_text(x0*1.1, y0-8, text=f"{counter}")
                 counter = counter + 1
 
-
             # Paint data
             _datePivotYYYY = int(data["YYYY"][0])
             _datePivotMM = 1
@@ -204,29 +205,31 @@ class GraphicsController:
                 # PAINT MONEY IN
                 try:
                     if _keyDate in data["DATA"].keys():
-                        _pivotY = data["DATA"][_keyDate]["in"]/data["METADATA"]["maxin"]
-                        if _pivotY > 0.05:
-                            x0 = _deltaXDAY * _dayCounter - 3
-                            y0 = (_h * (_pivotY))
-                            y0 = (_totalAixisY + _y0) - y0
-                            x1 = _deltaXDAY * (_dayCounter + 1) + 3
-                            y1 = y0 * 1.02
-                            canvas.create_oval(x0, y0, x1, y1, fill="green")
+                        if "in" in data["DATA"][_keyDate].keys():
+                            _pivotY = data["DATA"][_keyDate]["in"]/data["METADATA"]["maxin"]
 
-                        # PAINT MONEY OUT
-                        #_pivotY = data["DATA"][_keyDate]["out"]/data["METADATA"]["maxout"]
-                        #if _pivotY > 0.3:
-                        #    x0 = _deltaXDAY * _dayCounter - 3
-                        #    y0 = (_h * (_pivotY))
-                        #    y0 = (_totalAixisY + _y0) - y0
-                        #    x1 = _deltaXDAY * (_dayCounter + 1) + 3
-                        #    y1 = y0 * 1.02
-                        #    canvas.create_oval(x0, y0, x1, y1, fill="red")
-                            
-                        # Paint sleep hours
-                        # Paint life hours
+                            if str(_datePivotYYYY).strip() == "2020":
+                                d = _timeLIB.getNextDay(_datePivotYYYY, _datePivotMM, _datePivotDD)
+                                _datePivotYYYY = d[0]
+                                _datePivotMM = d[1]
+                                _datePivotDD = d[2]
+                                print("epaaa")
 
-                except:
+                            if _pivotY != 0 and _pivotY > 0.05:
+                                print(f"YYYY:{_datePivotYYYY}", _pivotY)
+                                x0 = _deltaXDAY * _dayCounter - 3
+                                y0 = (_h * (_pivotY))
+                                y0 = (_totalAixisY + _y0) - y0
+                                x1 = _deltaXDAY * (_dayCounter + 1) + 3
+                                y1 = y0 * 0.98
+                                print(x0,y0,x1,y1)
+                                canvas.create_oval(x0, y0, x1, y1, fill="green")
+
+
+                        
+
+
+                except Exception as e:
                     pass
                 
                 # Paint Sleep VS LIfe
