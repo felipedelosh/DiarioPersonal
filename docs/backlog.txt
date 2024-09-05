@@ -5,6 +5,8 @@
 * Graficas economia:
  -> Grafico de barras por todos  los años. 2 Barras por año (Ingreso Vs Egreso) así para todos los años.
 	Grafico x,y >> Crece hacia Y... dependiendo del monto max en Y
+
+-> En Intecciones con amigos limpiar todos los campos después de guardar.
  
 -> LBL de ayuda en la pantalla princiapal. //ToolTip
 
