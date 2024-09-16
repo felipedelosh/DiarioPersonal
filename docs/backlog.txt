@@ -1,3 +1,6 @@
+Problema grave de seguridad... buscar una forma de encriptar para que solo las personas con más de dos dedos de frente sean capaces de leer esto.
+
+
 * todos los botones de los lectores tienen que tener el mismo tamaño.
 
 * Filtrar por rango de fechas en el calendario.
