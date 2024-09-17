@@ -553,6 +553,22 @@ class ControladoraCarpetas(object):
         return data
 
 
+    def getTextInFileDecrypt(self, path):
+        """
+        Enter a path to open file and return text
+        """
+        data = "Newfags can't read it"
+
+        try:
+            with open(path, encoding="UTF-8") as f:
+                data = f.read()
+                data = self.stringProcessor.enigmaMachineDecript(data)
+        except:
+            pass
+
+        return data
+
+
     def appendTextInFile(self, path, data):
         """
         Enter a path and append the text if exits or create ig not exists

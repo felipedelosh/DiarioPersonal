@@ -299,21 +299,24 @@ class Controladora:
                 if letter == ".":
                     newData = {}
                     newData["title"] = i
-                    newData["text"] = self.loadDiaryPageBypath(path+"\\"+i)
+                    txt = self.controladoraCarpetas.getTextInFileDecrypt(path+"\\"+i)
+                    newData["text"] = txt
                     information.append(newData)
 
                 elif letter == "#":
                     if title in "0123456789":
                         newData = {}
                         newData["title"] = i
-                        newData["text"] = self.loadDiaryPageBypath(path+"\\"+i)
+                        txt = self.controladoraCarpetas.getTextInFileDecrypt(path+"\\"+i)
+                        newData["text"] = txt
                         information.append(newData)
                 else:
 
                     if str(title).upper() == letter:
                         newData = {}
                         newData["title"] = i
-                        newData["text"] = self.loadDiaryPageBypath(path+"\\"+i)
+                        txt = self.controladoraCarpetas.getTextInFileDecrypt(path+"\\"+i)
+                        newData["text"] = txt
                         information.append(newData)
             except:
                 pass

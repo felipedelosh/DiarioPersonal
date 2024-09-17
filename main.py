@@ -1318,7 +1318,6 @@ class TimeHackingLoko():
         
     def _filterDiaryFullReader(self, filter, lblTitles, txtNotes, lblPageIndicator):
         self.allInfoDiaryPages = self.controladora.loadDiaryDataFilterByLetter(filter)
-        print(self.allInfoDiaryPages)
         self._refreshSixDiaryPages(lblTitles, txtNotes, lblPageIndicator)
 
 
