@@ -1,11 +1,17 @@
 """
 FelipedelosH
-2023
+2024
 
 Create to proccess text in Spañish to computate words
 """
-class StringProcessor:
-    def __init__(self) -> None:
+class StringProcessor(object):
+    def __init__(self, env) -> None:
+        self.alphabet = list("ABCDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmnñopqrstuvwxyzáéíóú")
+        self.shift = 13
+        try:
+            self.shift = self.calculateShift(env) % len(self.alphabet)
+        except:
+            pass
         self.articles = ['el', 'la', 'lo', 'del', 'los', 'las', 'un', 'uno', 'una', 'unas']
         self.prepositions = ['a', 'ante', 'bajo', 'cabe', 'con', 'contra', 'de', 'desde', 'durante', 'en', 'entre', 'hacia', 'hasta', 'mediante', 'para', 'por', 'según', 'sin', 'so', 'sobre', 'tras', 'versus', 'vía']
         self.adverbs_site = ['aquí', 'allí', 'ahí', 'allá', 'acá', 'arriba', 'abajo', 'cerca', 'lejos', 'adelante', 'delante', 'detrás', 'encima', 'debajo', 'enfrente', 'atrás', 'alrededor']
@@ -49,3 +55,31 @@ class StringProcessor:
 
 
         return data
+    
+    def calculateShift(self, env):
+        return int(env, 16)
+    
+    def enigmaMachineEncrypt(self, plain_text):
+        "'TIP: 1942 HH"
+        encrypted_text = ''
+        for char in plain_text:
+            if char in self.alphabet:
+                index = (self.alphabet.index(char) + self.shift) % len(self.alphabet)
+                encrypted_text += self.alphabet[index]
+            else:
+                encrypted_text += char
+        return encrypted_text
+    
+
+    def enigmaMachineDecript(self, encrypted_text):
+        """
+        Remeber: NEW FAGOT CAN'T READ IT
+        """
+        decrypted_text = ''
+        for char in encrypted_text:
+            if char in self.alphabet:
+                index = (self.alphabet.index(char) - self.shift) % len(self.alphabet)
+                decrypted_text += self.alphabet[index]
+            else:
+                decrypted_text += char
+        return decrypted_text

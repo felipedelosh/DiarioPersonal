@@ -6,9 +6,11 @@ y verificacion de que las carpetas existan
 import os
 import json
 from os import scandir
+from StringProcessor import *
 
 class ControladoraCarpetas(object):
-    def __init__(self, tiempo, rutaDelProyecto):
+    def __init__(self, tiempo, rutaDelProyecto, env):
+        self.stringProcessor = StringProcessor(env)
         self.tiempo = tiempo
         self.rutaDelProyecto = rutaDelProyecto
 
@@ -91,6 +93,16 @@ class ControladoraCarpetas(object):
         if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\WORK"): # i don't exists: create it.
             os.mkdir(self.rutaDelProyecto+"\\DATA\\WORK")
 
+
+    def saveDiaryPage(self, path, txt):
+        try:
+            txt = self.stringProcessor.enigmaMachineEncrypt(txt)
+            with open(path, "a", encoding="UTF-8") as f:
+                f.write(txt)
+
+            return True
+        except:
+            return False
 
     def listarTodosLosArchivosdeCarpeta(self, ruta, extension):
         """

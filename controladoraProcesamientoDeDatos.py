@@ -18,8 +18,8 @@ from StringProcessor import *
 
 
 class ControladoraProcesamientoDeDatos(object):
-    def __init__(self, rutaDelProyecto, tiempo, folderController):
-        self.stringProcessor = StringProcessor()
+    def __init__(self, rutaDelProyecto, tiempo, folderController, env):
+        self.stringProcessor = StringProcessor(env)
         self.rutaDelProyecto = rutaDelProyecto
         self.tiempo = tiempo
         self.folderControler = folderController

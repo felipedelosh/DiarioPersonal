@@ -22,11 +22,12 @@ import random
 
 class Controladora:
     def __init__(self):
+        self.env = self._setENV()
         self.rutaDelProyecto = str(os.path.dirname(os.path.abspath(__file__))) # En donde estoy padado
         self.audioMixer = AudioMixer() # Reproductor de sonido
         self.tiempo = Tiempo() # Metodos personalizados de tiempo
-        self.controladoraCarpetas = ControladoraCarpetas(self.tiempo, self.rutaDelProyecto) # Para crear y aceder a informacion
-        self.controladoraProcesamientoDeDatos = ControladoraProcesamientoDeDatos(self.rutaDelProyecto, self.tiempo, self.controladoraCarpetas) # Aca se hace la mineria de datos
+        self.controladoraCarpetas = ControladoraCarpetas(self.tiempo, self.rutaDelProyecto, self.env) # Para crear y aceder a informacion
+        self.controladoraProcesamientoDeDatos = ControladoraProcesamientoDeDatos(self.rutaDelProyecto, self.tiempo, self.controladoraCarpetas, self.env) # Aca se hace la mineria de datos
         self.graphicsController = GraphicsController()
         self.estadoDeLasCarpetas = self.crearCarpetasDelSistema()
         self.coloresParaGraficos = MagicColor() # Color
@@ -43,6 +44,19 @@ class Controladora:
         self.saludarAlUsuario()
         # The user use program and registe
         self.saveUseRunAPP()
+
+
+    def _setENV(self):
+        "NEW FAGOT CANT READ MY DIARY"
+        "Chismoso PUTO primero deja de ser bruto y podras leer mi diario"
+        # Advertencia: bruto = idiota que en frances significa 'ligeramente afeminado'
+        try:
+            with open(".env", "r", encoding="UTF-8") as f:
+                return f.read()
+        except:
+            pass
+
+        return "TU ERES UN MARICA SIN CEREBRO"
 
 
     def _updateTriggers(self):
@@ -77,7 +91,7 @@ class Controladora:
     
     def returnIMGRnBtnRousourceX(self, resource):
         """
-        Read a img in folder: RECURSOS\img\btns\ <Resource> \ <ResourceFile> + rnd + .gif 
+        Read a img in folder: RECURSOS/img/btns/<Resource>/<ResourceFile> + rnd + .gif 
         And you rtrn rnd img
         """
         return self.graphicsController.returnIMGRnBtnRousourceX(self.rutaDelProyecto, resource)
@@ -93,7 +107,7 @@ class Controladora:
 
     def retrunIMGBtnFeelings(self):
         """
-        Read all .gif images in folder: RECURSOS\img\btns\feelings\real\*.gif
+        Read all .gif images in folder: RECURSOS/img/btns/feelings/real/*.gif
         if the emotion is the most popular render a imagen of feeling
         if the feeling dont exits retrun random feeling
         """
@@ -180,13 +194,14 @@ class Controladora:
             """Se genera la ruta del disco duro donde va a estar el archivo"""
             _sep = self.controladoraCarpetas.getSimbolikPathSeparator()
             rutaDiario = f"{self.rutaDelProyecto}{_sep}DATA{_sep}DIARIO{_sep}{self.tiempo.año()}"
-            archivo = f"{rutaDiario}{_sep}{self.tiempo.estampaDeTiempo()} - {palabraMagica}.txt"
-            if(len(palabraMagica.strip()) > 0):
+            _path = f"{rutaDiario}{_sep}{self.tiempo.estampaDeTiempo()} - {palabraMagica}.txt"
+            if(len(str(palabraMagica).strip()) > 0):
                 # Write a page diary
                 texto = texto + "\n\n" + self.tiempo.hora() + "\n\n"
-                f = open(archivo, "a", encoding="UTF-8")
-                f.write(texto)
-                f.close()
+                # AutoEncrypted
+                status = self.controladoraCarpetas.saveDiaryPage(_path, texto)
+                if not status:
+                   return False
 
                 # Save user usages Diary
                 self.saveUseWrite("diary")
@@ -547,7 +562,7 @@ class Controladora:
 
     def processDataDrugs(self, YYYY):
         """
-        DATA\DRUGS\YYYY
+        DATA/DRUGS/YYYY
         Group data and show
         """
         return self.controladoraProcesamientoDeDatos.proccesDrugsDataByYYYY(YYYY)
@@ -767,7 +782,7 @@ class Controladora:
 
     def retornarInformacionEconomica(self, _filter):
         """
-        GET information in DATA\ECONOMIA
+        GET information in DATA/ECONOMIA
         _filter = ALL | YYYY | MM
         """
         isYYYY = False
@@ -990,7 +1005,7 @@ class Controladora:
     
     def getALlIncOfWork(self, projectName):
         """
-        Read folder DATA\WORK\projectName and return:
+        Read folder DATA/WORK/projectName and return:
         costPeerHour.txt
         hours.txt
         """
@@ -1557,7 +1572,7 @@ class Controladora:
     def loadQuestions(self):
         """
         Load all questions to chatbot in folder:
-        DATA\QUESTIONS
+        DATA/QUESTIONS
         """
         path = self.rutaDelProyecto + "\\DATA\\QUESTIONS"
 

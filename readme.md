@@ -14,8 +14,10 @@ Nota 02: se advierte que el codigo está hecho por un niño que apenas estaba ap
 ## :hammer:Funcionalidades del proyecto
 
 - `Funcionalidad 1`: Guardar/Cargar paginas de diario.<br>
-- `Funcionalidad 1b`: Guardar/Cargar paginas de diario de sueños.<br>
-- `Funcionalidad 1c`: Guardar/Cargar relaciones interpersonales.<br>
+- `Funcionalidad 1.a`: Guardar/Cargar paginas usando un sistema de cifrado.<br>
+- `Funcionalidad 1.b`: .env >> sha256<br>
+- `Funcionalidad 1.c`: Guardar/Cargar paginas de diario de sueños.<br>
+- `Funcionalidad 1.d`: Guardar/Cargar relaciones interpersonales.<br>
 - `Funcionalidad 2`: Guardar/Cargar movimientos económicos(ingresos/egresos).<br>
 - `Funcionalidad 2a`: Graficar movimientos económicos.<br>
 
