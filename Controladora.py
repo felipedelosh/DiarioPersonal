@@ -826,6 +826,16 @@ class Controladora:
                 data.append(self.controladoraCarpetas.getTextInFile(i))
 
         return self.controladoraProcesamientoDeDatos.procesarReporteEconomigo(data)
+    
+    def getTAccountsInformationFilterByKeyWord(self, keyword):
+        _data = {}
+
+        try:
+            _data = self.controladoraProcesamientoDeDatos.getTAccountsReportByKeyWord(keyword)
+        except:
+            pass
+        
+        return _data
 
     def guardarEstadoCajaMayor(self, monto):
         """

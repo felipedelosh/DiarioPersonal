@@ -7,7 +7,6 @@ Diario del loko v2.0
 Más que un software me propongo a proporcionar, organizar y gestionar mi información más personal.
 
 Sientase libre de copiar, modificar y usar a su antojo.
-
 """
 # -⁻- coding: UTF-8 -*-
 from tkinter import * # Libreria para graficos> ventanas, botones, imagenes
@@ -484,16 +483,51 @@ class TimeHackingLoko():
             txtHaber.append(Entry(interfaceEconomia, width=20))
             txtHaber[i].place(x=450, y=(132+(25*i)))
 
+        btnSearch = Button(interfaceEconomia, text="Buscar", command=self.launchFilterTAccounts)
+        btnSearch.place(x=380, y=34)
         btnCargar = Button(interfaceEconomia, text="Cargar", command= lambda : self.cargarEconomia(txtConcepto, txtDebe, txtHaber))
-        btnCargar.place(x=400, y=32)
+        btnCargar.place(x=450, y=34)
         btnGuardar = Button(interfaceEconomia, text="Guardar", command=lambda : self.guardarEconomia(txtConcepto, txtDebe, txtHaber))
-        btnGuardar.place(x=500, y=32)
+        btnGuardar.place(x=520, y=34)
+
+    def launchFilterTAccounts(self):
+        t = Toplevel()
+        t.title("Buscar conceptos economicos")
+        t.geometry("640x480")
+        canvas = Canvas(t, height=480, width=640)
+        canvas.place(x=0, y=0)
+        lblEnterKeyWord = Label(canvas, text="Ingrece el concepto a buscar:")
+        lblEnterKeyWord.place(x=20, y=20)
+        txtEnterKeyWord = Entry(canvas, width=50)
+        txtEnterKeyWord.place(x=190, y=20)
+        txtResultTAccounts = Text(canvas, width=70, height=22)
+        txtResultTAccounts.place(x=20, y=60)
+        btnSearch = Button(canvas, text="BUSCAR", command= lambda : self._updateFilterTAccounts(txtEnterKeyWord, txtResultTAccounts))
+        btnSearch.place(x=520, y=18)
+
+
+    def _updateFilterTAccounts(self, txtEnterKeyWord, txtResultTAccounts):
+        txt = txtEnterKeyWord.get()
+        if self.validatesTxt(txt):
+            data = self.controladora.getTAccountsInformationFilterByKeyWord(txt)
+            # Represent all DATA
+            txt = f"TOTAL MOVIMIENTOS ECONOMICOS: {data["size"]}\n\n"
+            for fecha, valor1, valor2 in data["data"]:
+                txt = txt + f"{fecha:<24} | {valor1:<10} | {valor2:<10}\n"
+
+            txt = txt + f"\nTOTAL ENTRADAS: {data["in"]}\n"
+            txt = txt + f"TOTAL SALIDAS: {data["out"]}"
+
+            txtResultTAccounts.delete('1.0', 'end')
+            txtResultTAccounts.insert('1.0', txt)
+            
+
 
     def launchFemputadoraInterface(self):
         t = Toplevel()
         t.title("Femputadora")
         t.geometry("640x480")
-        canvas = Canvas(t, height=4480, width=640, bg="gray12")
+        canvas = Canvas(t, height=480, width=640, bg="gray12")
         canvas.place(x=0, y=0)
         lblEnterText = Label(canvas, text="Ingrese el texto: ", bg="gray10", fg="white")
         lblEnterText.place(x=20, y=20)

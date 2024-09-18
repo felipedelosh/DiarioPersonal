@@ -57,6 +57,17 @@ class ControladoraProcesamientoDeDatos(object):
         return filesNames
     
 
+    def getALLFoldersNamesInFolderPath(self, path):
+        folderNames = []
+
+        with os.scandir(path) as dir:
+            for itterDir in dir:
+                if itterDir.is_dir():
+                    folderNames.append(itterDir.name)
+
+        return folderNames
+    
+
     def getTextInFile(self, path):
         """
         Enter a path to open file and return text
@@ -490,6 +501,52 @@ class ControladoraProcesamientoDeDatos(object):
                             pass
 
         return reporte
+    
+
+    def getTAccountsReportByKeyWord(self, keyword):
+        """
+        Read data in DATA/ECONOMIA
+        and return {size=#, data=[(concept, #, #),...(concept, #, #)], in=totalMoneyIn, out=totalMoneyOut}
+        """
+        _data = {}
+        _data["size"] = 0
+        _data["data"] = []
+        _data["in"] = 0
+        _data["out"] = 0
+        try:
+            path = f"{self.rutaDelProyecto}\\DATA\\ECONOMIA"
+            _folders = self.getALLFoldersNamesInFolderPath(path)
+
+            for i in _folders:
+                try:
+                    # Only info of years
+                    YYYY = int(i)
+                    _filesNanesPerYYYY = self.getAllFilesNamesxTypeInFolderPath(f"{path}\\{YYYY}", ".xlsx")
+
+                    for j in _filesNanesPerYYYY:
+                        _codename = f"{YYYY} {str(j).replace(".xlsx", "")}"
+                        _readFileData = self.getTextInFile(f"{path}\\{YYYY}\\{j}")
+                        for k in _readFileData.split("\n"):
+                            if str(k).strip() != "":
+                                try:
+                                    _rowTAccount = k.split(";")
+                                    
+                                    # Save only by keyword
+                                    if keyword in _rowTAccount[0]:
+                                        _data["data"].append((_codename, _rowTAccount[1], _rowTAccount[2]))
+
+                                        _data["in"] = _data["in"] + int(_rowTAccount[1])
+                                        _data["out"] = _data["out"] + int(_rowTAccount[2])
+                                except:
+                                    pass
+                except:
+                    pass
+        except:
+            pass
+
+        _data["size"] = len(_data["data"])
+
+        return _data
     
 
     def getFullReport(self, data):
