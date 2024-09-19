@@ -1,6 +1,3 @@
-Problema grave de seguridad... buscar una forma de encriptar para que solo las personas con más de dos dedos de frente sean capaces de leer esto.
-
-
 * todos los botones de los lectores tienen que tener el mismo tamaño.
 
 * Filtrar por rango de fechas en el calendario.
@@ -12,8 +9,6 @@ Problema grave de seguridad... buscar una forma de encriptar para que solo las p
 -> En Intecciones con amigos limpiar todos los campos después de guardar.
  
 -> LBL de ayuda en la pantalla princiapal. //ToolTip
-
--> Poner una lupa en cuentas T OjO: en la pantalla secundaria economia, en el mismo bloque de cuentas T.
  
 -> Eliminar un dia de cuentas T
 
@@ -35,7 +30,6 @@ Diga el top de cosas que se hacen de todos los años.
 -> Femputadora : pregunta sobre el consumo de drogas? Añadir cuantas drogas se consumienron en el año.
 
 -> En el string procesor crear un método que le entre un texto y entregue una lista {word:qty}
-
 
 -> Error en grafica de sentimiento... si divido cero... año sin sentimientos.
 
