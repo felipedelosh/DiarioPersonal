@@ -260,8 +260,9 @@ class GraphicsController:
         """
         _simbolikSep = self.getSimbolikPathSeparator(projectPath)
 
-        id = str(random.randint(0, 46))
+        id = str(random.randint(0, 48))
         _pathIMG = f"{projectPath}{_simbolikSep}RECURSOS{_simbolikSep}img{_simbolikSep}bg{_simbolikSep}{id}.gif"
+        print(_pathIMG)
 
         return PhotoImage(file=_pathIMG)
     
