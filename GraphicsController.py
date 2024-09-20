@@ -262,7 +262,6 @@ class GraphicsController:
 
         id = str(random.randint(0, 48))
         _pathIMG = f"{projectPath}{_simbolikSep}RECURSOS{_simbolikSep}img{_simbolikSep}bg{_simbolikSep}{id}.gif"
-        print(_pathIMG)
 
         return PhotoImage(file=_pathIMG)
     

@@ -1,0 +1,21 @@
+{
+    "function" : "sleep_information()",
+    "list_of_words" : [
+        "como",
+        "cómo",
+        "esta",
+        "está",
+        "estoy",
+        "durmiendo",
+        "duermes",
+        "descanso",
+        "horas",
+        "promedio",
+        "sueño",
+        "sueños",
+        "siestas",
+        "REM"
+    ],
+    "single_response" : true,
+    "required_words" : []
+}

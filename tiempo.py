@@ -2,6 +2,7 @@
 El tiempo a mi gusto
 """
 # -⁻- coding: UTF-8 -*-
+import datetime
 from datetime import date
 from os import path
 from random import randint
@@ -225,4 +226,14 @@ class Tiempo:
             pass
 
         return _d
-        
+
+
+    def getNameOfDayByDateYYYYMMDD(self, strTime):
+        """
+        Enter a date in format YYYY-MM-DD
+        and return a name of these day.
+        """
+        _date = datetime.datetime.strptime(strTime, "%Y-%m-%d")
+        _nr_day = _date.weekday()
+
+        return self.diasDeLaSemana[_nr_day]

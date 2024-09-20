@@ -1629,6 +1629,8 @@ class Controladora:
             return self.get_all_do()
         elif code == "drugs_information()":
             return self.drugs_information()
+        elif code == "sleep_information()":
+            return self.sleep_information()
         elif code == "help()":
             return self.help_femputadora()
         
@@ -1776,6 +1778,56 @@ class Controladora:
             except:
                 pass
 
+        return data
+    
+
+    def sleep_information(self):
+        """
+        Get informatión about:
+        1 - total sleep hours
+        2 - get AVG of hours sleep peer week day
+        3 - get total hours register by week day
+        """
+        path = self.rutaDelProyecto + "\\DATA\\DISTRIBUCIONTIEMPO\\TIEMPODIARIO"
+        years = self.controladoraCarpetas.listALLFolderInPath(path)
+        _count_years = 0
+
+        data = "Está es la información de tu ciclo de sueño:\n"
+        _data = {}
+        _data["total"] = 0
+
+        for i in years:
+            try:
+                if int(i) > 0:
+                    data = data + f"\npara el año {i}:\n"
+                    _p = path + "\\" + str(i)
+                    _d = self.controladoraProcesamientoDeDatos.sumaryALLSleep24H(_p)
+                    _data["total"] = _data["total"] + _d["total"] # count of all hours register in all years
+
+                    # Get information peer week
+                    for t in self.tiempo.diasDeLaSemana:
+                        data = data + f"El día {t} dormiste un promedio de: {_d[f"avg-{t}"]} horas.\nHay un total de {_d[f"total-{t}"]} horas registradas.\n"
+                    
+                    _count_years = _count_years + 1
+            except:
+                pass
+
+        
+        if _data:
+            # 
+
+
+
+            # PUT RICH INFORMATION
+            data = data + f"\nTotal horas de sueño registradas: {_data["total"]}\n\n"
+
+        if _count_years == 0:
+            data = data + "No Tengo Información en mi sistema sobre tus horas de sueño."
+        elif _count_years == 1:
+            data = data + "Solo tengo la información de un año."
+        elif _count_years > 1:
+            data = data + "En " + str(_count_years) + " años."
+        
         return data
 
 

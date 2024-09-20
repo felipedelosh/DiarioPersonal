@@ -212,6 +212,71 @@ class ControladoraProcesamientoDeDatos(object):
 
         return data
     
+
+    def sumaryALLSleep24H(self, path):
+        """
+        Enter a DATA\DISTRIBUCIONTIEMPO\YYYY 
+        and return {
+                total: # hours all year
+                total-by-day: # hours all year in these day
+                avg-by-day: avg of this day in these year
+            }
+        """
+        data = {}
+        data["total"] = 0
+
+        # Control of days found
+        # Save dates in format {MONDAY:["YYYY MM DD.txt", ..."YYYY MM DD.txt"], TH....}
+        _control = {}
+        for i in self.tiempo.diasDeLaSemana:
+            _control[i] = []
+
+        # Put all days of week
+        for i in self.tiempo.diasDeLaSemana:
+            data[f"total-{i}"] = 0
+            data[f"avg-{i}"] = 0
+
+
+        try:
+            for i in self.folderControler.listarTodosLosArchivosdeCarpeta(path, ".txt"):
+                _data = self.folderControler.getTextInFile(path + "\\" + str(i))
+                for j in _data.split("\n"):
+                    if str(j).strip() != "":
+                        try:
+                            _arr = str(j).split(":")
+                            if (_arr[1] == "dormir"):
+                                # get time in format YYYY-MM-DD
+                                _timeYYYYMMDD = str(i).replace(".txt", "")
+                                _timeYYYYMMDD = _timeYYYYMMDD.split(" ")
+                                _timeYYYYMMDD = f"{_timeYYYYMMDD[0]}-{_timeYYYYMMDD[1]}-{_timeYYYYMMDD[2]}"
+                                
+                                _nameOfDay = self.tiempo.getNameOfDayByDateYYYYMMDD(_timeYYYYMMDD)
+
+                                # Control of day register by date
+                                if i not in _control[_nameOfDay]:
+                                    _control[_nameOfDay].append(i)
+
+                                # Count Hour in total in this day
+                                data[f"total-{_nameOfDay}"] = data[f"total-{_nameOfDay}"] + 1
+
+                                # Counter SLEEP ++
+                                data["total"] = data["total"] + 1
+                        except:
+                            pass
+        except:
+            pass
+
+        # Calcule prom
+        for i in _control:
+            try:
+                sum = data[f"total-{i}"]
+                total = len(_control[i])
+                data[f"avg-{i}"] = round(sum/total, 2)
+            except:
+                pass
+
+        return data
+    
     
 
     def getSumaryOfDrugs(self, path):
