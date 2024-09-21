@@ -25,9 +25,7 @@
 -> Hacer que la pregunta (Femputadora): que deberia de hacer? que deberia hago con mi vida? 
 Diga el top de cosas que se hacen de todos los años.
 
--> Femputadora: solicito información de sueño?
 -> Femputadora : pregunta quien soy?
--> Femputadora : pregunta sobre el consumo de drogas? Añadir cuantas drogas se consumienron en el año.
 
 -> En el string procesor crear un método que le entre un texto y entregue una lista {word:qty}
 
