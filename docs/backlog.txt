@@ -22,14 +22,16 @@
 
 -> carga Automatica del día de hoy en cuentas T
 
+FEMPUTADORA:
+
+-> Femputadora : pregunta quien soy?
+-> preguntar a femputadora por el desperdicio del tiempo.
+
+
 -> Hacer que la pregunta (Femputadora): que deberia de hacer? que deberia hago con mi vida? 
 Diga el top de cosas que se hacen de todos los años.
 
--> Femputadora : pregunta quien soy?
-
 -> En el string procesor crear un método que le entre un texto y entregue una lista {word:qty}
-
--> Error en grafica de sentimiento... si divido cero... año sin sentimientos.
 
 -> Como estoy programdo: "DIAPOSITIVAS CON DIAGRAMAS MANUALES CODIGO CONEXIONES"
 
