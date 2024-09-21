@@ -1,9 +1,11 @@
 * Registrar algo que te paso en la vida : agenda
+* Registrar tus sueños (lo que pasa mientras duermes): diario de sueños.
 * Alarmas en caso de que estes pasando por eventos en tu vida.
+* Registro diario de tus emociones.
 * Dejar claro lo que significa una palabra: notas
 * Administrar tus finanzas : economia
 * Que hisiste importante en estos ultimos años.
-* Como estas invirtiendo cada hora del dia.
+* Como estas invirtiendo cada hora del dia: registro de habitos.
 * Porcentaje de gasto en actividades.
 * Tu horario personal: Que deberias hacer cada hora del día.
 * Grafica de ingresos y egresos : por año, por mes del año actual.
