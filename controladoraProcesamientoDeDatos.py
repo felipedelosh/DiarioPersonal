@@ -277,7 +277,132 @@ class ControladoraProcesamientoDeDatos(object):
 
         return data
     
-    
+
+    def sumaryALLLeisureTime24H(self, path):
+        """
+        Enter a DATA\DISTRIBUCIONTIEMPO\YYYY 
+        and return {
+                total: # hours all year
+                total-by-day: # hours all year in these day
+                avg-by-day: avg of this day in these year
+            }
+        """
+        data = {}
+        data["total"] = 0
+        data["total-faptime"] = 0
+        data["total-tv"] = 0
+        data["total-leisure"] = 0
+        data["total-social-network"] = 0
+
+        # Control of days found
+        # Save dates in format {MONDAY:["YYYY MM DD.txt", ..."YYYY MM DD.txt"], TH....}
+        _control = {}
+        for i in self.tiempo.diasDeLaSemana:
+            _control[i] = []
+            _control[f"faptime-{i}"] = []
+            _control[f"tv-{i}"] = []
+            _control[f"leisure-{i}"] = []
+            _control[f"social-network-{i}"] = []
+
+        # Put all days of week
+        for i in self.tiempo.diasDeLaSemana:
+            # Total peer year
+            data[f"total-{i}"] = 0
+            data[f"avg-{i}"] = 0
+
+            # Total peer leisure activity
+            data[f"total-faptime-{i}"] = 0
+            data[f"avg-faptime-{i}"] = 0
+            data[f"total-tv-{i}"] = 0
+            data[f"avg-tv-{i}"] = 0
+            data[f"total-leisure-{i}"] = 0
+            data[f"avg-leisure-{i}"] = 0
+            data[f"total-social-network-{i}"] = 0
+            data[f"avg-social-network-{i}"] = 0
+
+
+        try:
+            for i in self.folderControler.listarTodosLosArchivosdeCarpeta(path, ".txt"):
+                _data = self.folderControler.getTextInFile(path + "\\" + str(i))
+                for j in _data.split("\n"):
+                    if str(j).strip() != "":
+                        try:
+                            _arr = str(j).split(":")
+                            if _arr[1] == "FAPTIME" or _arr[1] == "ocio" or _arr[1] == "televisión" or _arr[1] == "redes sociales":
+                                # get time in format YYYY-MM-DD
+                                _timeYYYYMMDD = str(i).replace(".txt", "")
+                                _timeYYYYMMDD = _timeYYYYMMDD.split(" ")
+                                _timeYYYYMMDD = f"{_timeYYYYMMDD[0]}-{_timeYYYYMMDD[1]}-{_timeYYYYMMDD[2]}"
+                                
+                                _nameOfDay = self.tiempo.getNameOfDayByDateYYYYMMDD(_timeYYYYMMDD)
+
+                                # General day of week control
+                                _control[_nameOfDay].append(j)
+
+                                # Count Hour in total in this day
+                                data[f"total-{_nameOfDay}"] = data[f"total-{_nameOfDay}"] + 1
+
+                                if _arr[1] == "FAPTIME":
+                                    _control[f"faptime-{_nameOfDay}"].append(j)
+                                    data[f"total-faptime-{_nameOfDay}"] = data[f"total-faptime-{_nameOfDay}"] + 1
+                                    data["total-faptime"] = data["total-faptime"] + 1
+                                    pass
+
+                                if _arr[1] == "ocio":
+                                    _control[f"leisure-{_nameOfDay}"].append(j)
+                                    data[f"total-leisure-{_nameOfDay}"] = data[f"total-leisure-{_nameOfDay}"] + 1
+                                    data["total-leisure"] = data["total-leisure"] + 1
+                                    pass
+
+                                if _arr[1] == "televisión":
+                                    _control[f"tv-{_nameOfDay}"].append(j)
+                                    data[f"total-tv-{_nameOfDay}"] = data[f"total-tv-{_nameOfDay}"] + 1
+                                    data["total-tv"] = data["total-tv"] + 1
+                                    pass
+
+                                if _arr[1] == "redes sociales":
+                                    _control[f"social-network-{_nameOfDay}"].append(j)
+                                    data[f"total-social-network-{_nameOfDay}"] = data[f"total-social-network-{_nameOfDay}"] + 1
+                                    data["total-social-network"] = data["total-social-network"] + 1
+                                    pass
+
+                                # Counter ++
+                                data["total"] = data["total"] + 1
+                        except:
+                            pass
+        except:
+            pass
+
+        # Calculate AVG
+        for i in self.tiempo.diasDeLaSemana:
+            total = len(_control[i])
+
+            try:
+                sum = data[f"total-faptime-{i}"]
+                data[f"avg-faptime-{i}"] = round(sum/total, 2)
+            except:
+                pass
+
+            try:
+                sum = data[f"total-tv-{i}"]
+                data[f"avg-tv-{i}"] = round(sum/total, 2)
+            except:
+                pass
+
+            try:
+                sum = data[f"total-leisure-{i}"]
+                data[f"avg-leisure-{i}"] = round(sum/total, 2)
+            except:
+                pass
+
+            try:
+                sum = data[f"total-social-network-{i}"]
+                data[f"avg-social-network-{i}"] = round(sum/total, 2)
+            except:
+                pass
+
+        return data
+
 
     def getSumaryOfDrugs(self, path):
         """

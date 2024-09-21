@@ -27,6 +27,8 @@ FEMPUTADORA:
 -> Femputadora : pregunta quien soy?
 -> preguntar a femputadora por el desperdicio del tiempo.
 
+-> Mirar soluciones de los try catch en calculos de femputadora ejemplo: sumaryALLLeisureTime24H
+
 
 -> Hacer que la pregunta (Femputadora): que deberia de hacer? que deberia hago con mi vida? 
 Diga el top de cosas que se hacen de todos los años.

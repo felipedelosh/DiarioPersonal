@@ -1631,6 +1631,8 @@ class Controladora:
             return self.drugs_information()
         elif code == "sleep_information()":
             return self.sleep_information()
+        elif code == "lost_time_information()":
+            return self.lost_time_information()
         elif code == "help()":
             return self.help_femputadora()
         
@@ -1814,15 +1816,60 @@ class Controladora:
 
         
         if _data:
-            # 
-
-
-
-            # PUT RICH INFORMATION
             data = data + f"\nTotal horas de sueño registradas: {_data["total"]}\n\n"
 
         if _count_years == 0:
             data = data + "No Tengo Información en mi sistema sobre tus horas de sueño."
+        elif _count_years == 1:
+            data = data + "Solo tengo la información de un año."
+        elif _count_years > 1:
+            data = data + "En " + str(_count_years) + " años."
+        
+        return data
+    
+
+    def lost_time_information(self):
+        """
+        Get information about:
+        1 - FAP
+        2 - wacth TV
+        3 - leisure time
+        4 - social network
+        """
+        path = self.rutaDelProyecto + "\\DATA\\DISTRIBUCIONTIEMPO\\TIEMPODIARIO"
+        years = self.controladoraCarpetas.listALLFolderInPath(path)
+        _count_years = 0
+
+        data = "Está es la información de tu tiempo desperdiciado de tu vida:\n"
+        _data = {}
+        _data["total"] = 0
+
+        for i in years:
+            try:
+                if int(i) > 0:
+                    data = data + f"\npara el año {i}:\n"
+                    _p = path + "\\" + str(i)
+                    _d = self.controladoraProcesamientoDeDatos.sumaryALLLeisureTime24H(_p)
+                    _data["total"] = _data["total"] + _d["total"] # count of all hours register in all years
+
+                    # Get information peer week
+                    # FAPTIME
+                    data = data + "Tiempo perdido en masturbación:\n"
+                    for t in self.tiempo.diasDeLaSemana:
+                        data = data + f"Los {t} hay registradas :{_d[f"total-faptime-{t}"]} Horas.\n"
+
+                    data = data + f"\nEl total de horas que la pasaste masturbandote fue: {_d["total-faptime"]}\n\n"
+                    
+                    _count_years = _count_years + 1
+            except:
+                pass
+
+        
+        if _data:
+            data = data + f"\nTotal horas de ocio registradas: {_data["total"]}\n\n"
+
+        if _count_years == 0:
+            data = data + "No Tengo Información en mi sistema sobre tus horas desperdiciadas."
         elif _count_years == 1:
             data = data + "Solo tengo la información de un año."
         elif _count_years > 1:
