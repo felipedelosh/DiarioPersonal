@@ -15,83 +15,39 @@ class ControladoraCarpetas(object):
         self.rutaDelProyecto = rutaDelProyecto
 
     def crearYVerificarCarpetas(self):
-        if not os.path.isdir(self.rutaDelProyecto+"\\DATA"): # No existe la carpera creelas
-            os.mkdir(self.rutaDelProyecto+"\\DATA")
+        carpetas = [
+            "DATA",
+            "DATA\\DIARIO", 
+            f"DATA\\DIARIO\\{self.tiempo.año()}",
+            "DATA\\DREAMS",
+            f"DATA\\DREAMS\\{self.tiempo.año()}",
+            "DATA\\PEOPLE",
+            "DATA\\SENTIMIENTOS",
+            f"DATA\\SENTIMIENTOS\\{self.tiempo.año()}",
+            "DATA\\NOTAS",
+            "DATA\\RESULTADOANUAL",
+            "DATA\\ACTIVIDADES",
+            f"DATA\\ACTIVIDADES\\{self.tiempo.año()}",
+            "DATA\\ECONOMIA",
+            f"DATA\\ECONOMIA\\{self.tiempo.año()}",
+            "DATA\\ECONOMIA\\CAJA",
+            "DATA\\DISTRIBUCIONTIEMPO",
+            "DATA\\DISTRIBUCIONTIEMPO\\TIEMPODIARIO",
+            f"DATA\\DISTRIBUCIONTIEMPO\\TIEMPODIARIO\\{self.tiempo.año()}",
+            "DATA\\DISTRIBUCIONTIEMPO\\TIEMPODIARIO\\HORARIO",
+            f"DATA\\DISTRIBUCIONTIEMPO\\TIEMPODIARIO\\HORARIO\\{self.tiempo.año()}",
+            "DATA\\PERFIL",
+            "DATA\\NEURONAS",
+            "DATA\\USOS",
+            "DATA\\DRUGS",
+            f"DATA\\DRUGS\\{self.tiempo.año()}",
+            "DATA\\WORK"
+        ]
 
-        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\DIARIO"): # No existe la carpera creelas
-            os.mkdir(self.rutaDelProyecto+"\\DATA\\DIARIO")
-
-        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\DIARIO\\"+str(self.tiempo.año())): # No existe la carpera creelas
-            os.mkdir(self.rutaDelProyecto+"\\DATA\\DIARIO\\"+str(self.tiempo.año()))
-
-        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\DREAMS"): # No existe la carpera creelas
-            os.mkdir(self.rutaDelProyecto+"\\DATA\\DREAMS")
-
-        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\DREAMS\\"+str(self.tiempo.año())): # No existe la carpera creelas
-            os.mkdir(self.rutaDelProyecto+"\\DATA\\DREAMS\\"+str(self.tiempo.año()))
-
-        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\PEOPLE"): # No existe la carpera creelas
-            os.mkdir(self.rutaDelProyecto+"\\DATA\\PEOPLE")
-
-        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\SENTIMIENTOS"): # No existe la carpera creelas
-            os.mkdir(self.rutaDelProyecto+"\\DATA\\SENTIMIENTOS")
-
-        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\SENTIMIENTOS\\"+str(self.tiempo.año())): # No existe la carpera creelas
-            os.mkdir(self.rutaDelProyecto+"\\DATA\\SENTIMIENTOS\\"+str(self.tiempo.año()))
-
-        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\NOTAS"): # No existe la carpera creelas
-            os.mkdir(self.rutaDelProyecto+"\\DATA\\NOTAS")
-
-        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\RESULTADOANUAL"): # No existe la carpera creelas
-            os.mkdir(self.rutaDelProyecto+"\\DATA\\RESULTADOANUAL")
-
-        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\ACTIVIDADES"): # No existe la carpera creelas
-            os.mkdir(self.rutaDelProyecto+"\\DATA\\ACTIVIDADES")
-
-        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\ACTIVIDADES\\"+str(self.tiempo.año())): # No existe la carpera creelas
-            os.mkdir(self.rutaDelProyecto+"\\DATA\\ACTIVIDADES\\"+str(self.tiempo.año()))
-
-        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\ECONOMIA"): # No existe la carpera creelas
-            os.mkdir(self.rutaDelProyecto+"\\DATA\\ECONOMIA")
-
-        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\ECONOMIA\\"+str(self.tiempo.año())): # No existe la carpera creelas
-            os.mkdir(self.rutaDelProyecto+"\\DATA\\ECONOMIA\\"+str(self.tiempo.año()))
-
-        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\ECONOMIA\\CAJA"): # No existe la carpera creelas
-            os.mkdir(self.rutaDelProyecto+"\\DATA\\ECONOMIA\\CAJA")
-
-        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\DISTRIBUCIONTIEMPO"): # No existe la carpera creelas
-            os.mkdir(self.rutaDelProyecto+"\\DATA\\DISTRIBUCIONTIEMPO")
-
-        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\DISTRIBUCIONTIEMPO\\TIEMPODIARIO"): # No existe la carpera creelas
-            os.mkdir(self.rutaDelProyecto+"\\DATA\\DISTRIBUCIONTIEMPO\\TIEMPODIARIO")
-
-        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\DISTRIBUCIONTIEMPO\\TIEMPODIARIO\\"+str(self.tiempo.año())): # No existe la carpera creelas
-            os.mkdir(self.rutaDelProyecto+"\\DATA\\DISTRIBUCIONTIEMPO\\TIEMPODIARIO\\"+str(self.tiempo.año()))
-
-        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\DISTRIBUCIONTIEMPO\\TIEMPODIARIO\\HORARIO"): # No existe la carpera creelas
-            os.mkdir(self.rutaDelProyecto+"\\DATA\\DISTRIBUCIONTIEMPO\\TIEMPODIARIO\\HORARIO")
-
-        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\DISTRIBUCIONTIEMPO\\TIEMPODIARIO\\HORARIO\\"+str(self.tiempo.año())): # No existe la carpera creelas
-            os.mkdir(self.rutaDelProyecto+"\\DATA\\DISTRIBUCIONTIEMPO\\TIEMPODIARIO\\HORARIO\\"+str(self.tiempo.año()))
-
-        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\PERFIL"): # No existe la carpera creelas
-            os.mkdir(self.rutaDelProyecto+"\\DATA\\PERFIL")
-
-        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\NEURONAS"): # No existe la carpera creelas
-            os.mkdir(self.rutaDelProyecto+"\\DATA\\NEURONAS")
-        
-        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\USOS"): # No existe la carpera creelas
-            os.mkdir(self.rutaDelProyecto+"\\DATA\\USOS")
-
-        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\DRUGS"): # No existe la carpera creelas
-            os.mkdir(self.rutaDelProyecto+"\\DATA\\DRUGS")
-
-        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\DRUGS\\"+str(self.tiempo.año())): # No existe la carpera creelas
-            os.mkdir(self.rutaDelProyecto+"\\DATA\\DRUGS\\"+str(self.tiempo.año()))
-
-        if not os.path.isdir(self.rutaDelProyecto+"\\DATA\\WORK"): # i don't exists: create it.
-            os.mkdir(self.rutaDelProyecto+"\\DATA\\WORK")
+        for carpeta in carpetas:
+            ruta_completa = os.path.join(self.rutaDelProyecto, carpeta)
+            if not os.path.isdir(ruta_completa):
+                os.mkdir(ruta_completa)
 
 
     def saveDiaryPage(self, path, txt):
