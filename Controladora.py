@@ -1843,6 +1843,10 @@ class Controladora:
         data = "Está es la información de tu tiempo desperdiciado de tu vida:\n"
         _data = {}
         _data["total"] = 0
+        _fatime = False
+        _tv = False
+        _leisure = False
+        _social_network = False
 
         for i in years:
             try:
@@ -1852,14 +1856,48 @@ class Controladora:
                     _d = self.controladoraProcesamientoDeDatos.sumaryALLLeisureTime24H(_p)
                     _data["total"] = _data["total"] + _d["total"] # count of all hours register in all years
 
-                    # Get information peer week
-                    # FAPTIME
                     data = data + "Tiempo perdido en masturbación:\n"
                     for t in self.tiempo.diasDeLaSemana:
-                        data = data + f"Los {t} hay registradas :{_d[f"total-faptime-{t}"]} Horas.\n"
+                        try:
+                            data = data + f"Los {t} hay registradas :{_d[f"total-faptime-{t}"]} Horas.\n"
+                            _fatime = True
+                        except:
+                            pass
+                    if _fatime:
+                        data = data + f"\nEl total de horas que la pasaste masturbandote fue: {_d["total-faptime"]}\n\n"
 
-                    data = data + f"\nEl total de horas que la pasaste masturbandote fue: {_d["total-faptime"]}\n\n"
-                    
+                    data = data + "\nTiempo perdido en televisión:\n"
+                    for t in self.tiempo.diasDeLaSemana:
+                        try:
+                            data = data + f"Los {t} hay registradas :{_d[f"total-tv-{t}"]} Horas.\n"
+                            _tv = True
+                        except:
+                            pass
+                    if _tv:
+                        data = data + f"\nEl total de horas que la pasaste en frente de la TV fue: {_d["total-tv"]}\n\n"
+
+
+                    data = data + "\nTiempo perdido en redes sociales:\n"
+                    for t in self.tiempo.diasDeLaSemana:
+                        try:
+                            data = data + f"Los {t} hay registradas: {_d[f"total-social-network-{t}"]} Horas.\n"
+                            _social_network = True
+                        except:
+                            pass
+                    if _social_network:
+                        data = data + f"\nEl total de horas que la pasaste en las redes sociales fue {_d["total-social-network"]}\n\n"
+
+
+                    data = data + "\nTiempo perdido en ocio:\n"
+                    for t in self.tiempo.diasDeLaSemana:
+                        try:
+                            data = data + f"Los {t} hay registradas: {_d[f"total-leisure-{t}"]} Horas.\n"
+                            _leisure = True
+                        except:
+                            pass
+                    if _leisure:
+                        data = data + f"El total de horas de ocio registradas fue: {_d["total-leisure"]}\n\n"
+
                     _count_years = _count_years + 1
             except:
                 pass

@@ -27,6 +27,9 @@ FEMPUTADORA:
 -> Femputadora : pregunta quien soy?
 -> preguntar a femputadora por el desperdicio del tiempo.
 
+-> BTN para limpar el Chatbot
+-> BTN para guardar el Chatbot en .txt
+
 -> Mirar soluciones de los try catch en calculos de femputadora ejemplo: sumaryALLLeisureTime24H
 
 

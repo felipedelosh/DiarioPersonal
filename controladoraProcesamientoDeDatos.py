@@ -346,25 +346,21 @@ class ControladoraProcesamientoDeDatos(object):
                                     _control[f"faptime-{_nameOfDay}"].append(j)
                                     data[f"total-faptime-{_nameOfDay}"] = data[f"total-faptime-{_nameOfDay}"] + 1
                                     data["total-faptime"] = data["total-faptime"] + 1
-                                    pass
 
                                 if _arr[1] == "ocio":
                                     _control[f"leisure-{_nameOfDay}"].append(j)
                                     data[f"total-leisure-{_nameOfDay}"] = data[f"total-leisure-{_nameOfDay}"] + 1
                                     data["total-leisure"] = data["total-leisure"] + 1
-                                    pass
 
                                 if _arr[1] == "televisión":
                                     _control[f"tv-{_nameOfDay}"].append(j)
                                     data[f"total-tv-{_nameOfDay}"] = data[f"total-tv-{_nameOfDay}"] + 1
                                     data["total-tv"] = data["total-tv"] + 1
-                                    pass
 
                                 if _arr[1] == "redes sociales":
                                     _control[f"social-network-{_nameOfDay}"].append(j)
                                     data[f"total-social-network-{_nameOfDay}"] = data[f"total-social-network-{_nameOfDay}"] + 1
                                     data["total-social-network"] = data["total-social-network"] + 1
-                                    pass
 
                                 # Counter ++
                                 data["total"] = data["total"] + 1
