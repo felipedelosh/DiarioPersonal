@@ -9,12 +9,15 @@ Este es mi diario personal, aquí están escritos mis más intimos recuerdos, mi
 <br><br>
 Nota 01: se advierte que lo escrito aquí no tiene censura alguna.
 <br>
-Nota 02: se advierte que el codigo está hecho por un niño que apenas estaba aprendiendo a programar hasta el día de hoy un adulto que apenas se está adentrando al mundo del codigo.
+Nota 02: se advierte que el código está hecho por un niño que apenas estaba aprendiendo a programar hasta el día de hoy un adulto que apenas se está adentrando al mundo del código.
 
 ## :hammer:Funcionalidades del proyecto
 
 - `Funcionalidad 1`: Guardar/Cargar paginas de diario.<br>
 - `Funcionalidad 1a`: Guardar/Cargar paginas usando un sistema de cifrado.<br>
+
+![Cash](docs/diary-write-read.png)
+
 - `Funcionalidad 1b`: .env >> sha256<br>
 - `Funcionalidad 1c`: Guardar/Cargar paginas de diario de sueños.<br>
 - `Funcionalidad 1d`: Guardar/Cargar relaciones interpersonales.<br>
