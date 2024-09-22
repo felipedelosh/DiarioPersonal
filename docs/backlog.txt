@@ -25,7 +25,9 @@
 FEMPUTADORA:
 
 -> Femputadora : pregunta quien soy?
--> preguntar a femputadora por el desperdicio del tiempo.
+-> cómo distribuyes tu tiempo entre trabajo, descanso y vida social.
+-> analizar tus gastos y proporcionarte sugerencias.
+-> pedirle al chatbot que te dé un resumen diario o semanal de tus actividades.
 
 -> BTN para limpar el Chatbot
 -> BTN para guardar el Chatbot en .txt
