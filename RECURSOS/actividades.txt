@@ -9,6 +9,7 @@ dormir
 deporte
 estudiar
 enseñar
+escribir
 FAPTIME
 familia
 fiesta

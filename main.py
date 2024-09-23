@@ -33,6 +33,7 @@ class TimeHackingLoko():
         self.imgBtnAgenda = self.controladora.returnIMGRnBtnRousourceX("calendary")
         self.imgBtnNotas = self.controladora.returnIMGRnBtnRousourceX("notes")
         self.imgBtnEconimia = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/contabilidad.gif')
+        self.imgBtnSearchTAccounts = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/searchTAccounts.gif')
         self.imgBtnResultadoAnual = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/resultadoAnual.gif')
         self.imgFemputadora = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/femputadora.gif')
         #self.imgBtnRegistoEmociones = self.controladora.retrunIMGBtnFeelings()
@@ -259,11 +260,12 @@ class TimeHackingLoko():
     def launchEconomyMenu(self):
         t = Toplevel()
         t.title("Menú Economia...")
-        t.geometry("500x400")
-        canvas = Canvas(t, height=400, width=500)
+        t.geometry("500x500")
+        canvas = Canvas(t, height=500, width=500)
         canvas.place(x=0, y=0)
         canvas.create_line(0, 130, 500, 130)
-        canvas.create_line(0, 250, 500, 250)    
+        canvas.create_line(0, 250, 500, 250)   
+        canvas.create_line(0, 370, 500, 370)    
         lblTAccount = Label(canvas, text="Cuetas T\n\nIngresa aqui tus gastos personales en:\nIngresos: el dinero entrante\nEgresos: el dinero saliente")
         lblTAccount.place(x=220, y=20)
         btnTAccount = Button(canvas, image=self.imgTAccount, command=self.lanzarInterfaceEconomia)
@@ -276,6 +278,10 @@ class TimeHackingLoko():
         lblBox.place(x=220, y=260)
         btnBox = Button(canvas, image=self.imgBox, command=self.subInterfacebalaceDeCajas)
         btnBox.place(x=60, y=260)
+        lblSearchTAccountsTitle = Label(canvas, text="Buscar:\n\nBusqueda dentro de las cuentas T")
+        lblSearchTAccountsTitle.place(x=220, y=380)
+        btnSearchTAccounts = Button(canvas, image=self.imgBtnSearchTAccounts, command=self.launchFilterTAccounts)
+        btnSearchTAccounts.place(x=60, y=380)
 
         
     def launchInterfaceGraphics(self):
