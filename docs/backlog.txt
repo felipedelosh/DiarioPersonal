@@ -1,5 +1,9 @@
 UPDATE manual del usuario.
 
+-> Configuración: editar el listado de actividades.
+-> Configuración: editar el listado de emociones.
+-> Configuración: editar el listado de sustancias psicoactivas.
+
 * todos los botones de los lectores tienen que tener el mismo tamaño.
 
 * Filtrar por rango de fechas en el calendario.
