@@ -20,8 +20,6 @@ UPDATE manual del usuario.
 
 -> Poner tambien al final la hora del horario.
 
--> Cuando se busca un concepto economico usar lower case.
-
 -> BUG en entradas de dinero... (Se pintan un año por detras.)
 
 -> Agregar un listado de semanas de vida gastadas. (Calendario desde el nacimiento hasta hoy +- 70 años en semanas.)
