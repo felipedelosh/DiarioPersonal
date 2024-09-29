@@ -44,6 +44,22 @@ FEMPUTADORA:
 
 -> Mirar soluciones de los try catch en calculos de femputadora ejemplo: sumaryALLLeisureTime24H
 
+-> Trabajo:
+
+	* Se tiene que iniciar con 2 opciones: crear nuevo trabajo.
+										   continuar trabajo.
+
+	* El trabajo tiene que estar conprendido por FECHA YYYY-MM-DD Label.
+	* El nombre del PO tiene que ser siempre visible.
+	* Tiene que existir un Text Area para escirbir que se hizo en esa iteración.
+	* Tiene que existir una entrada de texto que nos deje ingresar la cantidad de horas trabajadas (con opción de feracción por . o ,)
+	* Se tiene que mostrar todos los incrementos anteriores.
+	* Se tiene que mostrar el costo total y el costo por hora.
+	* Posibilidad de cerrar el proyecto y generar factura una vez terminado el protecto.
+	* Crear archivo que se llame estado.
+
+
+-> Hacer que las cajas se pinten a lo largo de los años.
 
 -> Hacer que la pregunta (Femputadora): que deberia de hacer? que deberia hago con mi vida? 
 Diga el top de cosas que se hacen de todos los años.
