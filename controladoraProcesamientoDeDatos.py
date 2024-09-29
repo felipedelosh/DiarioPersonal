@@ -718,7 +718,7 @@ class ControladoraProcesamientoDeDatos(object):
                                     _rowTAccount = k.split(";")
                                     
                                     # Save only by keyword
-                                    if keyword in _rowTAccount[0]:
+                                    if str(keyword).lower() in str(_rowTAccount[0]).lower():
                                         _data["data"].append((_codename, _rowTAccount[1], _rowTAccount[2]))
 
                                         _data["in"] = _data["in"] + int(_rowTAccount[1])
