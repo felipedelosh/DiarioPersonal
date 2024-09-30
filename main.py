@@ -2073,7 +2073,7 @@ class TimeHackingLoko():
     """
     def linkManualDelUsuario(self):
         """
-        Se in voca la ventana de emergencia con el link del pdf del manual
+        Se invoca la ventana de emergencia con el link del pdf del manual
         """
         link = "https://github.com/felipedelosh/DiarioPersonal/blob/master/RECURSOS/manual/Manual%20del%20Usuario.pdf"
         self.ventanaEnmergenteDeAlerta("Manual del usuario", link)
