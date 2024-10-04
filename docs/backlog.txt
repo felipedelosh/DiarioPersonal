@@ -13,6 +13,9 @@ UPDATE manual del usuario.
 
 * Filtrar por rango de fechas en el calendario.
 
+-> Agregar ALL en las gráficas de sentimientos.
+-> Agregar ALL en las gráficas de invertsión de tiempo 24H.
+
 * Graficas economia:
  -> Grafico de barras por todos  los años. 2 Barras por año (Ingreso Vs Egreso) así para todos los años.
 	Grafico x,y >> Crece hacia Y... dependiendo del monto max en Y
