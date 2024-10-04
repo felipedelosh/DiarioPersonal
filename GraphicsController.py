@@ -261,7 +261,7 @@ class GraphicsController:
         """
         _simbolikSep = self.getSimbolikPathSeparator(projectPath)
 
-        id = str(random.randint(0, 52))
+        id = str(random.randint(0, 78))
         _pathIMG = f"{projectPath}{_simbolikSep}RECURSOS{_simbolikSep}img{_simbolikSep}bg{_simbolikSep}{id}.gif"
 
         return PhotoImage(file=_pathIMG)
@@ -301,7 +301,7 @@ class GraphicsController:
 
     def getSimbolikPathSeparator(self, projectPath):
         """
-        In Some SO usages / or \ to separates folder PATH
+        In Some SO usages slash or back-slash to separates folder PATH
         """
         _simbolikSep = "\\"
 
