@@ -22,7 +22,7 @@ class TimeHackingLoko():
         self.controladora = Controladora()
         print("Load Controler: step 2 of 3")
         self.pantalla = Tk() # Esta es la pantalla principal. 
-        self.tela = Canvas(self.pantalla, width=640, height=480) # Aqui se van a pintar los elementos en pantalla
+        self.tela = Canvas(self.pantalla, width=self._withResolution, height=self._heigthResolution) # Aqui se van a pintar los elementos en pantalla
         """Se invocan las imagenes"""
         self.imgFondo = self.controladora.retornarRutaImagenDeFondo()
         print("Load Images: step 3 of 3")
