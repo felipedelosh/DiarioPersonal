@@ -47,6 +47,10 @@ class TimeHackingLoko():
         self.imgEconomyReport = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/economyReport.gif')
         self.imgBox = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/box.gif')
         self.imgBtnConfiguracion = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/configuracion.gif')
+        self.imgBtnConfiguracionEditActivities = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/editActivities.gif')
+        self.imgBtnConfiguracionEditFeelings = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/editFeelings.gif')
+        self.imgBtnConfiguracionEditDrugs = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/editDrugs.gif')
+        self.imgBtnConfiguracionEditPassword = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/editPassword.gif')
         self.imgBtnAyuda = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/ayuda.gif')
         self.imageIcoPersona = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/ico/persona.png')
         self.imgDRUGS = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/weed.gif')
@@ -318,21 +322,47 @@ class TimeHackingLoko():
         lblGraphicTimeLife.place(x=_w*0.4, y=_h*0.8)
 
     def launchInterfaceConfig(self):
-        _w = 400
-        _h = 400
         t = Toplevel()
-        t.title("Config")
+        t.title("Interface diario.")
+        _w = 800 
+        _h = 400
         t.geometry(f"{_w}x{_h}")
         canvas = Canvas(t, width=_w, height=_h)
         canvas.place(x=0, y=0)
+        canvas.create_line(0, _h*0.32, _w, _h*0.32)
+        canvas.create_line(0, _h*0.62, _w, _h*0.62)
+        canvas.create_line(_w/2, 0, _w/2, _h)
+        # Profile
+        lblProfile = Label(canvas, text="Perfíl\n\n\nRellena Aquí tu información personal")
+        lblProfile.place(x=180, y=30)
         btnProfile = Button(canvas, image=self.imgProfile, command=self.subInterfacePerfil)
-        btnProfile.place(x=_w*0.1, y=_h*0.02)
-        lblProfile = Label(canvas, text="Perfil\n\nRellena tu infomación personal")
-        lblProfile.place(x=_w*0.4, y=_h*0.02)
+        btnProfile.place(x=_w * 0.0875, y=_h * 0.05)
+        # Edit Activities
+        lblEditActivities = Label(canvas, text="Editar Lista de Actividades\n\n\nAñade o modifica las actividades.")
+        lblEditActivities.place(x=180, y=140)
+        btnEditActivities = Button(canvas, image=self.imgBtnConfiguracionEditActivities)
+        btnEditActivities.place(x=_w * 0.0875, y=_h * 0.35)
+        # Edit Feelings
+        lblEditFeelings = Label(canvas, text="Editar Lista de Sentimientos\n\n\nAñade o modifica los sentimientos.")
+        lblEditFeelings.place(x=180, y=260)
+        btnEditFeelings = Button(canvas, image=self.imgBtnConfiguracionEditFeelings)
+        btnEditFeelings.place(x=_w * 0.0875, y=_h * 0.65)
+        # Edit Drugs
+        lblEditDrugs = Label(canvas, text="Editar Lista de Drogas\n\n\nAñade o modifica la lista de sustancias\n psicoactivas.")
+        lblEditDrugs.place(x=_w * 0.7, y=_h * 0.05)
+        btnEditDrugs = Button(canvas, image=self.imgBtnConfiguracionEditDrugs)
+        btnEditDrugs.place(x=_w * 0.55, y=_h * 0.05)
+        # Password
+        lblSetPassword = Label(canvas, text="Contraseña\n\n\nGestiona aqui tu password.")
+        lblSetPassword.place(x=_w * 0.7, y=_h * 0.35)
+        btnSetPassword = Button(canvas, image=self.imgBtnConfiguracionEditPassword)
+        btnSetPassword.place(x=_w * 0.55, y=_h * 0.35)
+        # Help
+        lblHelp = Label(canvas, text="Ayuda\n\n\nManual del Usuario")
+        lblHelp.place(x=_w * 0.7, y=_h * 0.65)
         btnHelp = Button(canvas, image=self.imgBtnAyuda, command=self.lanzarInterfaceAyuda)
-        btnHelp.place(x=_w*0.1, y=_h*0.40)
-        lblHelp = Label(canvas, text="Ayuda\n\nManual del Usuario.")
-        lblHelp.place(x=_w*0.4, y=_h*0.42)
+        btnHelp.place(x=_w * 0.55, y=_h * 0.65)
+        
 
     def lanzarPantallaDiario(self):
         interfaceDiario = Toplevel()
