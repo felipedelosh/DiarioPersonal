@@ -340,7 +340,7 @@ class TimeHackingLoko():
         # Edit Activities
         lblEditActivities = Label(canvas, text="Editar Lista de Actividades\n\n\nAñade o modifica las actividades.")
         lblEditActivities.place(x=180, y=140)
-        btnEditActivities = Button(canvas, image=self.imgBtnConfiguracionEditActivities)
+        btnEditActivities = Button(canvas, image=self.imgBtnConfiguracionEditActivities, command= lambda : self.launchSubInterfaceEditResource("actividades.txt"))
         btnEditActivities.place(x=_w * 0.0875, y=_h * 0.35)
         # Edit Feelings
         lblEditFeelings = Label(canvas, text="Editar Lista de Sentimientos\n\n\nAñade o modifica los sentimientos.")
@@ -362,6 +362,52 @@ class TimeHackingLoko():
         lblHelp.place(x=_w * 0.7, y=_h * 0.65)
         btnHelp = Button(canvas, image=self.imgBtnAyuda, command=self.lanzarInterfaceAyuda)
         btnHelp.place(x=_w * 0.55, y=_h * 0.65)
+
+
+    def launchSubInterfaceEditResource(self, resource):
+        # WIP
+        t = Toplevel()
+        t.title(resource)
+        t.geometry("300x400")
+        main_frame = Frame(t)
+        main_frame.pack(fill=BOTH, expand=True)
+        canvas = Canvas(main_frame)
+        canvas.config(width=250, height=350) 
+        canvas.pack(side=LEFT, fill=BOTH, expand=True)
+        scrollbar = Scrollbar(main_frame, orient="vertical", command=canvas.yview)
+        scrollbar.pack(side=RIGHT, fill=Y)
+        canvas.configure(yscrollcommand=scrollbar.set)
+        frame = Frame(canvas)
+        canvas.create_window((0, 0), window=frame, anchor="nw")
+
+        activities = [
+            "alimentación", "bicicleta", "buscar trabajo", "caminar", "compras", "clase", "construir", "dormir",
+            "deporte", "estudiar", "enseñar", "escuchar musica", "escribir", "FAPTIME", "familia", "fiesta",
+            "higiene personal", "hospital", "iglesia", "internet", "ocio", "leer", "mascota", "moto", "novia",
+            "quehaceres domésticos", "peliculas", "pagos", "programar", "redes sociales", "reunión", "sexo",
+            "teatro", "televisión", "trabajar", "viajar", "video juegos", "vida social"
+        ]
+
+    
+        for iteratorItem in activities:
+            row_frame = Frame(frame)  
+            row_frame.pack(fill=X, padx=10, pady=5)
+
+            entry = Entry(row_frame)
+            entry.insert(0, iteratorItem)
+            entry.pack(side=LEFT, fill=X, expand=True, padx=(0, 10))
+
+            delete_button = Button(row_frame, text="Eliminar", command=lambda e=entry: e.pack_forget())
+            delete_button.pack(side=RIGHT)
+
+        frame.update_idletasks() 
+        canvas.config(scrollregion=canvas.bbox("all"))
+
+        button_frame = Frame(t)
+        button_frame.pack(side=BOTTOM, fill=X)
+
+        save_button = Button(button_frame, text="GUARDAR")
+        save_button.pack(pady=10)
         
 
     def lanzarPantallaDiario(self):
