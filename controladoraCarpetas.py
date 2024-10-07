@@ -17,6 +17,7 @@ class ControladoraCarpetas(object):
     def crearYVerificarCarpetas(self):
         carpetas = [
             "DATA",
+            "DATA\\RESOURCES",
             "DATA\\DIARIO", 
             f"DATA\\DIARIO\\{self.tiempo.año()}",
             "DATA\\DREAMS",
@@ -236,7 +237,7 @@ class ControladoraCarpetas(object):
     def listarAñosRegistradosDistribucionDeTiempo(self):
         """
         Retorna ['año', 'año', 'año' ...]
-        de los años registrados en DATA\DISTRIBUCIONTIEMPO\TIEMPODIARIO
+        de los años registrados en DATA/DISTRIBUCIONTIEMPO/TIEMPODIARIO
         """
         años = []
 
