@@ -365,7 +365,6 @@ class TimeHackingLoko():
 
 
     def launchSubInterfaceEditResourceX(self, resourceX):
-        # WIP
         t = Toplevel()
         t.title(resourceX)
         t.geometry("300x400")
