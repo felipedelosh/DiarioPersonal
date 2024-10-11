@@ -17,6 +17,8 @@ UPDATE manual del usuario.
 -> Agregar ALL en las gráficas de sentimientos.
 -> Agregar ALL en las gráficas de invertsión de tiempo 24H.
 
+-> Estandarizar las graficas al el formato 3x2 y agregar semanas de vida.
+
 * Graficas economia:
  -> Grafico de barras por todos  los años. 2 Barras por año (Ingreso Vs Egreso) así para todos los años.
 	Grafico x,y >> Crece hacia Y... dependiendo del monto max en Y
