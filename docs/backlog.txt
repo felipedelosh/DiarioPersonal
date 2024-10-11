@@ -1,6 +1,7 @@
 UPDATE manual del usuario.
 
 -> Configuración: editar el listado de actividades.
+* Desligar Controladora.py: def cargarActividades(self):
 -> Configuración: editar el listado de emociones.
 -> Configuración: editar el listado de sustancias psicoactivas.
 -> Configuración: editar el password.
@@ -10,8 +11,6 @@ UPDATE manual del usuario.
 -> Grafica de semanas de vida (Consumir desde año de nacimiento de perfil).
 
 * todos los botones de los lectores tienen que tener el mismo tamaño.
-
-* Desligar Controladora.py: def cargarActividades(self):
 
 * Filtrar por rango de fechas en el calendario.
 
