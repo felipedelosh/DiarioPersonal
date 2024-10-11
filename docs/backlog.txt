@@ -11,6 +11,8 @@ UPDATE manual del usuario.
 
 * todos los botones de los lectores tienen que tener el mismo tamaño.
 
+* Desligar Controladora.py: def cargarActividades(self):
+
 * Filtrar por rango de fechas en el calendario.
 
 -> Agregar ALL en las gráficas de sentimientos.

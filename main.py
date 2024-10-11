@@ -425,9 +425,12 @@ class TimeHackingLoko():
         _txtRX = ""
         for i in arrData:
             if i.get() != "":
-                _txtRX = _txtRX + f"{i.get()}\n"
-        
-        print(_txtRX)
+                _txtRX = _txtRX + f"{str(i.get()).lstrip().rstrip()}\n"
+
+        if _txtRX.strip() != "" and self.controladora.updateActivities(_txtRX):
+            self.ventanaEnmergenteDeAlerta("Actualizado", "ACTIVIDADES GUARDADAS CON ÉXITO")
+        else:
+            self.ventanaEnmergenteDeAlerta("Error", "No se pudo guardar ni mierda")
 
 
     def lanzarPantallaDiario(self):

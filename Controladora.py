@@ -1187,6 +1187,12 @@ class Controladora:
         except:
             return "dormir\nalimentacion\nNada"
         
+    def updateActivities(self, activities):
+        """
+        Save "Activity1\nActivity1...\nActivityN" in DATA/RESORCE/activities.txt
+        """
+        return self.controladoraCarpetas.saveActivitiesList(activities)
+        
         
     def loadIndexOfActivity(self, activity):
         """

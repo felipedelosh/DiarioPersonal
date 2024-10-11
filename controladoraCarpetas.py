@@ -252,7 +252,7 @@ class ControladoraCarpetas(object):
 
     def getAllYearsOfDrugs(self):
         """
-        Return [YYYY, YYYY, YYYY] in DATA\DRUGS
+        Return [YYYY, YYYY, YYYY] in DATA/DRUGS
         """
         YYYY = []
         for i in scandir(f"{self.rutaDelProyecto}\\DATA\\DRUGS"):
@@ -325,6 +325,18 @@ class ControladoraCarpetas(object):
         except:
             return ['dormir', 'trabajar', 'deporte']
         
+
+    def saveActivitiesList(self, activities):
+        """
+        Update activites.txt in folder DATA/RESOURCES
+        """
+        try:
+            with open(f"{self.rutaDelProyecto}\\DATA\\RESOURCES\\activities.txt", "w", encoding="UTF-8") as f:
+                f.write(activities)
+            return True
+        except:
+            return False
+        
     def loadIndexOfActivity(self, activity):
         """
         Enter a activity:str and return the index # of this activity
@@ -361,7 +373,7 @@ class ControladoraCarpetas(object):
 
     def getAllDrugs(self):
         """
-        Load RECURSOS\drugs.txt and return all drugs
+        Load RECURSOS/drugs.txt and return all drugs
         """
         drugs = []
         try:
@@ -557,7 +569,7 @@ class ControladoraCarpetas(object):
 
     def getSimbolikPathSeparator(self):
         """
-        In Some SO usages / or \ to separates folder PATH
+        In Some SO usages slash or back Slash to separates folder PATH
         """
         _simbolikSep = "\\"
 
