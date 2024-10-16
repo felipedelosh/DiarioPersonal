@@ -71,7 +71,6 @@ class TimeHackingLoko():
         self.diaryPaginatorController = 0
         """Variables registro de sentimientos"""
         self.comboBoxSentimientosValor = StringVar()
-        self.sentimientos = self.controladora.controladoraCarpetas.cargarEstadosEmocionanes()
         """Variables de rendicion de cuentas"""
         self.comboBoxAño = StringVar() # Guarda el Año que se necesita
         self.comboBoxEconomiaDia = StringVar() # Guarda en que dia estamos o que dia se necesita
@@ -345,7 +344,7 @@ class TimeHackingLoko():
         # Edit Feelings
         lblEditFeelings = Label(canvas, text="Editar Lista de Sentimientos\n\n\nAñade o modifica los sentimientos.")
         lblEditFeelings.place(x=180, y=260)
-        btnEditFeelings = Button(canvas, image=self.imgBtnConfiguracionEditFeelings)
+        btnEditFeelings = Button(canvas, image=self.imgBtnConfiguracionEditFeelings, command= lambda : self.launchSubInterfaceEditResourceX("estadosEmocionales.txt"))
         btnEditFeelings.place(x=_w * 0.0875, y=_h * 0.65)
         # Edit Drugs
         lblEditDrugs = Label(canvas, text="Editar Lista de Drogas\n\n\nAñade o modifica la lista de sustancias\n psicoactivas.")
@@ -383,6 +382,10 @@ class TimeHackingLoko():
         _arrResourceX = []
         if resourceX == "actividades.txt":
             for i in self.controladora.cargarActividades():
+                _arrResourceX.append(i)
+
+        if resourceX == "estadosEmocionales.txt":
+            for i in self.controladora.loadFeelings():
                 _arrResourceX.append(i)
 
         _arrTxtResourceX = []
@@ -426,10 +429,19 @@ class TimeHackingLoko():
             if i.get() != "":
                 _txtRX = _txtRX + f"{str(i.get()).lstrip().rstrip()}\n"
 
-        if _txtRX.strip() != "" and self.controladora.updateActivities(_txtRX):
-            self.ventanaEnmergenteDeAlerta("Actualizado", "ACTIVIDADES GUARDADAS CON ÉXITO")
-        else:
-            self.ventanaEnmergenteDeAlerta("Error", "No se pudo guardar ni mierda")
+
+        if resource == "actividades.txt":
+            if _txtRX.strip() != "" and self.controladora.updateActivities(_txtRX):
+                self.ventanaEnmergenteDeAlerta("Actualizado", "ACTIVIDADES GUARDADAS CON ÉXITO")
+            else:
+                self.ventanaEnmergenteDeAlerta("Error", "No se pudo guardar ni mierda")
+
+
+        if resource == "estadosEmocionales.txt":
+            if _txtRX.strip() != "" and self.controladora.updateFeelings(_txtRX):
+                self.ventanaEnmergenteDeAlerta("Actualizado", "SENTIMIENTTOS GUARDADOS CON ÉXITO")
+            else:
+                self.ventanaEnmergenteDeAlerta("La cagaste!!!", "No se pudo guardar ni mierda")
 
 
     def lanzarPantallaDiario(self):
@@ -887,7 +899,7 @@ class TimeHackingLoko():
         lblComoTeSientesHoy = Label(interfaceSentimientos, text="Como te sientiste hoy: ")
         lblComoTeSientesHoy.place(x=20, y=50)
         comboBoxSentimientos = ttk.Combobox(interfaceSentimientos, state='readonly', textvariable=self.comboBoxSentimientosValor)
-        comboBoxSentimientos['values'] = self.sentimientos
+        comboBoxSentimientos['values'] = self.controladora.loadFeelings()
         comboBoxSentimientos.place(x=180, y=50)
         btnGuardarSentimiento = Button(interfaceSentimientos, text="Guardar", command=self.guardarSentimiento)
         btnGuardarSentimiento.place(x=400, y=50)

@@ -292,15 +292,26 @@ class ControladoraCarpetas(object):
 
     def cargarEstadosEmocionanes(self):
         """
-        Se retorna el contenido de  RECURSOS/estadosEmocionales.txt
-        En caso de error se retornan las emociones basicas
+        LOAD content of:DATA/RESOURCES/feelings.txt
+        LOAD content of:RECURSOS/estadosEmocionales.txt
+        DEFAULT: LOAD Basic list
         """
         try:
-            
+            emotions = []
+            with open(self.rutaDelProyecto+"\\DATA\\RESOURCES\\feelings.txt", 'r', encoding="UTF-8") as f:
+                for i in f.read().split("\n"):
+                    if str(i).strip() != "":
+                        emotions.append(i)
+                        
+            return emotions
+        except:
+            pass
+
+        try:
             estadosEmocionales = []
             f = open(self.rutaDelProyecto+"\\RECURSOS\\estadosEmocionales.txt", 'r', encoding="UTF-8")
             for i in f.read().split("\n"):
-                if i.split() != "":
+                if str(i).strip() != "":
                     estadosEmocionales.append(i)
             
             return estadosEmocionales
@@ -350,6 +361,19 @@ class ControladoraCarpetas(object):
             return True
         except:
             return False
+        
+
+    def saveFeelingsList(self, feelings):
+        """
+        Update estadosEmocionales.txt in folder DATA/RESOURCES
+        """
+        try:
+            with open(f"{self.rutaDelProyecto}\\DATA\\RESOURCES\\feelings.txt", "w", encoding="UTF-8") as f:
+                f.write(feelings)
+            return True
+        except:
+            return False
+
         
     def loadIndexOfActivity(self, activity):
         """

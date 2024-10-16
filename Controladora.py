@@ -1185,9 +1185,20 @@ class Controladora:
 
     def updateActivities(self, activities):
         """
-        Save "Activity1\nActivity1...\nActivityN" in DATA/RESORCE/activities.txt
+        UPDATE "Activity1\nActivity1...\nActivityN" in DATA/RESORCE/activities.txt
         """
         return self.controladoraCarpetas.saveActivitiesList(activities)
+    
+
+    def updateFeelings(self, feelings):
+        """
+        UPDATE "Feeling1\nFeeling1\n...FeelingN" in DATA/RESORCE/feelings.txt
+        """
+        return self.controladoraCarpetas.saveFeelingsList(feelings)
+    
+
+    def loadFeelings(self):
+        return self.controladoraCarpetas.cargarEstadosEmocionanes()
         
         
     def loadIndexOfActivity(self, activity):

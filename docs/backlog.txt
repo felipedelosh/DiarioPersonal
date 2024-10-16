@@ -1,9 +1,11 @@
 UPDATE manual del usuario.
 
--> Configuración: editar el listado de actividades.
--> Configuración: editar el listado de emociones.
+-> Configuración: agregar actividades.
+-> Configuración: agregar emociones.
 -> Configuración: editar el listado de sustancias psicoactivas.
 -> Configuración: editar el password.
+
+* Investigar para borrar del MAIN def lanzarInterfaceConfiguracion(self):
 
 -> Perfil: separar la fecha de nacimiento en YYYY MM DD tambien a nivel de archivo para pintar semanas de vida.
 
