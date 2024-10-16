@@ -613,7 +613,7 @@ class Controladora:
         el metodo de horario semanal 
         {actividad : %, actividad : %, ...}
         """
-        dataHorario = self.controladoraProcesamientoDeDatos.procesarDatosSemanalHorario(self.controladoraCarpetas.cargarActividades(), informacion)
+        dataHorario = self.controladoraProcesamientoDeDatos.procesarDatosSemanalHorario(self.cargarActividades(), informacion)
         # Se acualizan los colores para el grafico circular
         contador = 0
         for i in dataHorario:
@@ -1178,15 +1178,11 @@ class Controladora:
 
     def cargarActividades(self):
         """
-        Se carga toda la informacion contenida RECURSOS/actividades.txt
+        LOAD all information about User Activities or User Activities
         """
-        try:
-            ruta = self.rutaDelProyecto + "\\RECURSOS\\actividades.txt"
-            f = open(ruta, "r", encoding="UTF-8")
-            return f.read()
-        except:
-            return "dormir\nalimentacion\nNada"
+        return self.controladoraCarpetas.cargarActividades()
         
+
     def updateActivities(self, activities):
         """
         Save "Activity1\nActivity1...\nActivityN" in DATA/RESORCE/activities.txt

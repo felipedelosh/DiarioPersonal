@@ -382,9 +382,8 @@ class TimeHackingLoko():
         # LOAD RESORCEX
         _arrResourceX = []
         if resourceX == "actividades.txt":
-            for i in self.controladora.cargarActividades().split("\n"):
-                if str(i).strip() != "":
-                    _arrResourceX.append(i)
+            for i in self.controladora.cargarActividades():
+                _arrResourceX.append(i)
 
         _arrTxtResourceX = []
         _counter = 0
@@ -1004,7 +1003,7 @@ class TimeHackingLoko():
         AMPM = ""
         lblHr = [] # Aqui se van a guardar los labels que informan la hora
         actividades = [] # Aqui se van a guardas los combobox con actidades posibles 
-        actividadesPosibles = self.controladora.controladoraCarpetas.cargarActividades() # lista de actividades
+        actividadesPosibles = self.controladora.cargarActividades()
         strActividades = [] # Aqui se guardan los string var que van a gardar las actividades
 
         for i in range(0, 24):
@@ -1681,7 +1680,7 @@ class TimeHackingLoko():
         ...
         Luego se trata la matrix de actividades y se asigna en cargarHorarioAsignarActividad
         """
-        actividadesDeHorario = self.controladora.controladoraCarpetas.cargarActividades() # Controlar el indice del combo box y que no enten piratas
+        actividadesDeHorario = self.controladora.cargarActividades() # Controlar el indice del combo box y que no enten piratas
         informacion = self.controladora.cargarHorario() # Se carga la informacion del horario
 
 
