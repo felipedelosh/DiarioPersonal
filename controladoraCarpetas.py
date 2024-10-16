@@ -310,9 +310,23 @@ class ControladoraCarpetas(object):
 
     def cargarActividades(self):
         """
-        Se retorna el contenido de RECURSOS/actividades.txt
-        en caso de error se retornan las basicas
+        GET all activities in:
+        DATA/RESOURCES/activities.txt
+        or default:
+        RECURSOS/actividades.txt
         """
+        try:
+            activities = []
+
+            with open(self.rutaDelProyecto+"\\DATA\\RESOURCES\\activities.txt", 'r', encoding="UTF-8") as f:
+                for i in f.readlines():
+                    if i.split() != "":
+                        activities.append(i)
+
+            return activities
+        except:
+            pass
+
         try:
             actividades = []
             f = open(self.rutaDelProyecto+"\\RECURSOS\\actividades.txt", 'r', encoding="UTF-8")
