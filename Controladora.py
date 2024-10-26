@@ -1251,6 +1251,17 @@ class Controladora:
         except:
             return {"No data":0.5, "No Data":0.5}
         
+    def loadDrugs(self):
+        return self.controladoraCarpetas.getAllDrugs()
+    
+
+    def updateDrugs(self, drugs):
+        """
+        UPDATE "Drug1\nDrug2\n...DrugN" in DATA/RESORCE/drugs.txt
+        """
+        return self.controladoraCarpetas.updateDrugs(drugs)
+        
+
     def loadCalendaryReport(self, year, month, day):
         """
         Retrun a String with the date info

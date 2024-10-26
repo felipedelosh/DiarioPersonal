@@ -1,0 +1,48 @@
+6am:redes sociales
+
+7am:televisión
+
+8am:televisión
+
+9am:dormir
+
+10am:dormir
+
+11am:dormir
+
+12am:dormir
+
+1pm:alimentación
+
+2pm:buscar trabajo
+
+3pm:buscar trabajo
+
+4pm:bicicleta
+
+5pm:caminar
+
+6pm:estudiar
+
+7pm:alimentación
+
+8pm:redes sociales
+
+9pm:dormir
+
+10pm:televisión
+
+11pm:televisión
+
+12pm:buscar trabajo
+
+1am:televisión
+
+2am:redes sociales
+
+3am:dormir
+
+4am:dormir
+
+5am:dormir
+

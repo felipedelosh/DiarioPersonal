@@ -349,7 +349,7 @@ class TimeHackingLoko():
         # Edit Drugs
         lblEditDrugs = Label(canvas, text="Editar Lista de Drogas\n\n\nAñade o modifica la lista de sustancias\n psicoactivas.")
         lblEditDrugs.place(x=_w * 0.7, y=_h * 0.05)
-        btnEditDrugs = Button(canvas, image=self.imgBtnConfiguracionEditDrugs)
+        btnEditDrugs = Button(canvas, image=self.imgBtnConfiguracionEditDrugs, command= lambda : self.launchSubInterfaceEditResourceX("drugs.txt"))
         btnEditDrugs.place(x=_w * 0.55, y=_h * 0.05)
         # Password
         lblSetPassword = Label(canvas, text="Contraseña\n\n\nGestiona aqui tu password.")
@@ -386,6 +386,10 @@ class TimeHackingLoko():
 
         if resourceX == "estadosEmocionales.txt":
             for i in self.controladora.loadFeelings():
+                _arrResourceX.append(i)
+
+        if resourceX == "drugs.txt":
+            for i in self.controladora.loadDrugs():
                 _arrResourceX.append(i)
 
         _arrTxtResourceX = []
@@ -442,6 +446,13 @@ class TimeHackingLoko():
                 self.ventanaEnmergenteDeAlerta("Actualizado", "SENTIMIENTTOS GUARDADOS CON ÉXITO")
             else:
                 self.ventanaEnmergenteDeAlerta("La cagaste!!!", "No se pudo guardar ni mierda")
+
+
+        if resource == "drugs.txt":
+            if _txtRX.strip() != "" and self.controladora.updateDrugs(_txtRX):
+                self.ventanaEnmergenteDeAlerta("ActuAlIZafo", "Puto Adicto... Listado actualizado con exito!!!")
+            else:
+                self.ventanaEnmergenteDeAlerta("Error Fatal...", "No se pudo guardar ni mierda")
 
 
     def lanzarPantallaDiario(self):

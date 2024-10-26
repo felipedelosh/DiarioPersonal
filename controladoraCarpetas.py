@@ -414,17 +414,32 @@ class ControladoraCarpetas(object):
         Load RECURSOS/drugs.txt and return all drugs
         """
         drugs = []
+
+        try:
+            path = self.rutaDelProyecto + "\\DATA\\RESOURCES\\drugs.txt"
+
+            temp = self.getTextInFile(path)
+            for i in temp.split("\n"):
+                if str(i).strip() != "":
+                    drugs.append(i)
+
+            return drugs
+        except:
+            pass
+
+
         try:
             path = self.rutaDelProyecto + "\\RECURSOS\\drugs.txt"
 
             temp = self.getTextInFile(path)
             for i in temp.split("\n"):
                 drugs.append(i)
+
+            return drugs
         except:
             pass
         
-
-        return drugs
+        return ["marihuana", "FAP", "pornografia", "Alcohol"]
     
     def saveDrug(self, drug_title, drug_detonate, drug_feel):
         try:
@@ -446,6 +461,19 @@ class ControladoraCarpetas(object):
             return True
         except:
             return False
+        
+
+    def updateDrugs(self, drugs):
+        """
+        Update drugs.txt in folder DATA/RESOURCES
+        """
+        try:
+            with open(f"{self.rutaDelProyecto}\\DATA\\RESOURCES\\drugs.txt", "w", encoding="UTF-8") as f:
+                f.write(drugs)
+            return True
+        except:
+            return False
+        
         
     def saveWork(self, args):
         try:
