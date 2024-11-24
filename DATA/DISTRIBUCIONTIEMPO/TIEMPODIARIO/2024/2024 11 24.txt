@@ -1,0 +1,48 @@
+6am:dormir
+
+7am:dormir
+
+8am:dormir
+
+9am:redes sociales
+
+10am:programar
+
+11am:programar
+
+12am:alimentación
+
+1pm:programar
+
+2pm:programar
+
+3pm:familia
+
+4pm:caminar
+
+5pm:vida social
+
+6pm:vida social
+
+7pm:vida social
+
+8pm:vida social
+
+9pm:vida social
+
+10pm:vida social
+
+11pm:vida social
+
+12pm:vida social
+
+1am:vida social
+
+2am:dormir
+
+3am:dormir
+
+4am:dormir
+
+5am:dormir
+
