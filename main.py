@@ -57,7 +57,6 @@ class TimeHackingLoko():
         self.imgDrugsGraphicReporter = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/graphicsDrugs.gif')
         self.imgGraphicsTimeLife = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/graphicsTimeLife.gif')
         self.imgProfile = PhotoImage(file=self.controladora.projPATH()+'/RECURSOS/img/profile.gif')
-        """Imagenes de la pantalla principal"""
         self.btnDiary = Button(self.tela, image=self.imgBtnDiario, command=self.launchMenuDiary)
         self.btnCalendary = Button(self.tela, image=self.imgBtnAgenda, command=self.launchMenuDiaryCalendary)
         self.btnEconomy = Button(self.tela, image=self.imgBtnEconimia, command=self.launchEconomyMenu)
@@ -68,9 +67,9 @@ class TimeHackingLoko():
         """vars to read a diary"""
         self.allInfoDiaryPages = [] # Save title, text to diary pages... It´s only to read.
         self.diaryPaginatorController = 0
-        """Variables registro de sentimientos"""
+        """Vars to register feelings"""
         self.comboBoxSentimientosValor = StringVar()
-        """Variables de rendicion de cuentas"""
+        """Vars money & cash"""
         self.comboBoxAño = StringVar() # Guarda el Año que se necesita
         self.comboBoxEconomiaDia = StringVar() # Guarda en que dia estamos o que dia se necesita
         self.comboBoxEconomiaMes = StringVar() # Guarda en que mes estamos o cual se necesita
@@ -403,10 +402,23 @@ class TimeHackingLoko():
             _arrTxtResourceX.append(entry)
             _arrTxtResourceX[_counter].pack(side=LEFT, fill=X, expand=True, padx=(0, 10))
 
-            delete_button = Button(row_frame, text="ELIMINAR", command=lambda e=entry: self._updateTxtResourceXStatus(e))
+            delete_button = Button(row_frame, text="ELIMINAR", command=lambda e=entry: self._deleteItemTxtResourceXStatus(e))
             delete_button.pack(side=RIGHT)
 
             _counter = _counter + 1 
+
+        # Buton to crate new element
+        row_frame = Frame(frame)  
+        row_frame.pack(fill=X, padx=10, pady=5)
+        entry = Entry(row_frame)
+        entry.insert(0, "NEW")
+        entry.pack(side=LEFT, fill=X, expand=True, padx=(0, 10))
+        _arrTxtResourceX.append(entry)
+        _arrTxtResourceX[_counter].pack(side=LEFT, fill=X, expand=True, padx=(0, 10))
+
+        BTN_SAVE_NEW = Button(row_frame, text="ADD", command=lambda e=entry: self._appendItemTxtResourceXStatus(e, frame, canvas, BTN_SAVE_NEW, _arrTxtResourceX))
+        BTN_SAVE_NEW.pack(side=RIGHT)
+
 
         frame.update_idletasks() 
         canvas.config(scrollregion=canvas.bbox("all"))
@@ -418,9 +430,27 @@ class TimeHackingLoko():
         save_button.pack(pady=10)
 
 
-    def _updateTxtResourceXStatus(self, entry):
+    def _deleteItemTxtResourceXStatus(self, entry):
         entry.delete(0, 'end')
-        entry.pack_forget() 
+        entry.pack_forget()
+
+
+    def _appendItemTxtResourceXStatus(self, entry, frame, canvas, btn, _arrTxtResourceX):
+        btn['text'] = "ELIMINAR"
+        btn.config(command=lambda e=entry: self._deleteItemTxtResourceXStatus(e))
+        row_frame = Frame(frame)  
+        row_frame.pack(fill=X, padx=10, pady=5)
+        entry = Entry(row_frame)
+        entry.insert(0, "NEW")
+        entry.pack(side=LEFT, fill=X, expand=True, padx=(0, 10))
+        _arrTxtResourceX.append(entry)
+        _arrTxtResourceX[len(_arrTxtResourceX)-1].pack(side=LEFT, fill=X, expand=True, padx=(0, 10))
+        BTN_SAVE_NEW = Button(row_frame, text="ADD", command=lambda e=entry: self._appendItemTxtResourceXStatus(entry, frame, canvas, BTN_SAVE_NEW, _arrTxtResourceX))
+        BTN_SAVE_NEW.pack(side=RIGHT)
+        frame.update_idletasks()
+        canvas.config(scrollregion=canvas.bbox("all"))
+
+
 
     def _updateResourceX(self, resource, arrData):
         """
@@ -429,7 +459,7 @@ class TimeHackingLoko():
         """
         _txtRX = ""
         for i in arrData:
-            if i.get() != "":
+            if i.get() != "" and i.get() != "NEW":
                 _txtRX = _txtRX + f"{str(i.get()).lstrip().rstrip()}\n"
 
 
