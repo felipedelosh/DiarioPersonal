@@ -1,0 +1,48 @@
+6am:dormir
+
+7am:dormir
+
+8am:dormir
+
+9am:dormir
+
+10am:construir
+
+11am:bicicleta
+
+12am:bicicleta
+
+1pm:alimentación
+
+2pm:dormir
+
+3pm:que haceres domesticos
+
+4pm:buscar trabajo
+
+5pm:programar
+
+6pm:programar
+
+7pm:alimentación
+
+8pm:redes sociales
+
+9pm:FAPTIME
+
+10pm:FAPTIME
+
+11pm:FAPTIME
+
+12pm:redes sociales
+
+1am:dormir
+
+2am:dormir
+
+3am:dormir
+
+4am:dormir
+
+5am:dormir
+

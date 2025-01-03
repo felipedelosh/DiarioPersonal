@@ -915,13 +915,6 @@ class TimeHackingLoko():
         btnGuardarSentimiento = Button(interfaceSentimientos, text="Guardar", command=self.guardarSentimiento)
         btnGuardarSentimiento.place(x=400, y=50)
 
-    def lanzarInterfaceConfiguracion(self):
-        interfaceConfiguracion = Toplevel()
-        interfaceConfiguracion.title("Configuración")
-        interfaceConfiguracion.geometry("200x300")
-        btnProfile = Button(interfaceConfiguracion, text="Perfil", command=self.subInterfacePerfil)
-        btnProfile.place(x=70, y=20)
-
 
     def lanzarInterfaceAyuda(self):
         interfaceayuda = Toplevel()
