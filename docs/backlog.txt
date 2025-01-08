@@ -1,6 +1,5 @@
 UPDATE manual del usuario.
 
--> Configuración: agregar actividades.
 -> Configuración: agregar emociones.
 -> Configuración: editar el listado de sustancias psicoactivas.
 -> Configuración: editar el password.
