@@ -1048,7 +1048,7 @@ class TimeHackingLoko():
         AMPM = ""
         lblHr = [] # Aqui se van a guardar los labels que informan la hora
         actividades = [] # Aqui se van a guardas los combobox con actidades posibles 
-        actividadesPosibles = self.controladora.cargarActividades()
+        actividadesPosibles = [activity.strip() for activity in self.controladora.cargarActividades() if activity.strip()]
         strActividades = [] # Aqui se guardan los string var que van a gardar las actividades
 
         for i in range(0, 24):
@@ -1078,7 +1078,8 @@ class TimeHackingLoko():
             # Get values?
             if _data != {}:
                 _currentElement = self.controladora.loadIndexOfActivity(_data[lblTimeX])
-                actividades[i].current(_currentElement)
+                if _currentElement:
+                    actividades[i].current(_currentElement)
 
             formato12h = formato12h + 1
 

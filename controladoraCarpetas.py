@@ -326,10 +326,13 @@ class ControladoraCarpetas(object):
         or default:
         RECURSOS/actividades.txt
         """
+        sep = self.getSimbolikPathSeparator()
+
         try:
             activities = []
+            _path = f"{self.rutaDelProyecto}{sep}DATA{sep}RESOURCES{sep}activities.txt"
 
-            with open(self.rutaDelProyecto+"\\DATA\\RESOURCES\\activities.txt", 'r', encoding="UTF-8") as f:
+            with open(_path, 'r', encoding="UTF-8") as f:
                 for i in f.readlines():
                     if i.split() != "":
                         activities.append(i)
@@ -340,7 +343,8 @@ class ControladoraCarpetas(object):
 
         try:
             actividades = []
-            f = open(self.rutaDelProyecto+"\\RECURSOS\\actividades.txt", 'r', encoding="UTF-8")
+            _path = f"{self.rutaDelProyecto}{sep}RECURSOS{sep}actividades.txt" 
+            f = open(_path, 'r', encoding="UTF-8")
             for i in f.read().split("\n"):
                 if i.split() != "":
                     actividades.append(i)
@@ -382,7 +386,7 @@ class ControladoraCarpetas(object):
         allActivities = self.cargarActividades()
         counter = 0
         for i in allActivities:
-            if i == activity:
+            if str(i).strip() == activity:
                 return counter
 
             counter = counter + 1
