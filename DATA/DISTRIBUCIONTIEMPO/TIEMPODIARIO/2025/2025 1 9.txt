@@ -1,48 +1,24 @@
 6am:dormir
-
 7am:dormir
-
 8am:dormir
-
 9am:hospital
-
 10am:video juegos
-
 11am:video juegos
-
 12am:alimentación
-
 1pm:dormir
-
 2pm:dormir
-
 3pm:que haceres domesticos
-
 4pm:que haceres domesticos
-
 5pm:caminar
-
 6pm:estudiar
-
 7pm:alimentación
-
 8pm:mascota
-
 9pm:escribir
-
 10pm:mascota
-
 11pm:video juegos
-
 12pm:video juegos
-
 1am:dormir
-
 2am:dormir
-
 3am:dormir
-
 4am:dormir
-
 5am:dormir
-

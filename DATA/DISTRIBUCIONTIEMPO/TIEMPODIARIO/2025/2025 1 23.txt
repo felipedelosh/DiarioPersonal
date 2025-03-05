@@ -1,48 +1,24 @@
 6am:dormir
-
 7am:dormir
-
 8am:dormir
-
 9am:dormir
-
 10am:que haceres domesticos
-
 11am:programar
-
 12am:alimentación
-
 1pm:programar
-
 2pm:programar
-
 3pm:programar
-
 4pm:programar
-
 5pm:bicicleta
-
 6pm:video juegos
-
 7pm:alimentación
-
 8pm:video juegos
-
 9pm:video juegos
-
 10pm:video juegos
-
 11pm:video juegos
-
 12pm:redes sociales
-
 1am:dormir
-
 2am:dormir
-
 3am:dormir
-
 4am:dormir
-
 5am:dormir
-

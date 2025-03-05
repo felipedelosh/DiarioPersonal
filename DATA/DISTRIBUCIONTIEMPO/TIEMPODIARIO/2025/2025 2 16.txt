@@ -1,48 +1,24 @@
 6am:dormir
-
 7am:dormir
-
 8am:dormir
-
 9am:dormir
-
 10am:dormir
-
 11am:dormir
-
 12am:alimentación
-
 1pm:escuchar musica
-
 2pm:escuchar musica
-
 3pm:estudiar
-
 4pm:estudiar
-
 5pm:caminar
-
 6pm:video juegos
-
 7pm:alimentación
-
 8pm:deporte
-
 9pm:redes sociales
-
 10pm:redes sociales
-
 11pm:televisión
-
 12pm:televisión
-
 1am:dormir
-
 2am:dormir
-
 3am:dormir
-
 4am:dormir
-
 5am:dormir
-
