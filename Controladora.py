@@ -580,8 +580,9 @@ class Controladora:
         MM = self.tiempo.mes()
         DD = self.tiempo.diaNumero()
 
-        _fileName = self.rutaDelProyecto + f"\\DATA\\DISTRIBUCIONTIEMPO\\TIEMPODIARIO\\{YYYY}\\{YYYY} {MM} {DD}.txt"
-        _temp = self.controladoraCarpetas.getTextInFile(_fileName)
+        sep = self.controladoraCarpetas.getSimbolikPathSeparator()
+        _path = f"{self.rutaDelProyecto}{sep}DATA{sep}DISTRIBUCIONTIEMPO{sep}TIEMPODIARIO{sep}{YYYY}{sep}{YYYY} {MM} {DD}.txt"
+        _temp = self.controladoraCarpetas.getTextInFile(_path)
 
         for i in _temp.split("\n"):
             if str(i).strip() != "":
