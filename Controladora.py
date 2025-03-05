@@ -600,8 +600,9 @@ class Controladora:
             txt = ""
             for i in reporte:
                 txt = txt + i + "\n"
-            ruta = self.rutaDelProyecto+"\\DATA\\DISTRIBUCIONTIEMPO\\TIEMPODIARIO\\"+str(self.tiempo.año())+"\\"+str(self.tiempo.estampaDeTiempo())+".txt"
-            f = open(ruta, 'w', encoding="UTF-8")
+            sep = self.controladoraCarpetas.getSimbolikPathSeparator()
+            path = f"{self.rutaDelProyecto}{sep}DATA{sep}DISTRIBUCIONTIEMPO{sep}TIEMPODIARIO{sep}{self.tiempo.año()}{sep}{self.tiempo.estampaDeTiempo()}.txt"
+            f = open(path, 'w', encoding="UTF-8")
             f.write(txt)
             f.close()
             return True
