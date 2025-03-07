@@ -4,6 +4,8 @@ a los 29 dias de sept de 2020
 
 Diario del loko v2.0
 
+A todas las personas mensionadas en este Diario que se sintieron incomodas: COMAN MIERDA.
+
 Más que un software me propongo a proporcionar, organizar y gestionar mi información más personal.
 
 Sientase libre de copiar, modificar y usar a su antojo.
