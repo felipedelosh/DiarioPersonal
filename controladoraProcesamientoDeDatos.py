@@ -513,7 +513,9 @@ class ControladoraProcesamientoDeDatos(object):
         for i in self.folderControler.listarTodosLosArchivosdeCarpeta(path, ".txt"):
             try:
                 # Get all day summary
-                _data = self.folderControler.getTextInFile(path + "\\" + str(i))
+                sep = self.folderControler.getSimbolikPathSeparator()
+                _path = f"{path}{sep}{i}"
+                _data = self.folderControler.getTextInFile(_path)
                 _whatDay = str(i).split(".txt")[0]
                 _whatDay = str(_whatDay).split(" ")
                 YYYY = int(_whatDay[0])

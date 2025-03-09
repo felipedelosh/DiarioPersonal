@@ -632,10 +632,12 @@ class Controladora:
         """
         data = 0
         YYYY = self.tiempo.año()
-        path = self.rutaDelProyecto + f"\\DATA\\DISTRIBUCIONTIEMPO\\TIEMPODIARIO\\{YYYY}"
+        sep = self.controladoraCarpetas.getSimbolikPathSeparator()
+        _path = f"{self.rutaDelProyecto}{sep}DATA{sep}DISTRIBUCIONTIEMPO{sep}TIEMPODIARIO{sep}{YYYY}"
+        #path = self.rutaDelProyecto + f"\\DATA\\DISTRIBUCIONTIEMPO\\TIEMPODIARIO\\{YYYY}"
         
         # Get all data via name of week
-        data = self.controladoraProcesamientoDeDatos.getSumaryYYYYAllActivities24HPerDayOfWeek(path)
+        data = self.controladoraProcesamientoDeDatos.getSumaryYYYYAllActivities24HPerDayOfWeek(_path)
 
         # Get Only Unique Values
         _temp = {}
