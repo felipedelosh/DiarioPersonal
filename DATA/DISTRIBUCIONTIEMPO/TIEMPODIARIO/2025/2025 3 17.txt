@@ -1,0 +1,24 @@
+6am:dormir
+7am:dormir
+8am:dormir
+9am:FAPTIME
+10am:reunión
+11am:reunión
+12am:reunión
+1pm:alimentación
+2pm:redes sociales
+3pm:buscar trabajo
+4pm:buscar trabajo
+5pm:buscar trabajo
+6pm:cita romantica
+7pm:televisión
+8pm:televisión
+9pm:redes sociales
+10pm:redes sociales
+11pm:internet
+12pm:internet
+1am:dormir
+2am:dormir
+3am:dormir
+4am:dormir
+5am:dormir
