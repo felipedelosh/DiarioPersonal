@@ -1,0 +1,8 @@
+"""
+FelipedelosH
+
+2025
+WINDOWS
+
+PUT ALL FILES IN INPUT FOLDER AND ENCRYPT
+"""
