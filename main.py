@@ -1080,7 +1080,7 @@ class TimeHackingLoko():
             # Get values?
             if _data != {}:
                 _currentElement = self.controladora.loadIndexOfActivity(_data[lblTimeX])
-                if _currentElement:
+                if _currentElement or not _currentElement is None:
                     actividades[i].current(_currentElement)
 
             formato12h = formato12h + 1
